@@ -1,10 +1,8 @@
 ---
 const navLinks = [
-  { href: '/groups',    label: 'Groups'    },
-  { href: '/events',    label: 'Events'    },
-  { href: '/venues',    label: 'Venues'    },
-  { href: '/speakers',  label: 'Speakers'  },
-  { href: '/resources', label: 'Resources' },
+  { href: '/groups', label: 'Groups' },
+  { href: '/events', label: 'Events' },
+  { href: '/venues', label: 'Venues' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -38,12 +36,6 @@ const currentPath = Astro.url.pathname;
             {label}
           </a>
         ))}
-        <a
-          href="/submit"
-          class="ml-3 px-4 py-2 bg-accent-500 hover:bg-accent-600 text-slate-900 font-semibold text-sm rounded-md transition-colors"
-        >
-          Submit / Update
-        </a>
       </nav>
 
       <!-- Mobile menu button -->
@@ -72,12 +64,6 @@ const currentPath = Astro.url.pathname;
           {label}
         </a>
       ))}
-      <a
-        href="/submit"
-        class="block mt-2 px-3 py-2 bg-accent-500 hover:bg-accent-600 text-slate-900 font-semibold text-sm rounded-md transition-colors"
-      >
-        Submit / Update
-      </a>
     </div>
   </div>
 </header>

@@ -72,7 +72,6 @@ function fmtDateRange(ev: (typeof events)[0]): string {
 }
 
 // ── Filter dropdowns ──────────────────────────────────────────────────────
-const types = [...new Set(events.map(e => e.type))].sort();
 const regions = [...new Set(events.map(e => {
   const l = e.location;
   if (l.includes('Kansas City') || l === 'Virtual') return 'Kansas City / Virtual';
@@ -106,10 +105,7 @@ const regions = [...new Set(events.map(e => {
         placeholder="Search events…"
         class="flex-1 px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
       />
-      <select id="type-filter" class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
-        <option value="">All types</option>
-        {types.map(t => <option value={t}>{t}</option>)}
-      </select>
+
       <select id="region-filter" class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
         <option value="">All locations</option>
         {regions.map(r => <option value={r}>{r}</option>)}
@@ -352,7 +348,7 @@ const regions = [...new Set(events.map(e => {
   const items          = document.querySelectorAll<HTMLElement>('.event-item');
   const noResults      = document.getElementById('no-results')!;
   const searchEl       = document.getElementById('search')        as HTMLInputElement;
-  const typeFilterEl   = document.getElementById('type-filter')   as HTMLSelectElement;
+
   const regionFilterEl = document.getElementById('region-filter') as HTMLSelectElement;
   const upcomingCountEl = document.getElementById('upcoming-count')!;
   const pastCountEl     = document.getElementById('past-count')!;
@@ -405,7 +401,6 @@ const regions = [...new Set(events.map(e => {
 
   function applyFilters() {
     const q      = searchEl.value.toLowerCase();
-    const type   = typeFilterEl.value.toLowerCase();
     const region = regionFilterEl.value;
     let   visible = 0;
 
@@ -413,10 +408,9 @@ const regions = [...new Set(events.map(e => {
       const matchTab    = activeTab === 'upcoming' ? isUpcoming(item) : !isUpcoming(item);
       const matchMonth  = activeMonth === null || parseInt(item.dataset.month!) === activeMonth;
       const matchText   = !q      || item.dataset.name!.includes(q) || item.dataset.description!.includes(q);
-      const matchType   = !type   || item.dataset.type   === type;
       const matchRegion = !region || item.dataset.region === region;
 
-      const show = matchTab && matchMonth && matchText && matchType && matchRegion;
+      const show = matchTab && matchMonth && matchText && matchRegion;
       item.style.display = show ? '' : 'none';
       if (show) visible++;
     });
@@ -470,9 +464,8 @@ const regions = [...new Set(events.map(e => {
   }));
 
   // ── Search / filter inputs ────────────────────────────────────────────────
-  searchEl.addEventListener('input',          applyFilters);
-  typeFilterEl.addEventListener('change',     applyFilters);
-  regionFilterEl.addEventListener('change',   applyFilters);
+  searchEl.addEventListener('input',        applyFilters);
+  regionFilterEl.addEventListener('change', applyFilters);
 
   // ── Init ──────────────────────────────────────────────────────────────────
   renderCalendar(calMonth);

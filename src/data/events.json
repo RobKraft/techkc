@@ -71,6 +71,18 @@
     "cost": "Paid",
     "tags": ["IT Leadership", "Enterprise IT", "Networking"]
   },
+    {
+    "id": "communitydays-kc-2026",
+    "name": "Community Days Kansas City",
+    "description": "CommunityDays KC 2026 is a new two-day event celebrating the strength and diversity of Kansas City’s tech community. It brings together some of the city's Meetup groups together (with more being added) to collaborate on content and build community.",
+    "url": "https://www.communitydays.info/",
+    "date": "2026-05-28",
+    "endDate": "2026-05-29",
+    "location": "Kansas City, MO",
+    "type": "Conference",
+    "cost": "Paid",
+    "tags": ["DevOps", "AI",  "Agile", "Cloud", "Community", "Multi-track", "Postgres", "JavaScript", "Python", "Java", "C#"]
+  },
   {
     "id": "devopsdays-kc-2026",
     "name": "DevOpsDays Kansas City",
