@@ -39,7 +39,7 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Group form -->
     <div id="tab-group" class="tab-panel">
-      <form name="group-submission" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
+      <form name="group-submission" action="/submit" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
         <input type="hidden" name="form-name" value="group-submission" />
         <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
 
@@ -92,7 +92,7 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Event form -->
     <div id="tab-event" class="tab-panel hidden">
-      <form name="event-submission" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
+      <form name="event-submission" action="/submit" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
         <input type="hidden" name="form-name" value="event-submission" />
         <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
 
@@ -145,7 +145,7 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Venue form -->
     <div id="tab-venue" class="tab-panel hidden">
-      <form name="venue-submission" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
+      <form name="venue-submission" action="/submit" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
         <input type="hidden" name="form-name" value="venue-submission" />
         <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
 
@@ -196,7 +196,7 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Speaker form -->
     <div id="tab-speaker" class="tab-panel hidden">
-      <form name="speaker-submission" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
+      <form name="speaker-submission" action="/submit" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
         <input type="hidden" name="form-name" value="speaker-submission" />
         <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
 
