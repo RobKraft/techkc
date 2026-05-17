@@ -3,66 +3,223 @@ import Layout from '../layouts/Layout.astro';
 import EventCard from '../components/EventCard.astro';
 import events from '../data/events.json';
 
+const YEAR = 2026;
+const MONTH_NAMES = [
+  'January','February','March','April','May','June',
+  'July','August','September','October','November','December',
+];
+const DAY_ABBR = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+// ── Calendar data: expand multi-day ranges into per-date maps ──────────────
+const dateTypeMap  = new Map<string, string>(); // date → first event type
+const dateTitleMap = new Map<string, string>(); // date → tooltip text
+
+for (const ev of events) {
+  if ((ev as any).dateTBD) continue;
+  const start = new Date(ev.date + 'T12:00:00');
+  const end   = ev.endDate ? new Date(ev.endDate + 'T12:00:00') : start;
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+    const k = d.toISOString().slice(0, 10);
+    if (!dateTypeMap.has(k))  dateTypeMap.set(k, ev.type);
+    const cur = dateTitleMap.get(k);
+    dateTitleMap.set(k, cur ? `${cur} · ${ev.name}` : ev.name);
+  }
+}
+
+// Count events that start in each month (for badge)
+const monthCount = MONTH_NAMES.map((_, m) =>
+  events.filter(e => new Date(e.date + 'T12:00:00').getMonth() === m).length
+);
+const monthHasTBD = MONTH_NAMES.map((_, m) =>
+  events.some(e => (e as any).dateTBD && new Date(e.date + 'T12:00:00').getMonth() === m)
+);
+
+// Build calendar cell array for a given month
+function calCells(month: number): (number | null)[] {
+  const firstDay = new Date(YEAR, month, 1).getDay();
+  const days     = new Date(YEAR, month + 1, 0).getDate();
+  const arr: (number | null)[] = [
+    ...Array(firstDay).fill(null),
+    ...Array.from({ length: days }, (_, i) => i + 1),
+  ];
+  while (arr.length % 7 !== 0) arr.push(null);
+  return arr;
+}
+
+// Event-type → Tailwind bg class for calendar cells
+const TYPE_BG: Record<string, string> = {
+  Conference:   'bg-purple-500',
+  Hackathon:    'bg-pink-500',
+  Workshop:     'bg-amber-500',
+  Unconference: 'bg-teal-500',
+};
+
+// ── Filter dropdowns ───────────────────────────────────────────────────────
 const types = [...new Set(events.map(e => e.type))].sort();
 const regions = [...new Set(events.map(e => {
-  const loc = e.location;
-  if (loc.includes('Kansas City') || loc === 'Virtual') return 'Kansas City / Virtual';
-  if (loc.includes('MO') || loc.includes('St. Louis')) return 'Missouri';
-  if (loc.includes('NE') || loc.includes('Omaha') || loc.includes('Lincoln')) return 'Nebraska';
-  if (loc.includes('OK')) return 'Oklahoma';
-  if (loc.includes('IA')) return 'Iowa';
+  const l = e.location;
+  if (l.includes('Kansas City') || l === 'Virtual') return 'Kansas City / Virtual';
+  if (l.includes('MO') || l.includes('St. Louis')) return 'Missouri';
+  if (l.includes('NE') || l.includes('Omaha') || l.includes('Lincoln')) return 'Nebraska';
+  if (l.includes('OK')) return 'Oklahoma';
+  if (l.includes('IA')) return 'Iowa';
   return 'Other';
 }))].sort();
+
+const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
 ---
 
-<Layout title="Events" description="Major tech conferences, hackathons, and events in the Kansas City region.">
+<Layout title="Events" description="Tech conferences, hackathons, and events in and around Kansas City for 2026.">
 
+  <!-- Page header -->
   <section class="bg-slate-900 text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Regional Events</h1>
       <p class="text-slate-300 text-lg max-w-2xl">
-        Conferences, hackathons, unconferences, and workshops in and around Kansas City.
+        Conferences, hackathons, and workshops in and around Kansas City for {YEAR}.
       </p>
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
-    <div class="flex flex-col sm:flex-row gap-3 mb-8">
+    <!-- ── Filters ─────────────────────────────────────────────────────── -->
+    <div class="flex flex-col sm:flex-row gap-3">
       <input
         id="search"
         type="search"
-        placeholder="Search events..."
+        placeholder="Search events…"
         class="flex-1 px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
       />
-      <select
-        id="type-filter"
-        class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
-      >
+      <select id="type-filter" class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
         <option value="">All types</option>
         {types.map(t => <option value={t}>{t}</option>)}
       </select>
-      <select
-        id="region-filter"
-        class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
-      >
+      <select id="region-filter" class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
         <option value="">All locations</option>
         {regions.map(r => <option value={r}>{r}</option>)}
       </select>
     </div>
 
+    <!-- ── Year calendar ──────────────────────────────────────────────── -->
+    <div class="bg-white border border-slate-200 rounded-xl p-4">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-sm font-semibold text-slate-700">
+          {YEAR} — click a month to filter
+        </h2>
+        <!-- Legend -->
+        <div class="hidden sm:flex items-center gap-3 text-xs text-slate-500">
+          {Object.entries(TYPE_BG).map(([type, bg]) => (
+            <span class="flex items-center gap-1">
+              <span class={`w-2.5 h-2.5 rounded-full ${bg} inline-block`}></span>
+              {type}
+            </span>
+          ))}
+          <span class="flex items-center gap-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-brand-500 inline-block"></span>
+            Other
+          </span>
+        </div>
+      </div>
+
+      <!-- 12-month grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        {MONTH_NAMES.map((name, month) => (
+          <div
+            data-calmonth={month}
+            class="cal-month border border-slate-200 rounded-lg p-2 cursor-pointer hover:border-brand-400 hover:bg-brand-50/40 transition-all select-none"
+            title={monthCount[month] === 0 ? 'No events' : `${monthCount[month]} event${monthCount[month] !== 1 ? 's' : ''} — click to filter`}
+          >
+            <!-- Month header -->
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-semibold text-slate-700">{name}</span>
+              <span class="flex items-center gap-1">
+                {monthHasTBD[month] && (
+                  <span class="text-[9px] text-amber-600 font-semibold bg-amber-50 border border-amber-200 px-1 rounded">TBD</span>
+                )}
+                {monthCount[month] > 0 && (
+                  <span class="text-[9px] font-semibold bg-brand-100 text-brand-700 px-1.5 py-0.5 rounded-full">
+                    {monthCount[month]}
+                  </span>
+                )}
+              </span>
+            </div>
+
+            <!-- Day-of-week headers -->
+            <div class="grid grid-cols-7 mb-0.5">
+              {DAY_ABBR.map(d => (
+                <div class="text-center text-[8px] font-medium text-slate-400">{d}</div>
+              ))}
+            </div>
+
+            <!-- Date cells -->
+            <div class="grid grid-cols-7 gap-px">
+              {calCells(month).map(day => {
+                if (day === null) return <div />;
+                const key  = `${YEAR}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const type = dateTypeMap.get(key);
+                const tip  = dateTitleMap.get(key);
+                const bg   = type ? (TYPE_BG[type] ?? 'bg-brand-500') : '';
+                return (
+                  <div
+                    data-caldate={key}
+                    title={tip}
+                    class={`aspect-square flex items-center justify-center text-[10px] rounded-full leading-none
+                      ${type ? `${bg} text-white font-bold` : 'text-slate-500'}`}
+                  >
+                    {day}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Active-month indicator -->
+      <div id="month-filter-bar" class="hidden mt-3 pt-3 border-t border-slate-100 flex items-center gap-2 text-sm">
+        <span class="text-slate-600">Filtered to:</span>
+        <span id="active-month-label" class="font-semibold text-brand-700"></span>
+        <button id="clear-month" class="ml-auto text-xs text-slate-500 hover:text-slate-800 underline underline-offset-2">
+          Clear month filter
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Tabs ───────────────────────────────────────────────────────── -->
+    <div class="flex items-center gap-1 border-b border-slate-200">
+      <button
+        data-evttab="upcoming"
+        class="evt-tab px-4 py-2.5 text-sm font-medium rounded-t-lg border-b-2 border-brand-600 text-brand-700 bg-brand-50 transition-colors"
+      >
+        Upcoming &amp; Current
+        <span id="upcoming-count" class="ml-1.5 text-xs bg-brand-200 text-brand-800 px-1.5 py-0.5 rounded-full">…</span>
+      </button>
+      <button
+        data-evttab="past"
+        class="evt-tab px-4 py-2.5 text-sm font-medium rounded-t-lg border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-colors"
+      >
+        Past Events
+        <span id="past-count" class="ml-1.5 text-xs bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded-full">…</span>
+      </button>
+    </div>
+
+    <!-- ── Cards grid ─────────────────────────────────────────────────── -->
     <div id="events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {events.map(event => {
-        const loc = event.location;
+      {sorted.map(event => {
+        const l = event.location;
         let region = 'Other';
-        if (loc.includes('Kansas City') || loc === 'Virtual') region = 'Kansas City / Virtual';
-        else if (loc.includes('MO') || loc.includes('St. Louis')) region = 'Missouri';
-        else if (loc.includes('NE') || loc.includes('Omaha') || loc.includes('Lincoln')) region = 'Nebraska';
-        else if (loc.includes('OK')) region = 'Oklahoma';
-        else if (loc.includes('IA')) region = 'Iowa';
+        if (l.includes('Kansas City') || l === 'Virtual') region = 'Kansas City / Virtual';
+        else if (l.includes('MO') || l.includes('St. Louis')) region = 'Missouri';
+        else if (l.includes('NE') || l.includes('Omaha') || l.includes('Lincoln')) region = 'Nebraska';
+        else if (l.includes('OK')) region = 'Oklahoma';
+        else if (l.includes('IA')) region = 'Iowa';
         return (
           <div
             class="event-item"
+            data-date={event.date}
+            data-enddate={event.endDate ?? event.date}
+            data-month={new Date(event.date + 'T12:00:00').getMonth()}
             data-name={event.name.toLowerCase()}
             data-description={event.description.toLowerCase()}
             data-type={event.type.toLowerCase()}
@@ -75,13 +232,16 @@ const regions = [...new Set(events.map(e => {
     </div>
 
     <p id="no-results" class="hidden text-center text-slate-500 py-12 text-sm">
-      No events match your search. <a href="/submit#event" class="text-brand-600 hover:underline">Know of one? Add it.</a>
+      No events match your filters.
+      <a href="/submit#event" class="text-brand-600 hover:underline">Know of one? Add it.</a>
     </p>
+
   </section>
 
+  <!-- Submit CTA -->
   <section class="border-t border-slate-200 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
-      <p class="text-slate-600 mb-3">Know of a KC-area tech event that isn't listed?</p>
+      <p class="text-slate-600 mb-3">Know of a regional tech event that isn't listed?</p>
       <a href="/submit#event" class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm transition-colors">
         Submit an event &rarr;
       </a>
@@ -91,31 +251,139 @@ const regions = [...new Set(events.map(e => {
 </Layout>
 
 <script>
-  const search = document.getElementById('search') as HTMLInputElement;
-  const typeFilter = document.getElementById('type-filter') as HTMLSelectElement;
-  const regionFilter = document.getElementById('region-filter') as HTMLSelectElement;
-  const items = document.querySelectorAll<HTMLElement>('.event-item');
-  const noResults = document.getElementById('no-results')!;
+  const MONTH_NAMES = ['January','February','March','April','May','June',
+    'July','August','September','October','November','December'];
 
-  function filter() {
-    const q = search.value.toLowerCase();
-    const type = typeFilter.value.toLowerCase();
-    const region = regionFilter.value;
-    let visible = 0;
+  // ── State ────────────────────────────────────────────────────────────────
+  let activeTab: 'upcoming' | 'past' = 'upcoming';
+  let activeMonth: number | null = null;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // ── DOM refs ─────────────────────────────────────────────────────────────
+  const tabBtns        = document.querySelectorAll<HTMLButtonElement>('[data-evttab]');
+  const calMonths      = document.querySelectorAll<HTMLElement>('[data-calmonth]');
+  const monthFilterBar = document.getElementById('month-filter-bar')!;
+  const activeLabel    = document.getElementById('active-month-label')!;
+  const clearMonthBtn  = document.getElementById('clear-month')!;
+  const items          = document.querySelectorAll<HTMLElement>('.event-item');
+  const noResults      = document.getElementById('no-results')!;
+  const searchEl       = document.getElementById('search')       as HTMLInputElement;
+  const typeFilterEl   = document.getElementById('type-filter')  as HTMLSelectElement;
+  const regionFilterEl = document.getElementById('region-filter') as HTMLSelectElement;
+  const upcomingCountEl = document.getElementById('upcoming-count')!;
+  const pastCountEl     = document.getElementById('past-count')!;
+
+  // ── Mark today on the calendar ───────────────────────────────────────────
+  const todayKey = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, '0'),
+    String(today.getDate()).padStart(2, '0'),
+  ].join('-');
+  const todayCell = document.querySelector<HTMLElement>(`[data-caldate="${todayKey}"]`);
+  if (todayCell && !todayCell.classList.contains('bg-purple-500') &&
+      !todayCell.classList.contains('bg-pink-500') &&
+      !todayCell.classList.contains('bg-amber-500') &&
+      !todayCell.classList.contains('bg-teal-500') &&
+      !todayCell.classList.contains('bg-brand-500')) {
+    // Today cell has no event — give it a subtle ring
+    todayCell.classList.add('ring-2', 'ring-slate-400', 'font-bold', 'text-slate-800');
+  } else if (todayCell) {
+    todayCell.classList.add('ring-2', 'ring-white', 'ring-offset-1');
+  }
+
+  // ── Helpers ──────────────────────────────────────────────────────────────
+  function isUpcoming(item: HTMLElement): boolean {
+    const end = new Date((item.dataset.enddate || item.dataset.date)! + 'T23:59:59');
+    return end >= today;
+  }
+
+  function countTabs() {
+    let up = 0, past = 0;
+    items.forEach(item => isUpcoming(item) ? up++ : past++);
+    upcomingCountEl.textContent = String(up);
+    pastCountEl.textContent     = String(past);
+  }
+
+  function updateCalendarState() {
+    calMonths.forEach(m => {
+      const mo = parseInt(m.dataset.calmonth!);
+      const monthEnd   = new Date(2026, mo + 1, 0);
+      const monthStart = new Date(2026, mo, 1);
+      const dimmed = activeTab === 'upcoming'
+        ? monthEnd < today
+        : monthStart > today;
+
+      m.classList.toggle('opacity-30',         dimmed);
+      m.classList.toggle('pointer-events-none', dimmed);
+      m.classList.toggle('ring-2',             mo === activeMonth);
+      m.classList.toggle('ring-brand-500',     mo === activeMonth);
+      m.classList.toggle('bg-brand-50',        mo === activeMonth);
+    });
+
+    if (activeMonth !== null) {
+      monthFilterBar.classList.remove('hidden');
+      activeLabel.textContent = MONTH_NAMES[activeMonth] + ' ' + 2026;
+    } else {
+      monthFilterBar.classList.add('hidden');
+    }
+  }
+
+  function applyFilters() {
+    const q      = searchEl.value.toLowerCase();
+    const type   = typeFilterEl.value.toLowerCase();
+    const region = regionFilterEl.value;
+    let visible  = 0;
 
     items.forEach(item => {
-      const matchesText = !q || item.dataset.name!.includes(q) || item.dataset.description!.includes(q);
-      const matchesType = !type || item.dataset.type === type;
-      const matchesRegion = !region || item.dataset.region === region;
-      const show = matchesText && matchesType && matchesRegion;
+      const matchTab    = activeTab === 'upcoming' ? isUpcoming(item) : !isUpcoming(item);
+      const matchMonth  = activeMonth === null || parseInt(item.dataset.month!) === activeMonth;
+      const matchText   = !q || item.dataset.name!.includes(q) || item.dataset.description!.includes(q);
+      const matchType   = !type   || item.dataset.type   === type;
+      const matchRegion = !region || item.dataset.region === region;
+
+      const show = matchTab && matchMonth && matchText && matchType && matchRegion;
       item.style.display = show ? '' : 'none';
       if (show) visible++;
     });
 
     noResults.classList.toggle('hidden', visible > 0);
+    updateCalendarState();
   }
 
-  search.addEventListener('input', filter);
-  typeFilter.addEventListener('change', filter);
-  regionFilter.addEventListener('change', filter);
+  // ── Tab clicks ───────────────────────────────────────────────────────────
+  tabBtns.forEach(btn => btn.addEventListener('click', () => {
+    activeTab = btn.dataset.evttab as 'upcoming' | 'past';
+    tabBtns.forEach(b => {
+      const isActive = b.dataset.evttab === activeTab;
+      b.classList.toggle('border-brand-600', isActive);
+      b.classList.toggle('text-brand-700',   isActive);
+      b.classList.toggle('bg-brand-50',      isActive);
+      b.classList.toggle('border-transparent', !isActive);
+      b.classList.toggle('text-slate-500',   !isActive);
+    });
+    applyFilters();
+  }));
+
+  // ── Calendar month clicks ────────────────────────────────────────────────
+  calMonths.forEach(m => m.addEventListener('click', () => {
+    const mo = parseInt(m.dataset.calmonth!);
+    activeMonth = activeMonth === mo ? null : mo;
+    applyFilters();
+  }));
+
+  clearMonthBtn.addEventListener('click', () => {
+    activeMonth = null;
+    applyFilters();
+  });
+
+  // ── Search / filter inputs ───────────────────────────────────────────────
+  searchEl.addEventListener('input', applyFilters);
+  typeFilterEl.addEventListener('change', applyFilters);
+  regionFilterEl.addEventListener('change', applyFilters);
+
+  // ── Init ─────────────────────────────────────────────────────────────────
+  countTabs();
+  applyFilters();
 </script>
