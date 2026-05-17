@@ -1,0 +1,89 @@
+---
+const navLinks = [
+  { href: '/groups',    label: 'Groups'    },
+  { href: '/events',    label: 'Events'    },
+  { href: '/venues',    label: 'Venues'    },
+  { href: '/speakers',  label: 'Speakers'  },
+  { href: '/resources', label: 'Resources' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="bg-slate-900 text-white shadow-lg">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center font-bold text-sm tracking-tight group-hover:bg-brand-500 transition-colors">
+          KC
+        </div>
+        <span class="font-bold text-lg tracking-tight">
+          Tech<span class="text-brand-400">KC</span>
+        </span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-1">
+        {navLinks.map(({ href, label }) => (
+          <a
+            href={href}
+            class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              currentPath.startsWith(href)
+                ? 'bg-slate-700 text-white'
+                : 'text-slate-300 hover:bg-slate-700 hover:text-white'
+            }`}
+          >
+            {label}
+          </a>
+        ))}
+        <a
+          href="/submit"
+          class="ml-3 px-4 py-2 bg-accent-500 hover:bg-accent-600 text-slate-900 font-semibold text-sm rounded-md transition-colors"
+        >
+          Submit / Update
+        </a>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile nav -->
+    <div id="mobile-menu" class="md:hidden hidden pb-3">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+            currentPath.startsWith(href)
+              ? 'bg-slate-700 text-white'
+              : 'text-slate-300 hover:bg-slate-700 hover:text-white'
+          }`}
+        >
+          {label}
+        </a>
+      ))}
+      <a
+        href="/submit"
+        class="block mt-2 px-3 py-2 bg-accent-500 hover:bg-accent-600 text-slate-900 font-semibold text-sm rounded-md transition-colors"
+      >
+        Submit / Update
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+</script>

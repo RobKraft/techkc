@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import VenueCard from '../components/VenueCard.astro';
+import venues from '../data/venues.json';
+
+const neighborhoods = [...new Set(venues.map(v => v.neighborhood))].sort();
+---
+
+<Layout title="Venues" description="Meeting spaces and venues available to Kansas City tech groups.">
+
+  <section class="bg-slate-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Meeting Venues</h1>
+      <p class="text-slate-300 text-lg max-w-2xl">
+        Spaces that welcome tech groups — from co-working spaces to libraries to corporate event rooms.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <div class="flex flex-col sm:flex-row gap-3 mb-8">
+      <input
+        id="search"
+        type="search"
+        placeholder="Search venues..."
+        class="flex-1 px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+      />
+      <select
+        id="hood-filter"
+        class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+      >
+        <option value="">All neighborhoods</option>
+        {neighborhoods.map(n => <option value={n}>{n}</option>)}
+      </select>
+    </div>
+
+    <!-- Community tip -->
+    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8 flex gap-3">
+      <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <p class="text-sm text-amber-800">
+        <strong>Tip:</strong> Always contact venues directly to confirm availability. Capacities and costs may have changed.
+        If you know of a great space for meetups, <a href="/submit#venue" class="underline hover:text-amber-900">add it here</a>.
+      </p>
+    </div>
+
+    <div id="venues-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {venues.map(venue => (
+        <div
+          class="venue-item"
+          data-name={venue.name.toLowerCase()}
+          data-description={venue.description.toLowerCase()}
+          data-neighborhood={venue.neighborhood}
+        >
+          <VenueCard venue={venue} />
+        </div>
+      ))}
+    </div>
+
+    <p id="no-results" class="hidden text-center text-slate-500 py-12 text-sm">
+      No venues match your search. <a href="/submit#venue" class="text-brand-600 hover:underline">Know of one? Add it.</a>
+    </p>
+  </section>
+
+  <section class="border-t border-slate-200 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+      <p class="text-slate-600 mb-3">Know of a venue that welcomes tech meetups?</p>
+      <a href="/submit#venue" class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm transition-colors">
+        Submit a venue &rarr;
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const search = document.getElementById('search') as HTMLInputElement;
+  const hoodFilter = document.getElementById('hood-filter') as HTMLSelectElement;
+  const items = document.querySelectorAll<HTMLElement>('.venue-item');
+  const noResults = document.getElementById('no-results')!;
+
+  function filter() {
+    const q = search.value.toLowerCase();
+    const hood = hoodFilter.value;
+    let visible = 0;
+
+    items.forEach(item => {
+      const matchesText = !q || item.dataset.name!.includes(q) || item.dataset.description!.includes(q);
+      const matchesHood = !hood || item.dataset.neighborhood === hood;
+      const show = matchesText && matchesHood;
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    noResults.classList.toggle('hidden', visible > 0);
+  }
+
+  search.addEventListener('input', filter);
+  hoodFilter.addEventListener('change', filter);
+</script>

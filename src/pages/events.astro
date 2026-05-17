@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EventCard from '../components/EventCard.astro';
+import events from '../data/events.json';
+
+const types = [...new Set(events.map(e => e.type))].sort();
+---
+
+<Layout title="Events" description="Major tech conferences, hackathons, and events in the Kansas City region.">
+
+  <section class="bg-slate-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Regional Events</h1>
+      <p class="text-slate-300 text-lg max-w-2xl">
+        Conferences, hackathons, unconferences, and workshops in and around Kansas City.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <div class="flex flex-col sm:flex-row gap-3 mb-8">
+      <input
+        id="search"
+        type="search"
+        placeholder="Search events..."
+        class="flex-1 px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+      />
+      <select
+        id="type-filter"
+        class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+      >
+        <option value="">All types</option>
+        {types.map(t => <option value={t}>{t}</option>)}
+      </select>
+    </div>
+
+    <div id="events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {events.map(event => (
+        <div
+          class="event-item"
+          data-name={event.name.toLowerCase()}
+          data-description={event.description.toLowerCase()}
+          data-type={event.type.toLowerCase()}
+        >
+          <EventCard event={event} />
+        </div>
+      ))}
+    </div>
+
+    <p id="no-results" class="hidden text-center text-slate-500 py-12 text-sm">
+      No events match your search. <a href="/submit#event" class="text-brand-600 hover:underline">Know of one? Add it.</a>
+    </p>
+  </section>
+
+  <section class="border-t border-slate-200 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+      <p class="text-slate-600 mb-3">Know of a KC-area tech event that isn't listed?</p>
+      <a href="/submit#event" class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm transition-colors">
+        Submit an event &rarr;
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const search = document.getElementById('search') as HTMLInputElement;
+  const typeFilter = document.getElementById('type-filter') as HTMLSelectElement;
+  const items = document.querySelectorAll<HTMLElement>('.event-item');
+  const noResults = document.getElementById('no-results')!;
+
+  function filter() {
+    const q = search.value.toLowerCase();
+    const type = typeFilter.value.toLowerCase();
+    let visible = 0;
+
+    items.forEach(item => {
+      const matchesText = !q || item.dataset.name!.includes(q) || item.dataset.description!.includes(q);
+      const matchesType = !type || item.dataset.type === type;
+      const show = matchesText && matchesType;
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    noResults.classList.toggle('hidden', visible > 0);
+  }
+
+  search.addEventListener('input', filter);
+  typeFilter.addEventListener('change', filter);
+</script>

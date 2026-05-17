@@ -1,0 +1,279 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Submit / Update" description="Submit or update a tech group, event, venue, or speaker listing on TechKC.">
+
+  <section class="bg-slate-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Submit or Update a Listing</h1>
+      <p class="text-slate-300 text-lg max-w-2xl">
+        All submissions are reviewed before publishing. Usually approved within a few days.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Tab nav -->
+    <div class="flex border-b border-slate-200 mb-8 gap-1 overflow-x-auto" role="tablist">
+      {[
+        { id: 'group',   label: 'Group'   },
+        { id: 'event',   label: 'Event'   },
+        { id: 'venue',   label: 'Venue'   },
+        { id: 'speaker', label: 'Speaker' },
+      ].map(({ id, label }) => (
+        <button
+          role="tab"
+          data-tab={id}
+          class={`tab-btn px-4 py-2.5 text-sm font-medium rounded-t-lg border-b-2 whitespace-nowrap transition-colors ${
+            id === 'group'
+              ? 'border-brand-600 text-brand-700 bg-brand-50'
+              : 'border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+          }`}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Group form -->
+    <div id="tab-group" class="tab-panel">
+      <form name="group-submission" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
+        <input type="hidden" name="form-name" value="group-submission" />
+        <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+        <h2 class="text-xl font-bold text-slate-900">Submit a Tech Group</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="g-name">Group name *</label>
+            <input id="g-name" name="name" type="text" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="g-url">Group website or Meetup URL *</label>
+            <input id="g-url" name="url" type="url" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="g-description">Description *</label>
+          <textarea id="g-description" name="description" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="g-topics">Topics (comma-separated) *</label>
+            <input id="g-topics" name="topics" type="text" placeholder="e.g. JavaScript, React, Node.js" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="g-frequency">Meeting frequency *</label>
+            <select id="g-frequency" name="frequency" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
+              <option value="">Select...</option>
+              <option>Weekly</option>
+              <option>Bi-weekly</option>
+              <option>Monthly</option>
+              <option>Quarterly</option>
+              <option>Irregular</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="g-contact">Your email (not published)</label>
+          <input id="g-contact" name="contact" type="email" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <button type="submit" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm transition-colors">
+          Submit Group
+        </button>
+      </form>
+    </div>
+
+    <!-- Event form -->
+    <div id="tab-event" class="tab-panel hidden">
+      <form name="event-submission" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
+        <input type="hidden" name="form-name" value="event-submission" />
+        <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+        <h2 class="text-xl font-bold text-slate-900">Submit a Regional Event</h2>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="e-name">Event name *</label>
+          <input id="e-name" name="name" type="text" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="e-url">Event website *</label>
+            <input id="e-url" name="url" type="url" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="e-type">Event type *</label>
+            <select id="e-type" name="type" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
+              <option value="">Select...</option>
+              <option>Conference</option>
+              <option>Hackathon</option>
+              <option>Workshop</option>
+              <option>Unconference</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="e-date">Start date *</label>
+            <input id="e-date" name="date" type="date" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="e-location">Location *</label>
+            <input id="e-location" name="location" type="text" placeholder="e.g. Kansas City, MO" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="e-description">Description *</label>
+          <textarea id="e-description" name="description" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"></textarea>
+        </div>
+
+        <button type="submit" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm transition-colors">
+          Submit Event
+        </button>
+      </form>
+    </div>
+
+    <!-- Venue form -->
+    <div id="tab-venue" class="tab-panel hidden">
+      <form name="venue-submission" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
+        <input type="hidden" name="form-name" value="venue-submission" />
+        <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+        <h2 class="text-xl font-bold text-slate-900">Submit a Meeting Venue</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="v-name">Venue name *</label>
+            <input id="v-name" name="name" type="text" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="v-url">Venue website</label>
+            <input id="v-url" name="url" type="url" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="v-address">Address *</label>
+          <input id="v-address" name="address" type="text" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="v-capacity">Capacity (approx.)</label>
+            <input id="v-capacity" name="capacity" type="number" min="1" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="v-cost">Cost</label>
+            <input id="v-cost" name="cost" type="text" placeholder="e.g. Free, Contact for pricing" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="v-amenities">Amenities (comma-separated)</label>
+          <input id="v-amenities" name="amenities" type="text" placeholder="e.g. Projector, Wi-Fi, Parking, Kitchen" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="v-description">Description *</label>
+          <textarea id="v-description" name="description" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"></textarea>
+        </div>
+
+        <button type="submit" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm transition-colors">
+          Submit Venue
+        </button>
+      </form>
+    </div>
+
+    <!-- Speaker form -->
+    <div id="tab-speaker" class="tab-panel hidden">
+      <form name="speaker-submission" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
+        <input type="hidden" name="form-name" value="speaker-submission" />
+        <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+        <h2 class="text-xl font-bold text-slate-900">List Yourself as a Speaker</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="s-name">Your name *</label>
+            <input id="s-name" name="name" type="text" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="s-location">City / Area *</label>
+            <input id="s-location" name="location" type="text" placeholder="e.g. Kansas City, MO" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="s-bio">Short bio *</label>
+          <textarea id="s-bio" name="bio" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="s-topics">Topics you present on *</label>
+          <input id="s-topics" name="topics" type="text" placeholder="e.g. React, Performance, Accessibility" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="s-sessionize">Sessionize profile URL</label>
+            <input id="s-sessionize" name="sessionizeUrl" type="url" placeholder="https://sessionize.com/yourname" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="s-email">Contact email *</label>
+            <input id="s-email" name="email" type="email" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="flex items-center gap-2.5 cursor-pointer">
+            <input type="checkbox" name="travelWilling" value="true" class="w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500" />
+            <span class="text-sm text-slate-700">I'm willing to travel to speak at events outside the KC metro</span>
+          </label>
+        </div>
+
+        <button type="submit" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm transition-colors">
+          Submit Speaker Profile
+        </button>
+      </form>
+    </div>
+
+  </section>
+
+</Layout>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+  const panels = document.querySelectorAll<HTMLElement>('.tab-panel');
+
+  function activateTab(id: string) {
+    tabs.forEach(btn => {
+      const active = btn.dataset.tab === id;
+      btn.classList.toggle('border-brand-600', active);
+      btn.classList.toggle('text-brand-700', active);
+      btn.classList.toggle('bg-brand-50', active);
+      btn.classList.toggle('border-transparent', !active);
+      btn.classList.toggle('text-slate-500', !active);
+    });
+    panels.forEach(panel => {
+      panel.classList.toggle('hidden', panel.id !== `tab-${id}`);
+    });
+  }
+
+  tabs.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab!)));
+
+  // Support hash navigation (e.g. /submit#venue)
+  const hash = window.location.hash.replace('#', '');
+  if (hash && ['group', 'event', 'venue', 'speaker'].includes(hash)) {
+    activateTab(hash);
+  }
+</script>

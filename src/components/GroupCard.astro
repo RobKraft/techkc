@@ -1,0 +1,56 @@
+---
+interface Props {
+  group: {
+    id: string;
+    name: string;
+    description: string;
+    url: string;
+    meetupUrl?: string;
+    topics: string[];
+    frequency: string;
+    active: boolean;
+  };
+}
+
+const { group } = Astro.props;
+---
+
+<article class="bg-white rounded-xl border border-slate-200 p-5 hover:shadow-md hover:border-brand-200 transition-all flex flex-col gap-3">
+  <div class="flex items-start justify-between gap-3">
+    <h2 class="font-semibold text-slate-900 leading-snug">
+      <a href={group.url} target="_blank" rel="noopener" class="hover:text-brand-700 transition-colors">
+        {group.name}
+      </a>
+    </h2>
+    {group.active && (
+      <span class="shrink-0 inline-flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+        Active
+      </span>
+    )}
+  </div>
+
+  <p class="text-sm text-slate-600 leading-relaxed flex-1">{group.description}</p>
+
+  <div class="flex flex-wrap gap-1.5">
+    {group.topics.map(topic => (
+      <span class="text-xs bg-brand-50 text-brand-700 border border-brand-100 px-2 py-0.5 rounded-full">{topic}</span>
+    ))}
+  </div>
+
+  <div class="flex items-center justify-between pt-1 border-t border-slate-100 text-sm">
+    <span class="text-slate-500">{group.frequency}</span>
+    <div class="flex gap-2">
+      {group.meetupUrl && (
+        <a href={group.meetupUrl} target="_blank" rel="noopener" class="text-brand-600 hover:text-brand-800 font-medium transition-colors">
+          Meetup &rarr;
+        </a>
+      )}
+      {!group.meetupUrl && (
+        <a href={group.url} target="_blank" rel="noopener" class="text-brand-600 hover:text-brand-800 font-medium transition-colors">
+          Website &rarr;
+        </a>
+      )}
+    </div>
+  </div>
+</article>

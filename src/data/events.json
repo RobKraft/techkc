@@ -1,0 +1,62 @@
+[
+  {
+    "id": "kcdc-2026",
+    "name": "Kansas City Developer Conference (KCDC)",
+    "description": "Kansas City's premier multi-day software development conference. Two days of sessions covering the full spectrum of software development, from architecture to devops to front-end.",
+    "url": "https://www.kcdc.info",
+    "date": "2026-06-11",
+    "endDate": "2026-06-12",
+    "location": "Kansas City Convention Center",
+    "type": "Conference",
+    "cost": "Paid",
+    "tags": ["Conference", "Multi-track", "All Topics"]
+  },
+  {
+    "id": "midwest-devops-2026",
+    "name": "Midwest DevOps Days",
+    "description": "A community conference exploring the intersection of development and operations. Talks and open spaces format.",
+    "url": "https://devopsdays.org/events/2026-kansas-city/",
+    "date": "2026-08-01",
+    "endDate": "2026-08-02",
+    "location": "Kansas City, MO",
+    "type": "Conference",
+    "cost": "Paid",
+    "tags": ["DevOps", "Conference", "Open Spaces"]
+  },
+  {
+    "id": "hack-midwest-2026",
+    "name": "Hack the Midwest",
+    "description": "The Midwest's largest hackathon. 24+ hours of building, learning, and competing for prizes across many tracks.",
+    "url": "https://hackthemidwest.com",
+    "date": "2026-09-12",
+    "endDate": "2026-09-13",
+    "location": "Kansas City, MO",
+    "type": "Hackathon",
+    "cost": "Free",
+    "tags": ["Hackathon", "Students", "All Levels"]
+  },
+  {
+    "id": "barcamp-kc-2026",
+    "name": "BarCamp Kansas City",
+    "description": "An unconference for Kansas City's tech and creative communities. Sessions are proposed and voted on the day-of by attendees.",
+    "url": "https://barcampkc.org",
+    "date": "2026-10-10",
+    "endDate": "2026-10-10",
+    "location": "Kansas City, MO",
+    "type": "Unconference",
+    "cost": "Free",
+    "tags": ["Unconference", "Community", "All Topics"]
+  },
+  {
+    "id": "gdcr-2026",
+    "name": "Global Day of Code Retreat",
+    "description": "A worldwide event where developers come together to practice the craft of software development. Free, focused on deliberate practice.",
+    "url": "https://www.coderetreat.org",
+    "date": "2026-11-14",
+    "endDate": "2026-11-14",
+    "location": "Various KC locations",
+    "type": "Workshop",
+    "cost": "Free",
+    "tags": ["Code Retreat", "Practice", "TDD", "Community"]
+  }
+]

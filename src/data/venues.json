@@ -1,0 +1,74 @@
+[
+  {
+    "id": "plexpod-westport",
+    "name": "Plexpod Westport",
+    "description": "Popular co-working space with multiple flexible meeting rooms. Community-friendly and frequently used for tech meetups.",
+    "address": "300 E 39th St, Kansas City, MO 64111",
+    "url": "https://plexpod.com/westport",
+    "capacity": 80,
+    "cost": "Contact for pricing",
+    "amenities": ["Projector", "Whiteboard", "Wi-Fi", "Parking", "Kitchen"],
+    "neighborhood": "Westport",
+    "submittedBy": "community"
+  },
+  {
+    "id": "think-big-partners",
+    "name": "Think Big Partners",
+    "description": "Startup accelerator and co-working space that frequently opens its event space to the tech community.",
+    "address": "1901 Wyandotte St, Kansas City, MO 64108",
+    "url": "https://thinkbigpartners.com",
+    "capacity": 100,
+    "cost": "Contact for availability",
+    "amenities": ["AV System", "Projector", "Wi-Fi", "Parking nearby"],
+    "neighborhood": "Crossroads",
+    "submittedBy": "community"
+  },
+  {
+    "id": "kcpl-central",
+    "name": "Kansas City Public Library — Central Branch",
+    "description": "The historic Central Library has community meeting rooms available to groups at no cost. Book well in advance.",
+    "address": "14 W 10th St, Kansas City, MO 64105",
+    "url": "https://www.kclibrary.org/central",
+    "capacity": 120,
+    "cost": "Free (with application)",
+    "amenities": ["Projector", "Wi-Fi", "Parking nearby", "Accessible"],
+    "neighborhood": "Downtown KC",
+    "submittedBy": "community"
+  },
+  {
+    "id": "jccc-gp",
+    "name": "Johnson County Community College",
+    "description": "JCCC frequently hosts tech group meetings in its classrooms and event spaces. Great AV, free parking.",
+    "address": "12345 College Blvd, Overland Park, KS 66210",
+    "url": "https://www.jccc.edu",
+    "capacity": 150,
+    "cost": "Contact Community Education",
+    "amenities": ["Projector", "Wi-Fi", "Free Parking", "Accessible", "Cafeteria"],
+    "neighborhood": "Overland Park",
+    "submittedBy": "community"
+  },
+  {
+    "id": "umkc-volker",
+    "name": "UMKC Volker Campus",
+    "description": "University of Missouri–Kansas City makes classrooms and lecture halls available for community tech groups.",
+    "address": "5100 Rockhill Rd, Kansas City, MO 64110",
+    "url": "https://www.umkc.edu",
+    "capacity": 200,
+    "cost": "Contact for availability",
+    "amenities": ["Projector", "Wi-Fi", "Parking (paid evenings/weekends)", "Accessible"],
+    "neighborhood": "Midtown",
+    "submittedBy": "community"
+  },
+  {
+    "id": "cerner-innovations",
+    "name": "Cerner Innovation Campus",
+    "description": "Oracle Health (formerly Cerner) occasionally opens its campus event spaces to the tech community for larger events.",
+    "address": "2800 Rockcreek Pkwy, North Kansas City, MO 64117",
+    "url": "https://www.cerner.com",
+    "capacity": 300,
+    "cost": "Contact required",
+    "amenities": ["Full AV", "Streaming", "Catering available", "Parking", "Accessible"],
+    "neighborhood": "North KC",
+    "submittedBy": "community"
+  }
+]

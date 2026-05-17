@@ -1,0 +1,22 @@
+[
+  {
+    "id": "example-1",
+    "name": "Jane Smith",
+    "bio": "Software architect with 15 years in distributed systems. Loves talking about event-driven architecture and domain-driven design.",
+    "sessionizeUrl": "https://sessionize.com/janesmith",
+    "topics": ["Architecture", "Event-Driven Systems", "DDD"],
+    "location": "Kansas City, MO",
+    "availableFor": ["User Groups", "Conferences"],
+    "travelWilling": false
+  },
+  {
+    "id": "example-2",
+    "name": "Marcus Johnson",
+    "bio": "DevOps engineer at a Fortune 500 company. Passionate about platform engineering, GitOps, and making deployments boring.",
+    "sessionizeUrl": "https://sessionize.com/marcusjohnson",
+    "topics": ["DevOps", "Kubernetes", "GitOps", "Platform Engineering"],
+    "location": "Overland Park, KS",
+    "availableFor": ["User Groups", "Workshops", "Conferences"],
+    "travelWilling": true
+  }
+]

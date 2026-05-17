@@ -1,0 +1,182 @@
+[
+  {
+    "id": "kcnet",
+    "name": "Kansas City .NET Developers",
+    "description": "Monthly meetings for .NET, C#, ASP.NET Core, and the broader Microsoft development ecosystem.",
+    "url": "https://www.meetup.com/kcnet/",
+    "meetupUrl": "https://www.meetup.com/kcnet/",
+    "topics": [".NET", "C#", "ASP.NET", "Azure"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kcjs",
+    "name": "Kansas City JavaScript",
+    "description": "A community for JavaScript developers of all skill levels covering frontend, Node.js, and the full JS ecosystem.",
+    "url": "https://www.meetup.com/Kansas-City-JavaScript/",
+    "meetupUrl": "https://www.meetup.com/Kansas-City-JavaScript/",
+    "topics": ["JavaScript", "TypeScript", "Node.js", "React", "Vue"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kcpython",
+    "name": "Kansas City Python Users Group",
+    "description": "For Python developers from beginners to experts. Topics include web development, data science, automation, and more.",
+    "url": "https://www.meetup.com/pythonkc/",
+    "meetupUrl": "https://www.meetup.com/pythonkc/",
+    "topics": ["Python", "Django", "Data Science", "Machine Learning"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kcaws",
+    "name": "KC AWS User Group",
+    "description": "Learn about Amazon Web Services from practitioners in the Kansas City area. All skill levels welcome.",
+    "url": "https://www.meetup.com/Kansas-City-Amazon-Web-Services-Meetup/",
+    "meetupUrl": "https://www.meetup.com/Kansas-City-Amazon-Web-Services-Meetup/",
+    "topics": ["AWS", "Cloud", "DevOps", "Serverless"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "wwckc",
+    "name": "Women Who Code Kansas City",
+    "description": "Empowering women in technology through networking, skill-building, and career development events.",
+    "url": "https://www.womenwhocode.com/kansascity",
+    "meetupUrl": "https://www.meetup.com/Women-Who-Code-KC/",
+    "topics": ["All Languages", "Career", "Networking", "Leadership"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kcml",
+    "name": "Kansas City Machine Learning & AI",
+    "description": "Exploring machine learning, artificial intelligence, data science, and related technologies in the KC area.",
+    "url": "https://www.meetup.com/Kansas-City-Machine-Learning-Data-Science/",
+    "meetupUrl": "https://www.meetup.com/Kansas-City-Machine-Learning-Data-Science/",
+    "topics": ["Machine Learning", "AI", "Data Science", "Python"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "codeforkc",
+    "name": "Code for KC",
+    "description": "Kansas City's Code for America Brigade — civic tech volunteers building open source tools for Kansas City.",
+    "url": "https://codeforkc.org",
+    "meetupUrl": "https://www.meetup.com/Code-for-KC/",
+    "topics": ["Civic Tech", "Open Source", "JavaScript", "Python"],
+    "frequency": "Bi-weekly",
+    "active": true
+  },
+  {
+    "id": "kclug",
+    "name": "Kansas City Linux Users Group",
+    "description": "Linux, open source software, and related technologies. Meeting since the late 1990s.",
+    "url": "https://kclug.org",
+    "meetupUrl": "https://www.meetup.com/kclug/",
+    "topics": ["Linux", "Open Source", "DevOps", "Security"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kck8s",
+    "name": "Kansas City Kubernetes & Cloud Native",
+    "description": "Container orchestration, Kubernetes, service meshes, and cloud-native architecture patterns.",
+    "url": "https://www.meetup.com/Kansas-City-Kubernetes-Meetup/",
+    "meetupUrl": "https://www.meetup.com/Kansas-City-Kubernetes-Meetup/",
+    "topics": ["Kubernetes", "Docker", "Cloud Native", "Helm"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kcsql",
+    "name": "Kansas City SQL Server Users Group",
+    "description": "SQL Server, database development, performance tuning, and business intelligence for KC's data professionals.",
+    "url": "https://www.meetup.com/KCSQL/",
+    "meetupUrl": "https://www.meetup.com/KCSQL/",
+    "topics": ["SQL Server", "T-SQL", "Power BI", "Database"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "agile-kc",
+    "name": "Agile KC",
+    "description": "Scrum, Kanban, SAFe, and all things agile for practitioners and teams in the Kansas City area.",
+    "url": "https://www.meetup.com/Agile-KC/",
+    "meetupUrl": "https://www.meetup.com/Agile-KC/",
+    "topics": ["Agile", "Scrum", "Kanban", "Leadership"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kc-devops",
+    "name": "KC DevOps",
+    "description": "CI/CD, infrastructure as code, platform engineering, and DevOps culture in the Kansas City community.",
+    "url": "https://www.meetup.com/Kansas-City-DevOps/",
+    "meetupUrl": "https://www.meetup.com/Kansas-City-DevOps/",
+    "topics": ["DevOps", "CI/CD", "Terraform", "GitHub Actions"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kcjava",
+    "name": "Kansas City Java Users Group",
+    "description": "Java, JVM languages, Spring, Quarkus, and enterprise Java development. One of KC's longest-running tech groups.",
+    "url": "https://www.meetup.com/Kansas-City-Java-Users-Group/",
+    "meetupUrl": "https://www.meetup.com/Kansas-City-Java-Users-Group/",
+    "topics": ["Java", "Spring", "Kotlin", "JVM"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "ixda-kc",
+    "name": "IxDA Kansas City",
+    "description": "Interaction design, UX research, design systems, and user-centered design for KC's design community.",
+    "url": "https://www.meetup.com/IxDA-Kansas-City/",
+    "meetupUrl": "https://www.meetup.com/IxDA-Kansas-City/",
+    "topics": ["UX", "Interaction Design", "Design Systems", "Research"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "hack-kc",
+    "name": "Hack Kansas City",
+    "description": "Hackers, makers, security researchers, and hardware enthusiasts. CTFs, workshops, and security talks.",
+    "url": "https://www.meetup.com/hack-kc/",
+    "meetupUrl": "https://www.meetup.com/hack-kc/",
+    "topics": ["Security", "CTF", "Networking", "Hardware"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kciot",
+    "name": "KC IoT",
+    "description": "Internet of Things, embedded systems, home automation, and hardware hacking in the Kansas City area.",
+    "url": "https://www.meetup.com/Kansas-City-Internet-of-Things/",
+    "meetupUrl": "https://www.meetup.com/Kansas-City-Internet-of-Things/",
+    "topics": ["IoT", "Arduino", "Raspberry Pi", "Embedded"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kc-gcp",
+    "name": "Kansas City Google Cloud",
+    "description": "Google Cloud Platform, BigQuery, GKE, Firebase, and the Google developer ecosystem.",
+    "url": "https://www.meetup.com/Kansas-City-Google-Cloud/",
+    "meetupUrl": "https://www.meetup.com/Kansas-City-Google-Cloud/",
+    "topics": ["GCP", "BigQuery", "Firebase", "Cloud"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kc-react",
+    "name": "Kansas City React",
+    "description": "React, React Native, Next.js, and the broader React ecosystem for KC frontend developers.",
+    "url": "https://www.meetup.com/Kansas-City-ReactJS-Meetup/",
+    "meetupUrl": "https://www.meetup.com/Kansas-City-ReactJS-Meetup/",
+    "topics": ["React", "Next.js", "React Native", "TypeScript"],
+    "frequency": "Monthly",
+    "active": true
+  }
+]

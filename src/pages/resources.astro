@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const resources = [
+  {
+    category: "Starting a User Group",
+    items: [
+      {
+        title: "How to Start a Meetup Group",
+        description: "Meetup.com's official guide to launching a new group — covers everything from finding your first members to planning your first event.",
+        url: "https://help.meetup.com/hc/en-us/articles/360002882731",
+      },
+      {
+        title: "Code of Conduct Template",
+        description: "The Contributor Covenant — widely adopted code of conduct template for tech communities. Adapt it for your group.",
+        url: "https://www.contributor-covenant.org/",
+      },
+      {
+        title: "Finding Sponsors for Your Group",
+        description: "Practical advice on approaching local companies for venue and food sponsorships for your user group.",
+        url: "https://www.meetup.com/blog/how-to-get-sponsors-for-your-meetup/",
+      },
+    ],
+  },
+  {
+    category: "For Speakers",
+    items: [
+      {
+        title: "Sessionize — Speaker Profile Platform",
+        description: "Create a free speaker profile with your bio, talks, and session history. Many KC conferences use Sessionize for their CFP process.",
+        url: "https://sessionize.com",
+      },
+      {
+        title: "Notist — Speaker Portfolio",
+        description: "Share your slides and build a public speaker portfolio. Great for user group talks.",
+        url: "https://noti.st",
+      },
+      {
+        title: "Speaking.io — Tips for Tech Speakers",
+        description: "Zach Holman's guide to public speaking for developers — from writing your abstract to delivering on stage.",
+        url: "https://speaking.io",
+      },
+    ],
+  },
+  {
+    category: "Running Better Meetings",
+    items: [
+      {
+        title: "OBS Studio (Free Streaming)",
+        description: "Free, open source tool for recording and live streaming your meetup sessions to YouTube or Twitch.",
+        url: "https://obsproject.com",
+      },
+      {
+        title: "Zoom Webinar vs Meeting",
+        description: "Understanding the difference between Zoom meetings and webinars for hybrid user group formats.",
+        url: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060605",
+      },
+      {
+        title: "Streamyard (Easy Streaming)",
+        description: "Browser-based streaming tool that's easier than OBS. Free tier available for simple streams.",
+        url: "https://streamyard.com",
+      },
+    ],
+  },
+  {
+    category: "Community Platforms",
+    items: [
+      {
+        title: "Meetup.com",
+        description: "The dominant platform for local tech group discovery and RSVP management. Paid for organizers.",
+        url: "https://www.meetup.com",
+      },
+      {
+        title: "Luma",
+        description: "A modern, free alternative to Meetup with great event pages and email tools. Growing in the tech community.",
+        url: "https://lu.ma",
+      },
+      {
+        title: "Discord for Communities",
+        description: "Set up a Discord server for your user group — free, great for async discussion and announcements.",
+        url: "https://discord.com",
+      },
+    ],
+  },
+];
+---
+
+<Layout title="Resources" description="Resources for Kansas City tech group organizers, speakers, and community members.">
+
+  <section class="bg-slate-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Resources</h1>
+      <p class="text-slate-300 text-lg max-w-2xl">
+        Tools and guides for user group organizers, speakers, and community builders in Kansas City.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="space-y-12">
+      {resources.map(section => (
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 mb-5 pb-3 border-b border-slate-200">{section.category}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {section.items.map(item => (
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener"
+                class="block bg-white border border-slate-200 rounded-xl p-5 hover:shadow-md hover:border-brand-200 transition-all group"
+              >
+                <h3 class="font-semibold text-slate-900 group-hover:text-brand-700 transition-colors mb-2">{item.title} &rarr;</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">{item.description}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- New to KC -->
+  <section class="bg-brand-700 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="max-w-2xl">
+        <h2 class="text-2xl font-bold mb-3">New to the KC tech scene?</h2>
+        <p class="text-brand-200 mb-6 leading-relaxed">
+          Welcome! The best way to get connected is to show up to a few user group meetings.
+          Most are free, friendly, and happen monthly. Start with groups that cover your technology stack —
+          then branch out from there.
+        </p>
+        <a href="/groups" class="inline-flex items-center gap-2 px-5 py-3 bg-white text-brand-800 font-semibold rounded-lg text-sm hover:bg-brand-50 transition-colors">
+          Browse all groups &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

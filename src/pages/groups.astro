@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GroupCard from '../components/GroupCard.astro';
+import groups from '../data/groups.json';
+
+const allTopics = [...new Set(groups.flatMap(g => g.topics))].sort();
+---
+
+<Layout title="Tech Groups" description="All active tech user groups in the Kansas City metro area.">
+
+  <section class="bg-slate-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Tech Groups</h1>
+      <p class="text-slate-300 text-lg max-w-2xl">
+        {groups.filter(g => g.active).length} active user groups meeting regularly in the Kansas City metro. Find your community.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <!-- Filter bar -->
+    <div class="flex flex-col sm:flex-row gap-3 mb-8">
+      <input
+        id="search"
+        type="search"
+        placeholder="Search groups..."
+        class="flex-1 px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+      />
+      <select
+        id="topic-filter"
+        class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+      >
+        <option value="">All topics</option>
+        {allTopics.map(t => <option value={t}>{t}</option>)}
+      </select>
+    </div>
+
+    <!-- Grid -->
+    <div id="groups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {groups.filter(g => g.active).map(group => (
+        <div
+          class="group-item"
+          data-name={group.name.toLowerCase()}
+          data-description={group.description.toLowerCase()}
+          data-topics={group.topics.join(',').toLowerCase()}
+        >
+          <GroupCard group={group} />
+        </div>
+      ))}
+    </div>
+
+    <p id="no-results" class="hidden text-center text-slate-500 py-12 text-sm">
+      No groups match your search. <a href="/submit" class="text-brand-600 hover:underline">Know of one? Add it.</a>
+    </p>
+  </section>
+
+  <!-- Add group CTA -->
+  <section class="border-t border-slate-200 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+      <p class="text-slate-600 mb-3">Running a KC tech group that isn't listed?</p>
+      <a href="/submit" class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm transition-colors">
+        Submit your group &rarr;
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const search = document.getElementById('search') as HTMLInputElement;
+  const topicFilter = document.getElementById('topic-filter') as HTMLSelectElement;
+  const items = document.querySelectorAll<HTMLElement>('.group-item');
+  const noResults = document.getElementById('no-results')!;
+
+  function filter() {
+    const q = search.value.toLowerCase();
+    const topic = topicFilter.value.toLowerCase();
+    let visible = 0;
+
+    items.forEach(item => {
+      const matchesText = !q || item.dataset.name!.includes(q) || item.dataset.description!.includes(q);
+      const matchesTopic = !topic || item.dataset.topics!.split(',').includes(topic);
+      const show = matchesText && matchesTopic;
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    noResults.classList.toggle('hidden', visible > 0);
+  }
+
+  search.addEventListener('input', filter);
+  topicFilter.addEventListener('change', filter);
+</script>
