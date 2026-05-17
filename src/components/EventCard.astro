@@ -7,6 +7,7 @@ interface Props {
     url: string;
     date: string;
     endDate?: string;
+    dateTBD?: boolean;
     location: string;
     type: string;
     cost: string;
@@ -19,9 +20,12 @@ const { event } = Astro.props;
 const start = new Date(event.date + 'T12:00:00');
 const end   = event.endDate ? new Date(event.endDate + 'T12:00:00') : null;
 
-const dateLabel = end && event.endDate !== event.date
-  ? `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}–${end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`
-  : start.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const monthYear = start.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const dateLabel = event.dateTBD
+  ? `${monthYear} (date TBD)`
+  : end && event.endDate !== event.date
+    ? `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}–${end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`
+    : start.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
 const typeColor: Record<string, string> = {
   Conference:   'bg-purple-50 text-purple-700 border-purple-200',
