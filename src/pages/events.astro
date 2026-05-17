@@ -141,13 +141,6 @@ const regions = [...new Set(events.map(e => {
           </svg>
         </button>
 
-        <button
-          id="show-all-btn"
-          class="hidden ml-2 text-xs px-3 py-1.5 rounded-full border border-brand-300 text-brand-700 bg-brand-50
-                 hover:bg-brand-100 transition-colors font-medium"
-        >
-          Show all months
-        </button>
       </div>
 
       <!-- Calendar grid + event list side by side -->
@@ -258,24 +251,6 @@ const regions = [...new Set(events.map(e => {
       </div>
     </div>
 
-    <!-- ── Tabs ──────────────────────────────────────────────────────────── -->
-    <div class="flex items-center gap-1 border-b border-slate-200">
-      <button data-evttab="upcoming"
-        class="evt-tab px-4 py-2.5 text-sm font-medium rounded-t-lg border-b-2 border-brand-600 text-brand-700 bg-brand-50 transition-colors">
-        Upcoming &amp; Current
-        <span id="upcoming-count" class="ml-1.5 text-xs bg-brand-200 text-brand-800 px-1.5 py-0.5 rounded-full">…</span>
-      </button>
-      <button data-evttab="past"
-        class="evt-tab px-4 py-2.5 text-sm font-medium rounded-t-lg border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-colors">
-        Past Events
-        <span id="past-count" class="ml-1.5 text-xs bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded-full">…</span>
-      </button>
-      <span id="month-filter-pill" class="hidden ml-3 text-xs bg-brand-100 text-brand-700 border border-brand-200 px-2.5 py-1 rounded-full font-medium">
-        <span id="filter-pill-label"></span>
-        <button id="clear-month" class="ml-1.5 hover:text-brand-900 font-bold">×</button>
-      </span>
-    </div>
-
     <!-- ── Cards grid ────────────────────────────────────────────────────── -->
     <div id="events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {sorted.map(event => {
@@ -326,32 +301,20 @@ const regions = [...new Set(events.map(e => {
     'July','August','September','October','November','December'];
   const YEAR = 2026;
 
-  // ── State ─────────────────────────────────────────────────────────────────
-  let activeTab: 'upcoming' | 'past' = 'upcoming';
-  let activeMonth: number | null = null; // null = show all months in card grid
-
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Start calendar on today's month if we're in 2026, else Jan
+  // Start on today's month if we're in 2026, else Jan
   let calMonth = (today.getFullYear() === YEAR) ? today.getMonth() : 0;
 
   // ── DOM refs ──────────────────────────────────────────────────────────────
-  const prevBtn        = document.getElementById('cal-prev')!        as HTMLButtonElement;
-  const nextBtn        = document.getElementById('cal-next')!        as HTMLButtonElement;
+  const prevBtn        = document.getElementById('cal-prev')!    as HTMLButtonElement;
+  const nextBtn        = document.getElementById('cal-next')!    as HTMLButtonElement;
   const monthLabel     = document.getElementById('cal-month-label')!;
-  const showAllBtn     = document.getElementById('show-all-btn')!    as HTMLButtonElement;
-  const monthPill      = document.getElementById('month-filter-pill')!;
-  const pillLabel      = document.getElementById('filter-pill-label')!;
-  const clearMonthBtn  = document.getElementById('clear-month')!;
-  const tabBtns        = document.querySelectorAll<HTMLButtonElement>('[data-evttab]');
   const items          = document.querySelectorAll<HTMLElement>('.event-item');
   const noResults      = document.getElementById('no-results')!;
-  const searchEl       = document.getElementById('search')        as HTMLInputElement;
-
+  const searchEl       = document.getElementById('search')       as HTMLInputElement;
   const regionFilterEl = document.getElementById('region-filter') as HTMLSelectElement;
-  const upcomingCountEl = document.getElementById('upcoming-count')!;
-  const pastCountEl     = document.getElementById('past-count')!;
 
   // ── Mark today on the calendar ────────────────────────────────────────────
   const todayKey = [
@@ -361,7 +324,6 @@ const regions = [...new Set(events.map(e => {
   ].join('-');
   const todayCell = document.querySelector<HTMLElement>(`[data-caldate="${todayKey}"]`);
   if (todayCell) {
-    // Add a white ring if the cell is already coloured (has event), else a slate ring
     if (todayCell.classList.contains('text-white')) {
       todayCell.classList.add('ring-2', 'ring-white', 'ring-offset-1', 'ring-offset-transparent');
     } else {
@@ -371,61 +333,30 @@ const regions = [...new Set(events.map(e => {
 
   // ── Calendar display ──────────────────────────────────────────────────────
   function renderCalendar(month: number) {
-    // Show/hide grids and lists
     document.querySelectorAll('.month-cal-grid, .month-events-list').forEach(el =>
       el.classList.add('hidden')
     );
     document.getElementById(`cal-grid-${month}`)?.classList.remove('hidden');
     document.getElementById(`month-list-${month}`)?.classList.remove('hidden');
-
-    // Label
     monthLabel.textContent = `${MONTH_NAMES[month]} ${YEAR}`;
-
-    // Prev/next button disabled states
     prevBtn.disabled = month === 0;
     nextBtn.disabled = month === 11;
   }
 
   // ── Card filtering ────────────────────────────────────────────────────────
-  function isUpcoming(item: HTMLElement): boolean {
-    const end = new Date((item.dataset.enddate || item.dataset.date)! + 'T23:59:59');
-    return end >= today;
-  }
-
-  function countTabs() {
-    let up = 0, past = 0;
-    items.forEach(item => isUpcoming(item) ? up++ : past++);
-    upcomingCountEl.textContent = String(up);
-    pastCountEl.textContent = String(past);
-  }
-
   function applyFilters() {
     const q      = searchEl.value.toLowerCase();
     const region = regionFilterEl.value;
     let   visible = 0;
-
     items.forEach(item => {
-      const matchTab    = activeTab === 'upcoming' ? isUpcoming(item) : !isUpcoming(item);
-      const matchMonth  = activeMonth === null || parseInt(item.dataset.month!) === activeMonth;
+      const matchMonth  = parseInt(item.dataset.month!) === calMonth;
       const matchText   = !q      || item.dataset.name!.includes(q) || item.dataset.description!.includes(q);
       const matchRegion = !region || item.dataset.region === region;
-
-      const show = matchTab && matchMonth && matchText && matchRegion;
+      const show = matchMonth && matchText && matchRegion;
       item.style.display = show ? '' : 'none';
       if (show) visible++;
     });
-
     noResults.classList.toggle('hidden', visible > 0);
-
-    // Month filter pill (below tabs)
-    if (activeMonth !== null) {
-      monthPill.classList.remove('hidden');
-      pillLabel.textContent = MONTH_NAMES[activeMonth];
-      showAllBtn.classList.remove('hidden');
-    } else {
-      monthPill.classList.add('hidden');
-      showAllBtn.classList.add('hidden');
-    }
   }
 
   // ── Navigation ────────────────────────────────────────────────────────────
@@ -433,7 +364,6 @@ const regions = [...new Set(events.map(e => {
     const next = calMonth + dir;
     if (next < 0 || next > 11) return;
     calMonth = next;
-    activeMonth = calMonth;        // navigating a month auto-filters cards to it
     renderCalendar(calMonth);
     applyFilters();
   }
@@ -441,35 +371,11 @@ const regions = [...new Set(events.map(e => {
   prevBtn.addEventListener('click', () => navigate(-1));
   nextBtn.addEventListener('click', () => navigate(1));
 
-  // ── "Show all months" / clear filter ─────────────────────────────────────
-  function clearMonthFilter() {
-    activeMonth = null;
-    applyFilters();
-  }
-  showAllBtn.addEventListener('click', clearMonthFilter);
-  clearMonthBtn.addEventListener('click', clearMonthFilter);
-
-  // ── Tab clicks ────────────────────────────────────────────────────────────
-  tabBtns.forEach(btn => btn.addEventListener('click', () => {
-    activeTab = btn.dataset.evttab as 'upcoming' | 'past';
-    tabBtns.forEach(b => {
-      const on = b.dataset.evttab === activeTab;
-      b.classList.toggle('border-brand-600',    on);
-      b.classList.toggle('text-brand-700',      on);
-      b.classList.toggle('bg-brand-50',         on);
-      b.classList.toggle('border-transparent', !on);
-      b.classList.toggle('text-slate-500',     !on);
-    });
-    applyFilters();
-  }));
-
   // ── Search / filter inputs ────────────────────────────────────────────────
   searchEl.addEventListener('input',        applyFilters);
   regionFilterEl.addEventListener('change', applyFilters);
 
   // ── Init ──────────────────────────────────────────────────────────────────
   renderCalendar(calMonth);
-  activeMonth = calMonth;   // start filtered to current month
-  countTabs();
   applyFilters();
 </script>
