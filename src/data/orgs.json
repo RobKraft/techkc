@@ -96,6 +96,14 @@
     "tags": ["coding", "education", "diversity", "workforce"]
   },
   {
+    "name": "Digital Women Kansas City",
+    "shortName": "DWKC",
+    "description": "A professional community dedicated to educating and empowering women to succeed in digital fields and beyond. Offers networking events, mentorship, and professional development for women in tech, marketing, and design across the KC metro.",
+    "url": "https://www.digitalwomenkansascity.org",
+    "category": "Community",
+    "tags": ["women in tech", "networking", "mentorship", "professional development"]
+  },
+  {
     "name": "LaunchCode",
     "shortName": "",
     "description": "A nonprofit offering free coding education and job placement support, with a strong Kansas City presence. Helps people from all backgrounds launch careers in technology.",
