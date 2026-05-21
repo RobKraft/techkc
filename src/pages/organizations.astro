@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+import orgs from '../data/orgs.json';
+
+const categories = [...new Set(orgs.map(o => o.category))].sort();
+---
+
+<Layout title="Organizations" description="Local organizations that support and grow the Kansas City technology ecosystem.">
+
+  <section class="bg-slate-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-3">KC Tech Organizations</h1>
+      <p class="text-slate-300 text-lg max-w-2xl">
+        Councils, conferences, and initiatives that shape and support the Kansas City technology community.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <div class="flex flex-col sm:flex-row gap-3 mb-8">
+      <input
+        id="search"
+        type="search"
+        placeholder="Search organizations..."
+        class="flex-1 px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+      />
+      <select
+        id="category-filter"
+        class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+      >
+        <option value="">All categories</option>
+        {categories.map(c => <option value={c}>{c}</option>)}
+      </select>
+    </div>
+
+    <div id="orgs-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {orgs.map(org => (
+        <div
+          class="org-item"
+          data-name={org.name.toLowerCase()}
+          data-description={org.description.toLowerCase()}
+          data-category={org.category}
+        >
+          <a
+            href={org.url}
+            target="_blank"
+            rel="noopener"
+            class="flex flex-col h-full bg-white border border-slate-200 rounded-xl p-5 hover:shadow-md hover:border-brand-200 transition-all group"
+          >
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <div>
+                <h2 class="font-semibold text-slate-900 group-hover:text-brand-700 transition-colors leading-snug">
+                  {org.name}
+                </h2>
+                {org.shortName && (
+                  <span class="text-xs text-slate-500 font-mono">{org.shortName}</span>
+                )}
+              </div>
+              <span class="shrink-0 text-xs font-medium px-2 py-1 rounded-full bg-slate-100 text-slate-600">
+                {org.category}
+              </span>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed flex-1 mb-4">{org.description}</p>
+            <div class="flex flex-wrap gap-1.5">
+              {org.tags.map(tag => (
+                <span class="text-xs px-2 py-0.5 rounded-full bg-brand-50 text-brand-700 border border-brand-100">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <p id="no-results" class="hidden text-center text-slate-500 py-12 text-sm">
+      No organizations match your search.
+    </p>
+  </section>
+
+  <section class="border-t border-slate-200 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+      <p class="text-slate-600 mb-3">Know of a KC tech organization that should be listed?</p>
+      <a href="/submit" class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm transition-colors">
+        Suggest an organization &rarr;
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const search = document.getElementById('search') as HTMLInputElement;
+  const catFilter = document.getElementById('category-filter') as HTMLSelectElement;
+  const items = document.querySelectorAll<HTMLElement>('.org-item');
+  const noResults = document.getElementById('no-results')!;
+
+  function filter() {
+    const q = search.value.toLowerCase();
+    const cat = catFilter.value;
+    let visible = 0;
+
+    items.forEach(item => {
+      const matchesText = !q || item.dataset.name!.includes(q) || item.dataset.description!.includes(q);
+      const matchesCat = !cat || item.dataset.category === cat;
+      const show = matchesText && matchesCat;
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    noResults.classList.toggle('hidden', visible > 0);
+  }
+
+  search.addEventListener('input', filter);
+  catFilter.addEventListener('change', filter);
+</script>

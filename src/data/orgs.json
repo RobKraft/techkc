@@ -1,0 +1,106 @@
+[
+  {
+    "name": "Kansas City Developer Conference",
+    "shortName": "KCDC",
+    "description": "Annual multi-day developer conference held in Kansas City. KCDC brings together hundreds of developers across all stacks for two days of sessions, workshops, and networking.",
+    "url": "https://www.kcdc.info",
+    "category": "Conference",
+    "tags": ["conference", "annual", "developers"]
+  },
+  {
+    "name": "KC Tech Council",
+    "shortName": "KCTC",
+    "description": "A nonprofit membership organization advocating for Kansas City's technology sector. Works to grow tech talent pipelines, connect businesses, and promote KC as a tech destination.",
+    "url": "https://www.kctechcouncil.com",
+    "category": "Council",
+    "tags": ["advocacy", "membership", "talent", "workforce"]
+  },
+  {
+    "name": "KC Digital Drive",
+    "shortName": "KCDD",
+    "description": "A public-private initiative focused on digital equity and expanding broadband access across the Kansas City region. Works to ensure all residents can participate in the digital economy.",
+    "url": "https://www.kcdigitaldrive.org",
+    "category": "Initiative",
+    "tags": ["digital equity", "broadband", "workforce", "community"]
+  },
+  {
+    "name": "1 Million Cups Kansas City",
+    "shortName": "1MC KC",
+    "description": "A weekly Wednesday morning program where entrepreneurs present their startups and receive feedback from the community. Hosted by the Kauffman Foundation, free and open to all.",
+    "url": "https://www.1millioncups.com/kansascity",
+    "category": "Community",
+    "tags": ["entrepreneurship", "startups", "weekly", "kauffman"]
+  },
+  {
+    "name": "KC Rising",
+    "shortName": "",
+    "description": "A regional economic development initiative bringing together business, civic, and community leaders to accelerate growth across the Kansas City metro, with a strong emphasis on tech and innovation sectors.",
+    "url": "https://www.kcrising.com",
+    "category": "Economic Development",
+    "tags": ["economic development", "regional", "innovation", "talent"]
+  },
+  {
+    "name": "KCSourceLink",
+    "shortName": "",
+    "description": "Connects Kansas City entrepreneurs and small business owners to the right resources at the right time. Maintains a network of hundreds of support organizations across the KC metro.",
+    "url": "https://www.kcsourcelink.com",
+    "category": "Economic Development",
+    "tags": ["entrepreneurship", "small business", "resources", "network"]
+  },
+  {
+    "name": "DigitalBridge KC",
+    "shortName": "",
+    "description": "A digital skills and workforce development initiative helping Kansas City residents build technology competencies and access careers in the digital economy.",
+    "url": "https://www.digitalbridgekc.org",
+    "category": "Initiative",
+    "tags": ["digital skills", "workforce", "training", "community"]
+  },
+  {
+    "name": "KC Next",
+    "shortName": "",
+    "description": "A tech talent attraction and retention initiative working to position Kansas City as a top destination for technology professionals. Formerly part of the KCADC tech arm.",
+    "url": "https://www.kcnext.com",
+    "category": "Talent",
+    "tags": ["talent", "attraction", "retention", "jobs"]
+  },
+  {
+    "name": "Helios",
+    "shortName": "",
+    "description": "A Kansas City-based nonprofit accelerator supporting early-stage entrepreneurs and startups through mentorship, programming, and community connections.",
+    "url": "https://www.helios.vc",
+    "category": "Accelerator",
+    "tags": ["accelerator", "startups", "mentorship", "nonprofit"]
+  },
+  {
+    "name": "Think Big Partners",
+    "shortName": "",
+    "description": "A Kansas City startup accelerator and co-working community offering mentorship, programming, and connections to help tech and innovation-focused companies grow.",
+    "url": "https://www.thinkbigpartners.com",
+    "category": "Accelerator",
+    "tags": ["accelerator", "startups", "co-working", "mentorship"]
+  },
+  {
+    "name": "KC Entrepreneurship Initiative",
+    "shortName": "KCEI",
+    "description": "Supports entrepreneurship education and ecosystem development across the Kansas City region, connecting founders with resources, mentors, and each other.",
+    "url": "https://www.kcei.org",
+    "category": "Economic Development",
+    "tags": ["entrepreneurship", "education", "ecosystem", "founders"]
+  },
+  {
+    "name": "Code the Dream",
+    "shortName": "",
+    "description": "Teaches software development skills to people from underrepresented communities, providing a pathway to tech careers. KC chapter offers training and mentorship at no cost to students.",
+    "url": "https://codethedream.org",
+    "category": "Education",
+    "tags": ["coding", "education", "diversity", "workforce"]
+  },
+  {
+    "name": "LaunchCode",
+    "shortName": "",
+    "description": "A nonprofit offering free coding education and job placement support, with a strong Kansas City presence. Helps people from all backgrounds launch careers in technology.",
+    "url": "https://www.launchcode.org",
+    "category": "Education",
+    "tags": ["coding", "education", "jobs", "nonprofit"]
+  }
+]
