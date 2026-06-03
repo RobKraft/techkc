@@ -48,6 +48,15 @@
     "active": true
   },
   {
+    "id": "bar-chart-club",
+    "name": "Bar Chart Club",
+    "description": "A tool-agnostic community for data professionals who transform sprawling data into clear, compelling stories. Brings together analysts, scientists, BI specialists, and data communicators for quarterly meetups focused on data visualization skills and networking.",
+    "url": "https://datadozen.com/bar-chart-club/",
+    "topics": ["Data", "Data Visualization", "Analytics", "Business Intelligence"],
+    "frequency": "Quarterly",
+    "active": true
+  },
+  {
     "id": "codeforkc",
     "name": "Code for KC",
     "description": "Kansas City's Code for America Brigade — civic tech volunteers building open source tools for Kansas City.",
