@@ -3,6 +3,18 @@
   publish = "dist"
 
 [[redirects]]
+  from = "https://www.kansascityusergroups.com/*"
+  to = "https://techkc.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://kansascityusergroups.com/*"
+  to = "https://techkc.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/404"
   status = 404
