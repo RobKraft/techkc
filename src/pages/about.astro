@@ -1,0 +1,86 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About" description="About TechKC — who built it, why, and how to get in touch.">
+
+  <section class="bg-slate-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-3">About TechKC</h1>
+      <p class="text-slate-300 text-lg max-w-2xl">
+        Who built this site, why it exists, and how to get in touch.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+
+    <div class="prose prose-slate max-w-none">
+
+      <h2 class="text-2xl font-bold text-slate-900 mb-4">The Story</h2>
+      <p class="text-slate-600 leading-relaxed mb-6">
+        TechKC is the successor to <a href="https://www.kansascityusergroups.com" class="text-brand-600 hover:text-brand-800 transition-colors" target="_blank" rel="noopener">kansascityusergroups.com</a>,
+        a site that has tracked Kansas City's tech user groups since 2009. That original site served the community well for many years,
+        but it was time for a modern rebuild — one that's faster, easier to maintain, and a better home for everything
+        the KC tech scene has to offer: groups, events, venues, speakers, and organizations.
+      </p>
+      <p class="text-slate-600 leading-relaxed mb-10">
+        TechKC is open source, community-maintained, and will always be free to list. If you know of a group,
+        event, venue, or organization that should be here, please submit it.
+      </p>
+
+      <hr class="border-slate-200 my-10" />
+
+      <h2 class="text-2xl font-bold text-slate-900 mb-4">About the Creator</h2>
+      <div class="flex items-start gap-6 mb-6">
+        <div class="shrink-0 w-16 h-16 bg-brand-700 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+          RK
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-slate-900">Rob Kraft</h3>
+          <p class="text-slate-500 text-sm mt-0.5">KC Tech Community Organizer &amp; Developer</p>
+        </div>
+      </div>
+      <p class="text-slate-600 leading-relaxed mb-6">
+        I'm a software developer and longtime participant in the Kansas City tech community. I've been involved
+        in organizing, attending, and promoting KC tech meetups for years, and I built this site because I believe
+        a thriving local tech scene depends on people being able to find each other — the groups, the events,
+        the venues, and the organizations that make it all happen.
+      </p>
+      <p class="text-slate-600 leading-relaxed mb-10">
+        I volunteer my time to keep TechKC up to date, but it's a community resource — corrections,
+        additions, and pull requests are always welcome.
+      </p>
+
+      <hr class="border-slate-200 my-10" />
+
+      <h2 class="text-2xl font-bold text-slate-900 mb-4">Get in Touch</h2>
+      <p class="text-slate-600 leading-relaxed mb-6">
+        Have a listing to add or update? Found something incorrect? Just want to say hello?
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a
+          href="/submit"
+          class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg text-sm transition-colors"
+        >
+          Submit or Update a Listing &rarr;
+        </a>
+        <a
+          id="email-rob"
+          href="#"
+          class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-slate-300 hover:border-brand-400 text-slate-700 hover:text-brand-700 font-semibold rounded-lg text-sm transition-colors"
+        >
+          Email Rob
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const a = document.getElementById('email-rob') as HTMLAnchorElement;
+  const u = ['rob', 'robkraft.org'].join('@');
+  a.href = 'mailto:' + u;
+</script>
