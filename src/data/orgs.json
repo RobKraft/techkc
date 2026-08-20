@@ -110,5 +110,14 @@
     "url": "https://www.launchcode.org",
     "category": "Education",
     "tags": ["coding", "education", "jobs", "nonprofit"]
+  },
+  {
+    "name": "Keystone CoLAB",
+    "shortName": "",
+    "description": "Kansas City's front door to innovation. The Keystone Innovation District's CoLAB space brings together entrepreneurs, industry leaders, and community partners through accelerators, mentorship, and angel investing programs to advance the region's innovation ecosystem.",
+    "url": "https://www.keystonedistrict.org/",
+    "eventsUrl": "https://keynect.ai/keystone-colab-events",
+    "category": "Innovation District",
+    "tags": ["innovation", "entrepreneurship", "accelerator", "co-working"]
   }
 ]

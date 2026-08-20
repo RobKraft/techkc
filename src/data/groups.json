@@ -154,16 +154,6 @@
     "active": true
   },
   {
-    "id": "fortikc",
-    "name": "FortiKC User Group",
-    "description": "Kansas City Fortinet user group. Network security, firewall administration, and best practices for Fortinet products.",
-    "url": "https://www.meetup.com/fortikc-user-group/",
-    "meetupUrl": "https://www.meetup.com/fortikc-user-group/",
-    "topics": ["Fortinet", "Network Security", "Firewalls", "Security"],
-    "frequency": "Monthly",
-    "active": true
-  },
-  {
     "id": "global-ai-kc",
     "name": "Global AI KC",
     "description": "Kansas City chapter of the Global AI Community. Focused on artificial intelligence, machine learning, and AI application development.",
@@ -187,16 +177,6 @@
     "description": "Kansas City chapter of 2600: The Hacker Quarterly. Monthly informal meetup for hackers, makers, and security enthusiasts.",
     "url": "http://www.kc2600.com/",
     "topics": ["Security", "Hacking", "Hardware", "CTF"],
-    "frequency": "Monthly",
-    "active": true
-  },
-  {
-    "id": "htb-kc",
-    "name": "Hack the Box — Kansas City",
-    "description": "Kansas City Hack The Box meetup. Collaborative CTF practice, offensive security training, and hacking challenges.",
-    "url": "https://www.meetup.com/hack-the-box-meetup-kansas-city-ks-us",
-    "meetupUrl": "https://www.meetup.com/hack-the-box-meetup-kansas-city-ks-us",
-    "topics": ["CTF", "Security", "Penetration Testing", "Hacking"],
     "frequency": "Monthly",
     "active": true
   },
@@ -430,16 +410,6 @@
     "active": true
   },
   {
-    "id": "kc-qlik",
-    "name": "KC Qlik Group",
-    "description": "Kansas City Qlik user group. QlikSense, QlikView, and data visualization for BI professionals.",
-    "url": "https://www.meetup.com/kc-qlik-group/",
-    "meetupUrl": "https://www.meetup.com/kc-qlik-group/",
-    "topics": ["Qlik", "QlikSense", "Business Intelligence", "Data Visualization"],
-    "frequency": "Monthly",
-    "active": true
-  },
-  {
     "id": "kc-tech-book-club",
     "name": "KC Tech Book Club",
     "description": "Monthly reading and discussion of technical and technology-adjacent books. All tech backgrounds welcome.",
@@ -497,15 +467,6 @@
     "active": true
   },
   {
-    "id": "kc-ms-access",
-    "name": "Microsoft Access KC",
-    "description": "Kansas City Microsoft Access user group. Database development, VBA, and desktop application development with Access.",
-    "url": "https://www.kansascityusergroups.com/p/kansas-city-microsoft-access-user-group.html",
-    "topics": ["Microsoft Access", "Database", "VBA", "Office"],
-    "frequency": "Monthly",
-    "active": true
-  },
-  {
     "id": "next-five",
     "name": "Next Five Meetup",
     "description": "Kansas City startup and innovation community. Connecting entrepreneurs, investors, and tech leaders around what's coming next.",
@@ -540,25 +501,6 @@
     "description": "Kansas City's premier information security group. Monthly meetings with security presentations, demos, and CTF competitions.",
     "url": "http://seckc.org/",
     "topics": ["Security", "InfoSec", "CTF", "Hacking"],
-    "frequency": "Monthly",
-    "active": true
-  },
-  {
-    "id": "kc-sharepoint-o365",
-    "name": "SharePoint & Office 365 KC",
-    "description": "Kansas City SharePoint and Office 365 Users Group. Practical SharePoint development, administration, and O365 tips.",
-    "url": "https://www.meetup.com/Kansas-City-SharePoint-Office-365-Users-Group/",
-    "meetupUrl": "https://www.meetup.com/Kansas-City-SharePoint-Office-365-Users-Group/",
-    "topics": ["SharePoint", "Office 365", "Microsoft 365", "Power Platform"],
-    "frequency": "Monthly",
-    "active": true
-  },
-  {
-    "id": "smarter-sharepoint-kc",
-    "name": "Smarter SharePoint KC",
-    "description": "Smarter SharePoint Kansas City User Group. Best practices for SharePoint adoption, governance, and administration.",
-    "url": "https://www.linkedin.com/groups/4768892",
-    "topics": ["SharePoint", "Microsoft 365", "Power Platform", "Governance"],
     "frequency": "Monthly",
     "active": true
   },
