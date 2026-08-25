@@ -314,5 +314,17 @@
     "type": "Conference",
     "cost": "Free",
     "tags": ["Google", "GCP", "Android", "Community"]
+  },
+  {
+    "id": "dwkc-minicon-2026",
+    "name": "DWKC MiniCon",
+    "description": "Digital Women KC's annual one-day conference exploring the intersection of technology and humanity, with sessions on AI, automation, and professional development for women in digital fields.",
+    "url": "https://www.digitalwomenkansascity.org/events-1/dwkc-minicon-2026",
+    "date": "2026-09-16",
+    "endDate": "2026-09-16",
+    "location": "Overland Park, KS",
+    "type": "Conference",
+    "cost": "Paid",
+    "tags": ["Women in Tech", "AI", "Professional Development", "Community"]
   }
 ]
