@@ -85,6 +85,15 @@
     "active": true
   },
   {
+    "id": "dama-kc",
+    "name": "DAMA Kansas City",
+    "description": "Kansas City chapter of the Data Management Association. Welcomes data management professionals in the greater KC area for educational and social functions, including the annual DAMA Day event.",
+    "url": "https://kcdama.org/",
+    "topics": ["Data Management", "Data Governance", "Data Administration"],
+    "frequency": "Quarterly",
+    "active": true
+  },
+  {
     "id": "data-professionals-kc",
     "name": "Data Professionals KC",
     "description": "Kansas City's community for data professionals covering analytics, business intelligence, data engineering, and data strategy.",
@@ -121,6 +130,15 @@
     "meetupUrl": "http://www.meetup.com/DevOps-Kansas-City/",
     "topics": ["DevOps", "CI/CD", "Terraform", "GitHub Actions"],
     "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "digital-scene-kc",
+    "name": "Digital Scene KC",
+    "description": "Informal networking gatherings for Kansas City's digital media professionals. Each casual, after-hours event centers on a subject or discipline important to KC's digital media industry, hosted at venues like UMKC's AR/VR labs and local production studios.",
+    "url": "https://www.kcimagine.org/about-digital-scene-kc-event-series",
+    "topics": ["Digital Media", "AR/VR", "Animation", "Networking"],
+    "frequency": "Irregular",
     "active": true
   },
   {
@@ -348,6 +366,15 @@
     "url": "https://www.meetup.com/kansas-city-sql-server-users-group/",
     "meetupUrl": "https://www.meetup.com/kansas-city-sql-server-users-group/",
     "topics": ["SQL Server", "T-SQL", "Power BI", "Database"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "kc-tableau",
+    "name": "Kansas City Tableau User Group",
+    "description": "Kansas City's Tableau community for data visualization and analytics professionals. Monthly virtual calls plus periodic in-person gatherings covering Tableau techniques, best practices, and networking.",
+    "url": "https://usergroups.tableau.com/kansas-city-tableau-user-group/",
+    "topics": ["Tableau", "Data Visualization", "Analytics", "Business Intelligence"],
     "frequency": "Monthly",
     "active": true
   },

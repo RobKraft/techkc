@@ -112,6 +112,14 @@
     "tags": ["coding", "education", "jobs", "nonprofit"]
   },
   {
+    "name": "The Foundership",
+    "shortName": "",
+    "description": "A Kansas City community network bringing together female and non-binary founders to collaborate and support each other while building their businesses. Offers quarterly meet-ups, Coffee Cohorts, an annual Compass Retreat, and a virtual community platform.",
+    "url": "https://www.thefoundership.com/",
+    "category": "Community",
+    "tags": ["women in tech", "entrepreneurship", "founders", "networking"]
+  },
+  {
     "name": "Keystone CoLAB",
     "shortName": "",
     "description": "Kansas City's front door to innovation. The Keystone Innovation District's CoLAB space brings together entrepreneurs, industry leaders, and community partners through accelerators, mentorship, and angel investing programs to advance the region's innovation ecosystem.",
