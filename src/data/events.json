@@ -292,6 +292,18 @@
     "tags": ["IT Leadership", "Enterprise IT", "Expo"]
   },
   {
+    "id": "kidstechday-2026",
+    "name": "Kids Tech Day",
+    "description": "Family-friendly tech event for kids ages 5-18 featuring hands-on coding, robotics demos, VR stations, creative STEAM workshops, and career exploration. Sponsored by Garmin, VML, KCTV5, and others.",
+    "url": "https://www.kidstechday.org/",
+    "date": "2026-09-12",
+    "endDate": "2026-09-12",
+    "location": "Kansas City, MO",
+    "type": "Workshop",
+    "cost": "Free",
+    "tags": ["Kids", "STEAM", "Robotics", "Family", "Education"]
+  },
+  {
     "id": "devfest-kc-2026",
     "name": "DevFest KC",
     "description": "Google Developer Group Kansas City's annual DevFest — a community-run tech conference covering Google technologies and modern development.",
