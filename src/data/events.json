@@ -180,19 +180,6 @@
     "tags": ["Conference", "Multi-track", "All Topics"]
   },
   {
-    "id": "kcbadd-2026",
-    "name": "KCBADD — Business Analysis Development Day",
-    "description": "IIBA Kansas City's annual Business Analysis Development Day. Sessions on BA skills, requirements, and professional development. Virtual event.",
-    "url": "https://kansascity.iiba.org/",
-    "date": "2026-09-01",
-    "endDate": "2026-09-01",
-    "dateTBD": true,
-    "location": "Virtual",
-    "type": "Conference",
-    "cost": "Paid",
-    "tags": ["Business Analysis", "IIBA", "Virtual", "Professional Development"]
-  },
-  {
     "id": "central-iowa-symposium-2026",
     "name": "Central Iowa Software Symposium",
     "description": "NFJS-style developer symposium in Des Moines covering languages, frameworks, architecture, and agile practices.",
@@ -206,12 +193,11 @@
   },
   {
     "id": "pmi-pdd-2026",
-    "name": "PMI KC Professional Development Days",
-    "description": "PMI Kansas City chapter's annual Professional Development Days. PDUs, project management skills, and leadership sessions.",
-    "url": "https://pmikc.org/",
-    "date": "2026-09-01",
-    "endDate": "2026-09-01",
-    "dateTBD": true,
+    "name": "PMI KC Professional Development Day",
+    "description": "PMI Kansas City chapter's annual Professional Development Day. Full-day conference offering 20 PDUs, with project management skills and leadership sessions.",
+    "url": "https://pmikc.org/calendar",
+    "date": "2026-09-21",
+    "endDate": "2026-09-21",
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Paid",
@@ -233,7 +219,7 @@
     "id": "heartland-dev-conf-2026",
     "name": "Heartland Developers Conference",
     "description": "Annual developer conference hosted by the AIM Institute in Omaha. Technical sessions for software developers and IT professionals.",
-    "url": "https://hdc.aiminstitute.org/",
+    "url": "https://www.aiminstitute.org/hdc",
     "date": "2026-10-01",
     "endDate": "2026-10-01",
     "dateTBD": true,
@@ -247,9 +233,8 @@
     "name": "Hack Midwest",
     "description": "The Midwest's largest hackathon. 24+ hours of building, learning, and competing for prizes across many tracks.",
     "url": "https://hackmidwest.com/",
-    "date": "2026-10-01",
-    "endDate": "2026-10-01",
-    "dateTBD": true,
+    "date": "2026-10-10",
+    "endDate": "2026-10-11",
     "location": "Kansas City, MO",
     "type": "Hackathon",
     "cost": "Free",
@@ -326,5 +311,17 @@
     "type": "Conference",
     "cost": "Paid",
     "tags": ["Women in Tech", "AI", "Professional Development", "Community"]
+  },
+  {
+    "id": "iiba-kc-product-through-project-2026",
+    "name": "Product Through Project: Roles, Disciplines, and Finding Common Ground",
+    "description": "IIBA Kansas City panel discussion exploring the intersection of product and project management roles, examining different disciplines and identifying areas of collaboration.",
+    "url": "https://kansascity.iiba.org/Events/product-through-project-—-roles-disciplines-and-finding-common-ground-a-panel-discussion",
+    "date": "2026-09-23",
+    "endDate": "2026-09-23",
+    "location": "Kansas City, MO",
+    "type": "Workshop",
+    "cost": "Free",
+    "tags": ["Business Analysis", "Product Management", "Project Management", "Panel"]
   }
 ]
