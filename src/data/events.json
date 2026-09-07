@@ -205,9 +205,9 @@
   },
   {
     "id": "devup-2026",
-    "name": "DevUp Conference",
-    "description": "Developer conference in St. Louis covering software development, architecture, DevOps, and more. Formerly Midwest.io.",
-    "url": "http://www.devupconf.org/",
+    "name": "The Cloud and AAI Summit (DevUp)",
+    "description": "DevUp Conference's Cloud and AAI Summit in St. Louis, covering cloud, AI, software development, architecture, and DevOps. Formerly Midwest.io.",
+    "url": "https://www.devupconf.org/",
     "date": "2026-09-30",
     "endDate": "2026-10-02",
     "location": "St. Louis, MO",
