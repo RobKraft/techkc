@@ -313,6 +313,18 @@
     "tags": ["Women in Tech", "AI", "Professional Development", "Community"]
   },
   {
+    "id": "kc-ai-club-human-first-ai-2026",
+    "name": "Kansas City AI Club Meetup: Human-First AI",
+    "description": "Kansas City AI Club meetup exploring human-first approaches to AI, hosted at Garmin's Olathe campus.",
+    "url": "https://www.linkedin.com/events/7502764077249794049/",
+    "date": "2026-09-22",
+    "endDate": "2026-09-22",
+    "location": "Olathe, KS",
+    "type": "Workshop",
+    "cost": "Free",
+    "tags": ["AI", "Community", "Meetup"]
+  },
+  {
     "id": "iiba-kc-product-through-project-2026",
     "name": "Product Through Project: Roles, Disciplines, and Finding Common Ground",
     "description": "IIBA Kansas City panel discussion exploring the intersection of product and project management roles, examining different disciplines and identifying areas of collaboration.",
