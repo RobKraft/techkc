@@ -1,0 +1,29 @@
+---
+import Calendar from '../../components/Calendar.astro';
+import events from '../../data/events.json';
+
+// This is a statically-generated site (no per-request server), so the `?view=`
+// query param an embedding page sets can't be read here at build time — it's
+// read client-side instead (see Calendar.astro's script, which checks
+// location.search before falling back to this default).
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>TechKC Events Calendar</title>
+    <style>
+      html, body { background: transparent; }
+      body { margin: 0; }
+    </style>
+  </head>
+  <body class="text-slate-800 font-sans p-2 sm:p-3">
+    <Calendar events={events} year={2026} defaultView="compact" persistView={false} />
+  </body>
+</html>

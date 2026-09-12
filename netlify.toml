@@ -18,3 +18,8 @@
   from = "/*"
   to = "/404"
   status = 404
+
+[[headers]]
+  for = "/embed/*"
+  [headers.values]
+    Content-Security-Policy = "frame-ancestors *"

@@ -1,0 +1,525 @@
+---
+interface CalEvent {
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+  date: string;
+  endDate?: string;
+  dateTBD?: boolean;
+  location: string;
+  type: string;
+  cost: string;
+  tags: string[];
+}
+
+interface Props {
+  events: CalEvent[];
+  year?: number;
+  defaultView?: 'compact' | 'week' | 'month';
+  showTodayRing?: boolean;
+  /** Remember the visitor's chosen view across visits via localStorage. Disable
+   *  for the embed page: an embedding site's `?view=` choice must always win,
+   *  and since the iframe's content is served from this same origin regardless
+   *  of embedding site, a stored preference from techkc.org itself would
+   *  otherwise leak into (and override) every embed. */
+  persistView?: boolean;
+}
+
+const {
+  events,
+  year = 2026,
+  defaultView = 'compact',
+  showTodayRing = true,
+  persistView = true,
+} = Astro.props;
+
+const YEAR = year;
+const MONTH_NAMES = [
+  'January','February','March','April','May','June',
+  'July','August','September','October','November','December',
+];
+const MONTH_ABBR = MONTH_NAMES.map(m => m.slice(0, 3));
+const DAY_ABBR = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+// ── Calendar data: expand multi-day ranges into per-date maps ─────────────
+const dateTypeMap  = new Map<string, string>();      // date → first event type (compact dot)
+const dateTitleMap = new Map<string, string>();      // date → tooltip text (compact dot)
+const dayEventsMap = new Map<string, CalEvent[]>();   // date → events on that day (week/month chips)
+
+for (const ev of events) {
+  if (ev.dateTBD) continue;
+  const start = new Date(ev.date + 'T12:00:00');
+  const end   = ev.endDate ? new Date(ev.endDate + 'T12:00:00') : start;
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+    const k = d.toISOString().slice(0, 10);
+    if (!dateTypeMap.has(k)) dateTypeMap.set(k, ev.type);
+    const cur = dateTitleMap.get(k);
+    dateTitleMap.set(k, cur ? `${cur} · ${ev.name}` : ev.name);
+    if (!dayEventsMap.has(k)) dayEventsMap.set(k, []);
+    dayEventsMap.get(k)!.push(ev);
+  }
+}
+
+const monthHasTBD = MONTH_NAMES.map((_, m) =>
+  events.some(e => e.dateTBD && new Date(e.date + 'T12:00:00').getMonth() === m)
+);
+
+function calCells(month: number): (number | null)[] {
+  const firstDay = new Date(YEAR, month, 1).getDay();
+  const days     = new Date(YEAR, month + 1, 0).getDate();
+  const arr: (number | null)[] = [
+    ...Array(firstDay).fill(null),
+    ...Array.from({ length: days }, (_, i) => i + 1),
+  ];
+  while (arr.length % 7 !== 0) arr.push(null);
+  return arr;
+}
+
+const TYPE_BG: Record<string, string> = {
+  Conference:   'bg-purple-500',
+  Hackathon:    'bg-pink-500',
+  Workshop:     'bg-amber-500',
+  Unconference: 'bg-teal-500',
+};
+
+const TYPE_BORDER: Record<string, string> = {
+  Conference:   'border-purple-400',
+  Hackathon:    'border-pink-400',
+  Workshop:     'border-amber-400',
+  Unconference: 'border-teal-400',
+};
+
+// Pre-compute per-month event lists for the compact view's sidebar
+const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
+
+function fmtDateRange(ev: CalEvent): string {
+  if (ev.dateTBD) {
+    return new Date(ev.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long' }) + ' (date TBD)';
+  }
+  const s = new Date(ev.date + 'T12:00:00');
+  const e = ev.endDate ? new Date(ev.endDate + 'T12:00:00') : null;
+  if (e && ev.endDate !== ev.date) {
+    return `${s.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}–${e.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+  }
+  return s.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// ── Week grid: Sunday-start weeks spanning the whole year ─────────────────
+const jan1 = new Date(YEAR, 0, 1);
+const dec31 = new Date(YEAR, 11, 31);
+const firstSunday = new Date(jan1);
+firstSunday.setDate(jan1.getDate() - jan1.getDay());
+const lastSaturday = new Date(dec31);
+lastSaturday.setDate(dec31.getDate() + (6 - dec31.getDay()));
+const WEEK_COUNT = Math.round((lastSaturday.getTime() - firstSunday.getTime()) / (7 * 86400000)) + 1;
+
+interface WeekDay { key: string; day: number; month: number; inYear: boolean; }
+
+function weekCells(week: number): WeekDay[] {
+  const start = new Date(firstSunday);
+  start.setDate(firstSunday.getDate() + week * 7);
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(start);
+    d.setDate(start.getDate() + i);
+    return {
+      key: d.toISOString().slice(0, 10),
+      day: d.getDate(),
+      month: d.getMonth(),
+      inYear: d.getFullYear() === YEAR,
+    };
+  });
+}
+
+function weekLabel(week: number): string {
+  const cells = weekCells(week);
+  const s = cells[0], e = cells[6];
+  const sameMonth = s.month === e.month;
+  const sFmt = `${MONTH_ABBR[s.month]} ${s.day}`;
+  const eFmt = sameMonth ? `${e.day}` : `${MONTH_ABBR[e.month]} ${e.day}`;
+  return `${sFmt} – ${eFmt}, ${YEAR}`;
+}
+
+// Which week index contains a given month's 1st (used for initial week + view sync)
+function weekIndexForMonth(month: number): number {
+  const target = new Date(YEAR, month, 1).getTime();
+  for (let w = 0; w < WEEK_COUNT; w++) {
+    const start = new Date(firstSunday);
+    start.setDate(firstSunday.getDate() + w * 7);
+    const end = new Date(start);
+    end.setDate(start.getDate() + 6);
+    if (target >= start.getTime() && target <= end.getTime()) return w;
+  }
+  return 0;
+}
+
+const today = new Date();
+const todayInYear = today.getFullYear() === YEAR;
+const initialMonth = todayInYear ? today.getMonth() : 0;
+let initialWeek = 0;
+for (let w = 0; w < WEEK_COUNT; w++) {
+  const cells = weekCells(w);
+  if (cells.some(c => c.key === today.toISOString().slice(0, 10))) { initialWeek = w; break; }
+}
+if (!todayInYear) initialWeek = weekIndexForMonth(0);
+
+const VIEWS = ['compact', 'week', 'month'] as const;
+const VIEW_LABELS: Record<(typeof VIEWS)[number], string> = {
+  compact: 'Compact',
+  week: 'Week',
+  month: 'Month',
+};
+
+function chipsForDay(key: string, max: number) {
+  const evs = (dayEventsMap.get(key) ?? []).filter(e => !e.dateTBD);
+  return { shown: evs.slice(0, max), extra: Math.max(0, evs.length - max) };
+}
+---
+
+<div class="bg-white border border-slate-200 rounded-xl p-4 sm:p-5">
+
+  <!-- View switch -->
+  <div class="flex items-center justify-between gap-3 mb-4 flex-wrap">
+    <div class="inline-flex rounded-lg border border-slate-200 p-0.5 bg-slate-50" role="tablist" aria-label="Calendar view">
+      {VIEWS.map(v => (
+        <button
+          type="button"
+          class="view-tab px-3 py-1.5 text-sm font-medium rounded-md transition-colors text-slate-600 hover:text-slate-900"
+          data-view={v}
+          aria-pressed="false"
+        >
+          {VIEW_LABELS[v]}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- ── Compact view (small grid + per-month list) ─────────────────────── -->
+  <div id="view-compact" class="cal-view hidden">
+    <div class="flex items-center gap-3 mb-4">
+      <button id="cal-prev" aria-label="Previous month"
+        class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600
+               hover:bg-slate-100 hover:border-slate-300 transition-colors disabled:opacity-30 disabled:pointer-events-none">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span id="cal-month-label" class="flex-1 text-center font-semibold text-slate-800 text-base sm:text-lg"></span>
+      <button id="cal-next" aria-label="Next month"
+        class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600
+               hover:bg-slate-100 hover:border-slate-300 transition-colors disabled:opacity-30 disabled:pointer-events-none">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-5">
+      <div class="md:w-64 lg:w-72 shrink-0">
+        <div class="grid grid-cols-7 mb-1">
+          {DAY_ABBR.map(d => <div class="text-center text-xs font-medium text-slate-400 py-1">{d}</div>)}
+        </div>
+
+        {MONTH_NAMES.map((_, month) => (
+          <div id={`cal-grid-${month}`} class="month-cal-grid hidden grid grid-cols-7 gap-0.5">
+            {calCells(month).map(day => {
+              if (day === null) return <div />;
+              const key  = `${YEAR}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+              const type = dateTypeMap.get(key);
+              const tip  = dateTitleMap.get(key);
+              const bg   = type ? (TYPE_BG[type] ?? 'bg-brand-500') : '';
+              return (
+                <div
+                  data-caldate={key}
+                  title={tip}
+                  class={`aspect-square flex items-center justify-center text-sm rounded-full leading-none select-none
+                    ${type ? `${bg} text-white font-bold cursor-default` : 'text-slate-600 hover:bg-slate-100 cursor-default'}`}
+                >
+                  {day}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+
+        <div class="mt-3 pt-3 border-t border-slate-100 flex flex-wrap gap-x-3 gap-y-1">
+          {Object.entries(TYPE_BG).map(([type, bg]) => (
+            <span class="flex items-center gap-1 text-xs text-slate-500">
+              <span class={`w-2 h-2 rounded-full ${bg} inline-block shrink-0`}></span>
+              {type}
+            </span>
+          ))}
+          {monthHasTBD.some(Boolean) && (
+            <span class="flex items-center gap-1 text-xs text-amber-600">
+              <span class="font-bold">TBD</span> = date unconfirmed
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div class="flex-1 min-w-0">
+        {MONTH_NAMES.map((name, month) => {
+          const monthEvts = sorted.filter(e => new Date(e.date + 'T12:00:00').getMonth() === month);
+          return (
+            <div id={`month-list-${month}`} class="month-events-list hidden">
+              {monthEvts.length === 0 ? (
+                <p class="text-sm text-slate-400 italic py-4 text-center">No events in {name}.</p>
+              ) : (
+                <div class="space-y-2">
+                  <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">
+                    {monthEvts.length} event{monthEvts.length !== 1 ? 's' : ''} in {name}
+                  </p>
+                  {monthEvts.map(ev => {
+                    const bc = TYPE_BORDER[ev.type] ?? 'border-brand-400';
+                    const dateStr = fmtDateRange(ev);
+                    return (
+                      <a href={ev.url} target="_blank" rel="noopener"
+                        class={`flex flex-col gap-0.5 px-3 py-2.5 rounded-lg border-l-4 ${bc} bg-slate-50 hover:bg-slate-100 transition-colors group`}>
+                        <span class="text-sm font-semibold text-slate-900 group-hover:text-brand-700 transition-colors leading-snug">
+                          {ev.name}
+                        </span>
+                        <span class="text-xs text-slate-500">
+                          {dateStr}
+                          {ev.location !== 'Kansas City, MO' && <span class="ml-1 text-slate-400">· {ev.location}</span>}
+                          {ev.dateTBD && <span class="ml-1 text-amber-600 font-medium">(date TBD)</span>}
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Month view (full Google-Calendar-style grid with event chips) ──── -->
+  <div id="view-month" class="cal-view hidden">
+    <div class="flex items-center gap-3 mb-4">
+      <button id="cal-month-prev" aria-label="Previous month"
+        class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600
+               hover:bg-slate-100 hover:border-slate-300 transition-colors disabled:opacity-30 disabled:pointer-events-none">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span id="cal-month-full-label" class="flex-1 text-center font-semibold text-slate-800 text-base sm:text-lg"></span>
+      <button id="cal-month-next" aria-label="Next month"
+        class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600
+               hover:bg-slate-100 hover:border-slate-300 transition-colors disabled:opacity-30 disabled:pointer-events-none">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-7 mb-1">
+      {DAY_ABBR.map(d => <div class="text-center text-xs font-medium text-slate-400 py-1">{d}</div>)}
+    </div>
+
+    {MONTH_NAMES.map((_, month) => (
+      <div id={`cal-grid-month-full-${month}`} class="month-full-grid hidden grid grid-cols-7 gap-1">
+        {calCells(month).map(day => {
+          if (day === null) return <div class="min-h-[86px] rounded-lg bg-slate-50/50" />;
+          const key = `${YEAR}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const { shown, extra } = chipsForDay(key, 3);
+          return (
+            <div data-caldate={key} class="min-h-[86px] rounded-lg border border-slate-100 p-1 flex flex-col gap-0.5">
+              <span class="text-xs font-medium text-slate-500 px-0.5">{day}</span>
+              {shown.map(ev => (
+                <a href={ev.url} target="_blank" rel="noopener" title={ev.name}
+                  class={`text-[11px] leading-tight text-white rounded px-1 py-0.5 truncate ${TYPE_BG[ev.type] ?? 'bg-brand-500'} hover:opacity-90`}>
+                  {ev.name}
+                </a>
+              ))}
+              {extra > 0 && (
+                <span class="text-[11px] text-slate-400 px-1" title={(dayEventsMap.get(key) ?? []).slice(3).map(e => e.name).join(', ')}>
+                  +{extra} more
+                </span>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    ))}
+  </div>
+
+  <!-- ── Week view (7-day row with full event chips) ─────────────────────── -->
+  <div id="view-week" class="cal-view hidden">
+    <div class="flex items-center gap-3 mb-4">
+      <button id="cal-week-prev" aria-label="Previous week"
+        class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600
+               hover:bg-slate-100 hover:border-slate-300 transition-colors disabled:opacity-30 disabled:pointer-events-none">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span id="cal-week-label" class="flex-1 text-center font-semibold text-slate-800 text-base sm:text-lg"></span>
+      <button id="cal-week-next" aria-label="Next week"
+        class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600
+               hover:bg-slate-100 hover:border-slate-300 transition-colors disabled:opacity-30 disabled:pointer-events-none">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    {Array.from({ length: WEEK_COUNT }, (_, week) => (
+      <div id={`cal-grid-week-${week}`} data-label={weekLabel(week)} class="week-grid hidden grid grid-cols-7 gap-1">
+        {weekCells(week).map(({ key, day, month, inYear }) => {
+          const { shown, extra } = chipsForDay(key, 6);
+          return (
+            <div class={`min-h-[160px] rounded-lg border border-slate-100 p-1.5 flex flex-col gap-1 ${inYear ? '' : 'bg-slate-50/50'}`}>
+              <span class={`text-xs font-medium px-0.5 ${inYear ? 'text-slate-500' : 'text-slate-300'}`}>
+                {MONTH_ABBR[month]} {day}
+              </span>
+              {shown.map(ev => (
+                <a href={ev.url} target="_blank" rel="noopener" title={ev.name}
+                  class={`text-xs leading-snug text-white rounded px-1.5 py-1 ${TYPE_BG[ev.type] ?? 'bg-brand-500'} hover:opacity-90`}>
+                  {ev.name}
+                </a>
+              ))}
+              {extra > 0 && (
+                <span class="text-xs text-slate-400 px-1">+{extra} more</span>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    ))}
+  </div>
+
+</div>
+
+<script define:vars={{ YEAR, MONTH_NAMES, defaultView, initialMonth, initialWeek, WEEK_COUNT, showTodayRing, persistView }}>
+  const STORAGE_KEY = 'techkc-calendar-view';
+  const VALID_VIEWS = ['compact', 'week', 'month'];
+
+  function readStoredView() {
+    if (!persistView) return null;
+    try {
+      const v = localStorage.getItem(STORAGE_KEY);
+      return VALID_VIEWS.includes(v) ? v : null;
+    } catch {
+      return null;
+    }
+  }
+  function storeView(v) {
+    if (!persistView) return;
+    try { localStorage.setItem(STORAGE_KEY, v); } catch {}
+  }
+  function readQueryView() {
+    // This is a static site with no per-request server, so an embedding
+    // page's `?view=` can only be applied client-side, not read at build time.
+    try {
+      const v = new URLSearchParams(location.search).get('view');
+      return VALID_VIEWS.includes(v) ? v : null;
+    } catch {
+      return null;
+    }
+  }
+
+  let currentView = readQueryView() || readStoredView() || defaultView;
+  let calMonth = initialMonth;
+  let calWeek  = initialWeek;
+
+  const tabs = document.querySelectorAll('.view-tab');
+  const viewContainers = {
+    compact: document.getElementById('view-compact'),
+    month:   document.getElementById('view-month'),
+    week:    document.getElementById('view-week'),
+  };
+
+  // ── Compact view refs ──────────────────────────────────────────────────
+  const compactPrev  = document.getElementById('cal-prev');
+  const compactNext  = document.getElementById('cal-next');
+  const compactLabel = document.getElementById('cal-month-label');
+
+  // ── Month view refs ────────────────────────────────────────────────────
+  const monthPrev  = document.getElementById('cal-month-prev');
+  const monthNext  = document.getElementById('cal-month-next');
+  const monthLabel = document.getElementById('cal-month-full-label');
+
+  // ── Week view refs ─────────────────────────────────────────────────────
+  const weekPrev  = document.getElementById('cal-week-prev');
+  const weekNext  = document.getElementById('cal-week-next');
+  const weekLabelEl = document.getElementById('cal-week-label');
+
+  function weekLabelText(week) {
+    const el = document.getElementById(`cal-grid-week-${week}`);
+    return el?.dataset.label ?? '';
+  }
+
+  // ── Mark today ─────────────────────────────────────────────────────────
+  if (showTodayRing) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayKey = today.getFullYear() === YEAR
+      ? [YEAR, String(today.getMonth() + 1).padStart(2, '0'), String(today.getDate()).padStart(2, '0')].join('-')
+      : null;
+    if (todayKey) {
+      document.querySelectorAll(`[data-caldate="${todayKey}"]`).forEach(cell => {
+        if (cell.classList.contains('text-white')) {
+          cell.classList.add('ring-2', 'ring-white', 'ring-offset-1', 'ring-offset-transparent');
+        } else {
+          cell.classList.add('ring-2', 'ring-slate-500', 'font-bold');
+        }
+      });
+    }
+  }
+
+  function renderCompact(month) {
+    document.querySelectorAll('.month-cal-grid, .month-events-list').forEach(el => el.classList.add('hidden'));
+    document.getElementById(`cal-grid-${month}`)?.classList.remove('hidden');
+    document.getElementById(`month-list-${month}`)?.classList.remove('hidden');
+    compactLabel.textContent = `${MONTH_NAMES[month]} ${YEAR}`;
+    compactPrev.disabled = month === 0;
+    compactNext.disabled = month === 11;
+    document.dispatchEvent(new CustomEvent('techkc-calendar-month-change', { detail: { month } }));
+  }
+
+  function renderMonth(month) {
+    document.querySelectorAll('.month-full-grid').forEach(el => el.classList.add('hidden'));
+    document.getElementById(`cal-grid-month-full-${month}`)?.classList.remove('hidden');
+    monthLabel.textContent = `${MONTH_NAMES[month]} ${YEAR}`;
+    monthPrev.disabled = month === 0;
+    monthNext.disabled = month === 11;
+  }
+
+  function renderWeek(week) {
+    document.querySelectorAll('.week-grid').forEach(el => el.classList.add('hidden'));
+    document.getElementById(`cal-grid-week-${week}`)?.classList.remove('hidden');
+    weekLabelEl.textContent = weekLabelText(week);
+    weekPrev.disabled = week === 0;
+    weekNext.disabled = week === WEEK_COUNT - 1;
+  }
+
+  function setView(view) {
+    currentView = view;
+    storeView(view);
+    Object.entries(viewContainers).forEach(([name, el]) => el?.classList.toggle('hidden', name !== view));
+    tabs.forEach(t => {
+      const active = t.dataset.view === view;
+      t.classList.toggle('bg-white', active);
+      t.classList.toggle('shadow-sm', active);
+      t.classList.toggle('text-slate-900', active);
+      t.setAttribute('aria-pressed', String(active));
+    });
+    if (view === 'compact') renderCompact(calMonth);
+    if (view === 'month')   renderMonth(calMonth);
+    if (view === 'week')    renderWeek(calWeek);
+  }
+
+  tabs.forEach(tab => tab.addEventListener('click', () => setView(tab.dataset.view)));
+
+  compactPrev.addEventListener('click', () => { if (calMonth > 0) { calMonth--; renderCompact(calMonth); } });
+  compactNext.addEventListener('click', () => { if (calMonth < 11) { calMonth++; renderCompact(calMonth); } });
+  monthPrev.addEventListener('click', () => { if (calMonth > 0) { calMonth--; renderMonth(calMonth); } });
+  monthNext.addEventListener('click', () => { if (calMonth < 11) { calMonth++; renderMonth(calMonth); } });
+  weekPrev.addEventListener('click', () => { if (calWeek > 0) { calWeek--; renderWeek(calWeek); } });
+  weekNext.addEventListener('click', () => { if (calWeek < WEEK_COUNT - 1) { calWeek++; renderWeek(calWeek); } });
+
+  setView(currentView);
+</script>

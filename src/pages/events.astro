@@ -1,75 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import EventCard from '../components/EventCard.astro';
+import Calendar from '../components/Calendar.astro';
 import events from '../data/events.json';
 
 const YEAR = 2026;
-const MONTH_NAMES = [
-  'January','February','March','April','May','June',
-  'July','August','September','October','November','December',
-];
-const DAY_ABBR = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 
-// ── Calendar data: expand multi-day ranges into per-date maps ─────────────
-const dateTypeMap  = new Map<string, string>(); // date → first event type
-const dateTitleMap = new Map<string, string>(); // date → tooltip text
-
-for (const ev of events) {
-  if ((ev as any).dateTBD) continue;
-  const start = new Date(ev.date + 'T12:00:00');
-  const end   = ev.endDate ? new Date(ev.endDate + 'T12:00:00') : start;
-  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-    const k = d.toISOString().slice(0, 10);
-    if (!dateTypeMap.has(k)) dateTypeMap.set(k, ev.type);
-    const cur = dateTitleMap.get(k);
-    dateTitleMap.set(k, cur ? `${cur} · ${ev.name}` : ev.name);
-  }
-}
-
-const monthHasTBD = MONTH_NAMES.map((_, m) =>
-  events.some(e => (e as any).dateTBD && new Date(e.date + 'T12:00:00').getMonth() === m)
-);
-
-function calCells(month: number): (number | null)[] {
-  const firstDay = new Date(YEAR, month, 1).getDay();
-  const days     = new Date(YEAR, month + 1, 0).getDate();
-  const arr: (number | null)[] = [
-    ...Array(firstDay).fill(null),
-    ...Array.from({ length: days }, (_, i) => i + 1),
-  ];
-  while (arr.length % 7 !== 0) arr.push(null);
-  return arr;
-}
-
-const TYPE_BG: Record<string, string> = {
-  Conference:   'bg-purple-500',
-  Hackathon:    'bg-pink-500',
-  Workshop:     'bg-amber-500',
-  Unconference: 'bg-teal-500',
-};
-
-// Left border colours for the event list
-const TYPE_BORDER: Record<string, string> = {
-  Conference:   'border-purple-400',
-  Hackathon:    'border-pink-400',
-  Workshop:     'border-amber-400',
-  Unconference: 'border-teal-400',
-};
-
-// Pre-compute per-month event lists for the sidebar
+// Pre-compute the sorted list used by the card grid below the calendar
 const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
-
-function fmtDateRange(ev: (typeof events)[0]): string {
-  if ((ev as any).dateTBD) {
-    return new Date(ev.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long' }) + ' (date TBD)';
-  }
-  const s = new Date(ev.date + 'T12:00:00');
-  const e = ev.endDate ? new Date(ev.endDate + 'T12:00:00') : null;
-  if (e && ev.endDate !== ev.date) {
-    return `${s.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}–${e.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
-  }
-  return s.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
 
 // ── Filter dropdowns ──────────────────────────────────────────────────────
 const regions = [...new Set(events.map(e => {
@@ -112,144 +50,31 @@ const regions = [...new Set(events.map(e => {
       </select>
     </div>
 
-    <!-- ── Single-month calendar ────────────────────────────────────────── -->
-    <div class="bg-white border border-slate-200 rounded-xl p-4 sm:p-5">
+    <!-- ── Calendar ─────────────────────────────────────────────────────── -->
+    <div class="flex justify-end">
+      <button
+        id="embed-toggle"
+        type="button"
+        class="text-xs font-medium text-slate-500 hover:text-brand-600 inline-flex items-center gap-1 transition-colors"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16M6 8l-4 4 4 4m12-8l4 4-4 4"/>
+        </svg>
+        Embed this calendar
+      </button>
+    </div>
 
-      <!-- Nav bar -->
-      <div class="flex items-center gap-3 mb-4">
-        <button
-          id="cal-prev"
-          aria-label="Previous month"
-          class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600
-                 hover:bg-slate-100 hover:border-slate-300 transition-colors disabled:opacity-30 disabled:pointer-events-none"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-          </svg>
+    <div id="embed-panel" class="hidden bg-slate-900 text-slate-100 rounded-xl p-4 sm:p-5 text-sm space-y-2">
+      <p class="text-slate-300">Paste this into any webpage to embed the calendar. Add <code class="bg-slate-800 px-1 rounded">?view=week</code> or <code class="bg-slate-800 px-1 rounded">?view=month</code> to the <code class="bg-slate-800 px-1 rounded">src</code> to change the default view.</p>
+      <div class="flex flex-col sm:flex-row gap-2">
+        <code id="embed-snippet" class="flex-1 bg-slate-800 rounded-lg px-3 py-2 text-xs overflow-x-auto whitespace-nowrap">&lt;iframe src="https://techkc.org/embed/calendar" width="100%" height="650" style="border:0"&gt;&lt;/iframe&gt;</code>
+        <button id="embed-copy" type="button" class="px-3 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-xs font-medium transition-colors shrink-0">
+          Copy
         </button>
-
-        <span id="cal-month-label" class="flex-1 text-center font-semibold text-slate-800 text-base sm:text-lg"></span>
-
-        <button
-          id="cal-next"
-          aria-label="Next month"
-          class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600
-                 hover:bg-slate-100 hover:border-slate-300 transition-colors disabled:opacity-30 disabled:pointer-events-none"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
-        </button>
-
-      </div>
-
-      <!-- Calendar grid + event list side by side -->
-      <div class="flex flex-col md:flex-row gap-5">
-
-        <!-- Calendar grid (one per month, hidden by default, shown via JS) -->
-        <div class="md:w-64 lg:w-72 shrink-0">
-          <!-- Day-of-week header (static) -->
-          <div class="grid grid-cols-7 mb-1">
-            {DAY_ABBR.map(d => (
-              <div class="text-center text-xs font-medium text-slate-400 py-1">{d}</div>
-            ))}
-          </div>
-
-          {MONTH_NAMES.map((_, month) => (
-            <div id={`cal-grid-${month}`} class="month-cal-grid hidden grid grid-cols-7 gap-0.5">
-              {calCells(month).map(day => {
-                if (day === null) return <div />;
-                const key  = `${YEAR}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const type = dateTypeMap.get(key);
-                const tip  = dateTitleMap.get(key);
-                const bg   = type ? (TYPE_BG[type] ?? 'bg-brand-500') : '';
-                return (
-                  <div
-                    data-caldate={key}
-                    title={tip}
-                    class={`aspect-square flex items-center justify-center text-sm rounded-full leading-none select-none
-                      ${type
-                        ? `${bg} text-white font-bold cursor-default`
-                        : 'text-slate-600 hover:bg-slate-100 cursor-default'}`}
-                  >
-                    {day}
-                  </div>
-                );
-              })}
-            </div>
-          ))}
-
-          <!-- Type legend -->
-          <div class="mt-3 pt-3 border-t border-slate-100 flex flex-wrap gap-x-3 gap-y-1">
-            {Object.entries(TYPE_BG).map(([type, bg]) => (
-              <span class="flex items-center gap-1 text-xs text-slate-500">
-                <span class={`w-2 h-2 rounded-full ${bg} inline-block shrink-0`}></span>
-                {type}
-              </span>
-            ))}
-            {monthHasTBD.some(Boolean) && (
-              <span class="flex items-center gap-1 text-xs text-amber-600">
-                <span class="font-bold">TBD</span> = date unconfirmed
-              </span>
-            )}
-          </div>
-        </div>
-
-        <!-- Per-month event list (one per month, hidden by default) -->
-        <div class="flex-1 min-w-0">
-          {MONTH_NAMES.map((name, month) => {
-            const monthEvts = sorted.filter(e =>
-              new Date(e.date + 'T12:00:00').getMonth() === month
-            );
-            return (
-              <div id={`month-list-${month}`} class="month-events-list hidden">
-                {monthEvts.length === 0
-                  ? (
-                    <p class="text-sm text-slate-400 italic py-4 text-center">
-                      No events in {name}.
-                    </p>
-                  )
-                  : (
-                    <div class="space-y-2">
-                      <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">
-                        {monthEvts.length} event{monthEvts.length !== 1 ? 's' : ''} in {name}
-                      </p>
-                      {monthEvts.map(ev => {
-                        const bc = TYPE_BORDER[ev.type] ?? 'border-brand-400';
-                        const dateStr = fmtDateRange(ev);
-                        return (
-                          <a
-                            href={ev.url}
-                            target="_blank"
-                            rel="noopener"
-                            class={`flex flex-col gap-0.5 px-3 py-2.5 rounded-lg border-l-4 ${bc} bg-slate-50
-                                    hover:bg-slate-100 transition-colors group`}
-                          >
-                            <span class="text-sm font-semibold text-slate-900 group-hover:text-brand-700 transition-colors leading-snug">
-                              {ev.name}
-                            </span>
-                            <span class="text-xs text-slate-500">
-                              {dateStr}
-                              {ev.location !== 'Kansas City, MO' && (
-                                <span class="ml-1 text-slate-400">· {ev.location}</span>
-                              )}
-                              {(ev as any).dateTBD && (
-                                <span class="ml-1 text-amber-600 font-medium">(date TBD)</span>
-                              )}
-                            </span>
-                          </a>
-                        );
-                      })}
-                    </div>
-                  )
-                }
-              </div>
-            );
-          })}
-        </div>
-
       </div>
     </div>
+
+    <Calendar events={sorted} year={YEAR} defaultView="compact" />
 
     <!-- ── Cards grid ────────────────────────────────────────────────────── -->
     <div id="events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -297,51 +122,18 @@ const regions = [...new Set(events.map(e => {
 </Layout>
 
 <script>
-  const MONTH_NAMES = ['January','February','March','April','May','June',
-    'July','August','September','October','November','December'];
   const YEAR = 2026;
-
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Start on today's month if we're in 2026, else Jan
+  // Card grid's month filter tracks the Calendar component's compact-view month
   let calMonth = (today.getFullYear() === YEAR) ? today.getMonth() : 0;
 
   // ── DOM refs ──────────────────────────────────────────────────────────────
-  const prevBtn        = document.getElementById('cal-prev')!    as HTMLButtonElement;
-  const nextBtn        = document.getElementById('cal-next')!    as HTMLButtonElement;
-  const monthLabel     = document.getElementById('cal-month-label')!;
   const items          = document.querySelectorAll<HTMLElement>('.event-item');
   const noResults      = document.getElementById('no-results')!;
   const searchEl       = document.getElementById('search')       as HTMLInputElement;
   const regionFilterEl = document.getElementById('region-filter') as HTMLSelectElement;
-
-  // ── Mark today on the calendar ────────────────────────────────────────────
-  const todayKey = [
-    YEAR,
-    String(today.getMonth() + 1).padStart(2, '0'),
-    String(today.getDate()).padStart(2, '0'),
-  ].join('-');
-  const todayCell = document.querySelector<HTMLElement>(`[data-caldate="${todayKey}"]`);
-  if (todayCell) {
-    if (todayCell.classList.contains('text-white')) {
-      todayCell.classList.add('ring-2', 'ring-white', 'ring-offset-1', 'ring-offset-transparent');
-    } else {
-      todayCell.classList.add('ring-2', 'ring-slate-500', 'font-bold');
-    }
-  }
-
-  // ── Calendar display ──────────────────────────────────────────────────────
-  function renderCalendar(month: number) {
-    document.querySelectorAll('.month-cal-grid, .month-events-list').forEach(el =>
-      el.classList.add('hidden')
-    );
-    document.getElementById(`cal-grid-${month}`)?.classList.remove('hidden');
-    document.getElementById(`month-list-${month}`)?.classList.remove('hidden');
-    monthLabel.textContent = `${MONTH_NAMES[month]} ${YEAR}`;
-    prevBtn.disabled = month === 0;
-    nextBtn.disabled = month === 11;
-  }
 
   // ── Card filtering ────────────────────────────────────────────────────────
   function applyFilters() {
@@ -359,23 +151,32 @@ const regions = [...new Set(events.map(e => {
     noResults.classList.toggle('hidden', visible > 0);
   }
 
-  // ── Navigation ────────────────────────────────────────────────────────────
-  function navigate(dir: -1 | 1) {
-    const next = calMonth + dir;
-    if (next < 0 || next > 11) return;
-    calMonth = next;
-    renderCalendar(calMonth);
+  document.addEventListener('techkc-calendar-month-change', (e) => {
+    calMonth = (e as CustomEvent<{ month: number }>).detail.month;
     applyFilters();
-  }
+  });
 
-  prevBtn.addEventListener('click', () => navigate(-1));
-  nextBtn.addEventListener('click', () => navigate(1));
-
-  // ── Search / filter inputs ────────────────────────────────────────────────
   searchEl.addEventListener('input',        applyFilters);
   regionFilterEl.addEventListener('change', applyFilters);
 
-  // ── Init ──────────────────────────────────────────────────────────────────
-  renderCalendar(calMonth);
   applyFilters();
+
+  // ── Embed panel ────────────────────────────────────────────────────────────
+  const embedToggle = document.getElementById('embed-toggle')!;
+  const embedPanel  = document.getElementById('embed-panel')!;
+  const embedCopy   = document.getElementById('embed-copy')!;
+  const embedSnippet = document.getElementById('embed-snippet')!;
+
+  embedToggle.addEventListener('click', () => embedPanel.classList.toggle('hidden'));
+
+  embedCopy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(embedSnippet.textContent ?? '');
+      const original = embedCopy.textContent;
+      embedCopy.textContent = 'Copied!';
+      setTimeout(() => { embedCopy.textContent = original; }, 1500);
+    } catch {
+      // Clipboard API unavailable — snippet is still visible to copy manually
+    }
+  });
 </script>
