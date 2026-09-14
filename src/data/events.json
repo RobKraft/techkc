@@ -335,5 +335,53 @@
     "type": "Workshop",
     "cost": "Free",
     "tags": ["Business Analysis", "Product Management", "Project Management", "Panel"]
+  },
+  {
+    "id": "kc-net-user-group-ai-mental-health-2026",
+    "name": "An AI Driven Data-Driven Approach to Mental Health - Justin Rosenberg",
+    "description": "KC .NET User Group meetup featuring Justin Rosenberg on managing bipolar disorder alongside a development career and perspectives on AI therapy, plus a lightning talk by Duane Newman on .NET Aspire.",
+    "url": "https://www.meetup.com/kc-net-user-group/events/316514017/",
+    "date": "2026-09-22",
+    "endDate": "2026-09-22",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": [".NET", "AI", "Community", "Meetup"]
+  },
+  {
+    "id": "wiskc-september-2026-meeting",
+    "name": "WiSKC September 2026 Meeting",
+    "description": "Women in Security Kansas City monthly networking meeting featuring Quinn Cosgrove as part of the Allies in Security speaker series, with local job connections. Sponsored by Arctic Wolf.",
+    "url": "https://www.wiskc.org/events/wiskc-september-2026-meeting",
+    "date": "2026-09-16",
+    "endDate": "2026-09-16",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": ["Security", "Women in Tech", "Networking", "Community"]
+  },
+  {
+    "id": "elevateit-kc-2026",
+    "name": "ElevateIT: Kansas City Technology Summit 2026",
+    "description": "Regional technology summit for IT leaders and security professionals, featuring keynote presentations, expert panels, and interactive sessions on cybersecurity, cloud computing, data protection, AI, and enterprise IT operations.",
+    "url": "https://eitevents.com/event_pages/kansas-city-technology-summit-2026/",
+    "date": "2026-09-17",
+    "endDate": "2026-09-17",
+    "location": "Overland Park, KS",
+    "type": "Conference",
+    "cost": "Paid",
+    "tags": ["IT Leadership", "Security", "Cloud", "AI", "Networking"]
+  },
+  {
+    "id": "agile-kc-cant-culture-2026",
+    "name": "Can't Culture: The Language Your Agile Team Uses to Stay Stuck",
+    "description": "Agile KC interactive workshop led by JL Heather exploring how agile teams develop limiting language patterns, with hands-on exercises to distinguish real constraints from unexamined assumptions.",
+    "url": "https://www.meetup.com/agile-kc/events/315098710/",
+    "date": "2026-09-24",
+    "endDate": "2026-09-24",
+    "location": "Merriam, KS",
+    "type": "Workshop",
+    "cost": "Free",
+    "tags": ["Agile", "Community", "Meetup"]
   }
 ]
