@@ -92,7 +92,7 @@ const regions = [...new Set(events.map(e => {
             data-date={event.date}
             data-enddate={event.endDate ?? event.date}
             data-month={new Date(event.date + 'T12:00:00').getMonth()}
-            data-name={event.name.toLowerCase()}
+            data-name={`${event.group ?? ''} ${event.name}`.toLowerCase()}
             data-description={event.description.toLowerCase()}
             data-type={event.type.toLowerCase()}
             data-region={region}

@@ -1,7 +1,10 @@
 ---
+import { eventDisplayTitle } from '../lib/events';
+
 interface CalEvent {
   id: string;
   name: string;
+  group?: string;
   description: string;
   url: string;
   date: string;
@@ -55,7 +58,8 @@ for (const ev of events) {
     const k = d.toISOString().slice(0, 10);
     if (!dateTypeMap.has(k)) dateTypeMap.set(k, ev.type);
     const cur = dateTitleMap.get(k);
-    dateTitleMap.set(k, cur ? `${cur} · ${ev.name}` : ev.name);
+    const title = eventDisplayTitle(ev);
+    dateTitleMap.set(k, cur ? `${cur} · ${title}` : title);
     if (!dayEventsMap.has(k)) dayEventsMap.set(k, []);
     dayEventsMap.get(k)!.push(ev);
   }
@@ -276,7 +280,7 @@ function chipsForDay(key: string, max: number) {
                       <a href={ev.url} target="_blank" rel="noopener"
                         class={`flex flex-col gap-0.5 px-3 py-2.5 rounded-lg border-l-4 ${bc} bg-slate-50 hover:bg-slate-100 transition-colors group`}>
                         <span class="text-sm font-semibold text-slate-900 group-hover:text-brand-700 transition-colors leading-snug">
-                          {ev.name}
+                          {eventDisplayTitle(ev)}
                         </span>
                         <span class="text-xs text-slate-500">
                           {dateStr}
@@ -329,13 +333,13 @@ function chipsForDay(key: string, max: number) {
             <div data-caldate={key} class="min-h-[86px] rounded-lg border border-slate-100 p-1 flex flex-col gap-0.5">
               <span class="text-xs font-medium text-slate-500 px-0.5">{day}</span>
               {shown.map(ev => (
-                <a href={ev.url} target="_blank" rel="noopener" title={ev.name}
+                <a href={ev.url} target="_blank" rel="noopener" title={eventDisplayTitle(ev)}
                   class={`text-[11px] leading-tight text-white rounded px-1 py-0.5 truncate ${TYPE_BG[ev.type] ?? 'bg-brand-500'} hover:opacity-90`}>
-                  {ev.name}
+                  {eventDisplayTitle(ev)}
                 </a>
               ))}
               {extra > 0 && (
-                <span class="text-[11px] text-slate-400 px-1" title={(dayEventsMap.get(key) ?? []).slice(3).map(e => e.name).join(', ')}>
+                <span class="text-[11px] text-slate-400 px-1" title={(dayEventsMap.get(key) ?? []).slice(3).map(e => eventDisplayTitle(e)).join(', ')}>
                   +{extra} more
                 </span>
               )}
@@ -376,9 +380,9 @@ function chipsForDay(key: string, max: number) {
                 {MONTH_ABBR[month]} {day}
               </span>
               {shown.map(ev => (
-                <a href={ev.url} target="_blank" rel="noopener" title={ev.name}
+                <a href={ev.url} target="_blank" rel="noopener" title={eventDisplayTitle(ev)}
                   class={`text-xs leading-snug text-white rounded px-1.5 py-1 ${TYPE_BG[ev.type] ?? 'bg-brand-500'} hover:opacity-90`}>
-                  {ev.name}
+                  {eventDisplayTitle(ev)}
                 </a>
               ))}
               {extra > 0 && (

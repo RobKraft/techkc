@@ -2,6 +2,7 @@
   {
     "id": "stl-cybersecurity-2026",
     "name": "St. Louis CyberSecurity Conference",
+    "group": "FutureCon Events",
     "description": "FutureCon Events one-day cybersecurity conference covering threat intelligence, cloud security, and the latest in InfoSec.",
     "url": "https://futureconevents.com/events",
     "date": "2026-02-26",
@@ -50,6 +51,7 @@
   {
     "id": "secureworld-kc-2026",
     "name": "SecureWorld Kansas City",
+    "group": "SecureWorld",
     "description": "SecureWorld Expo security conference in Kansas City. Full-day event with keynotes, breakout sessions, and security vendor expo.",
     "url": "https://www.secureworld.io/",
     "date": "2026-05-13",
@@ -98,6 +100,7 @@
   {
     "id": "kc-futurecon-2026",
     "name": "Kansas City CyberSecurity Conference",
+    "group": "FutureCon Events",
     "description": "FutureCon Events one-day cybersecurity conference in Kansas City covering threat intelligence, compliance, and InfoSec practices.",
     "url": "https://futureconevents.com/events",
     "date": "2026-06-11",
@@ -134,6 +137,7 @@
   {
     "id": "omaha-cybersecurity-2026",
     "name": "Omaha CyberSecurity Conference",
+    "group": "FutureCon Events",
     "description": "FutureCon Events one-day cybersecurity conference in Omaha covering current threats, cloud security, and InfoSec leadership.",
     "url": "https://futureconevents.com/events",
     "date": "2026-08-12",
@@ -158,6 +162,7 @@
   {
     "id": "secureworld-stl-2026",
     "name": "SecureWorld St. Louis",
+    "group": "SecureWorld",
     "description": "SecureWorld Expo security conference in St. Louis. Keynotes, breakout sessions, and security vendor expo.",
     "url": "https://www.secureworld.io/",
     "date": "2026-09-02",
@@ -182,6 +187,7 @@
   {
     "id": "central-iowa-symposium-2026",
     "name": "Central Iowa Software Symposium",
+    "group": "No Fluff Just Stuff (NFJS)",
     "description": "NFJS-style developer symposium in Des Moines covering languages, frameworks, architecture, and agile practices.",
     "url": "http://10times.com/nfjs-desmoines",
     "date": "2026-09-17",
@@ -194,6 +200,7 @@
   {
     "id": "pmi-pdd-2026",
     "name": "PMI KC Professional Development Day",
+    "group": "PMI Kansas City",
     "description": "PMI Kansas City chapter's annual Professional Development Day. Full-day conference offering 20 PDUs, with project management skills and leadership sessions.",
     "url": "https://pmikc.org/calendar",
     "date": "2026-09-21",
@@ -206,6 +213,7 @@
   {
     "id": "devup-2026",
     "name": "The Cloud and AAI Summit (DevUp)",
+    "group": "DevUp Conference",
     "description": "DevUp Conference's Cloud and AAI Summit in St. Louis, covering cloud, AI, software development, architecture, and DevOps. Formerly Midwest.io.",
     "url": "https://www.devupconf.org/",
     "date": "2026-09-30",
@@ -218,6 +226,7 @@
   {
     "id": "heartland-dev-conf-2026",
     "name": "Heartland Developers Conference",
+    "group": "AIM Institute",
     "description": "Annual developer conference hosted by the AIM Institute in Omaha. Technical sessions for software developers and IT professionals.",
     "url": "https://www.aiminstitute.org/hdc",
     "date": "2026-10-01",
@@ -267,6 +276,7 @@
   {
     "id": "interface-omaha-2026",
     "name": "INTERFACE Omaha",
+    "group": "F2F Events",
     "description": "F2F Events IT conference for technology decision-makers in the Omaha area. Vendor expo and educational sessions.",
     "url": "https://f2fevents.com/event/",
     "date": "2026-11-05",
@@ -291,6 +301,7 @@
   {
     "id": "devfest-kc-2026",
     "name": "DevFest KC",
+    "group": "Google Developer Group Kansas City",
     "description": "Google Developer Group Kansas City's annual DevFest — a community-run tech conference covering Google technologies and modern development.",
     "url": "https://devfestkc.com/",
     "date": "2026-11-07",
@@ -303,6 +314,7 @@
   {
     "id": "dwkc-minicon-2026",
     "name": "DWKC MiniCon",
+    "group": "Digital Women Kansas City",
     "description": "Digital Women KC's annual one-day conference exploring the intersection of technology and humanity, with sessions on AI, automation, and professional development for women in digital fields.",
     "url": "https://www.digitalwomenkansascity.org/events-1/dwkc-minicon-2026",
     "date": "2026-09-16",
@@ -315,6 +327,7 @@
   {
     "id": "kc-ai-club-human-first-ai-2026",
     "name": "Kansas City AI Club Meetup: Human-First AI",
+    "group": "Kansas City AI Club",
     "description": "Kansas City AI Club meetup exploring human-first approaches to AI, hosted at Garmin's Olathe campus.",
     "url": "https://www.linkedin.com/events/7502764077249794049/",
     "date": "2026-09-22",
@@ -327,6 +340,7 @@
   {
     "id": "iiba-kc-product-through-project-2026",
     "name": "Product Through Project: Roles, Disciplines, and Finding Common Ground",
+    "group": "IIBA Kansas City",
     "description": "IIBA Kansas City panel discussion exploring the intersection of product and project management roles, examining different disciplines and identifying areas of collaboration.",
     "url": "https://kansascity.iiba.org/Events/product-through-project-—-roles-disciplines-and-finding-common-ground-a-panel-discussion",
     "date": "2026-09-23",
@@ -339,6 +353,7 @@
   {
     "id": "kc-net-user-group-ai-mental-health-2026",
     "name": "An AI Driven Data-Driven Approach to Mental Health - Justin Rosenberg",
+    "group": "KC .NET User Group",
     "description": "KC .NET User Group meetup featuring Justin Rosenberg on managing bipolar disorder alongside a development career and perspectives on AI therapy, plus a lightning talk by Duane Newman on .NET Aspire.",
     "url": "https://www.meetup.com/kc-net-user-group/events/316514017/",
     "date": "2026-09-22",
@@ -351,6 +366,7 @@
   {
     "id": "wiskc-september-2026-meeting",
     "name": "WiSKC September 2026 Meeting",
+    "group": "Women in Security KC",
     "description": "Women in Security Kansas City monthly networking meeting featuring Quinn Cosgrove as part of the Allies in Security speaker series, with local job connections. Sponsored by Arctic Wolf.",
     "url": "https://www.wiskc.org/events/wiskc-september-2026-meeting",
     "date": "2026-09-16",
@@ -375,6 +391,7 @@
   {
     "id": "agile-kc-cant-culture-2026",
     "name": "Can't Culture: The Language Your Agile Team Uses to Stay Stuck",
+    "group": "Agile KC",
     "description": "Agile KC interactive workshop led by JL Heather exploring how agile teams develop limiting language patterns, with hands-on exercises to distinguish real constraints from unexamined assumptions.",
     "url": "https://www.meetup.com/agile-kc/events/315098710/",
     "date": "2026-09-24",

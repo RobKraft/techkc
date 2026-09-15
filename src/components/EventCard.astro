@@ -1,8 +1,11 @@
 ---
+import { eventDisplayTitle } from '../lib/events';
+
 interface Props {
   event: {
     id: string;
     name: string;
+    group?: string;
     description: string;
     url: string;
     date: string;
@@ -32,7 +35,7 @@ const dateLabel = event.dateTBD
 <article class="bg-white rounded-xl border border-slate-200 p-5 hover:shadow-md hover:border-brand-200 transition-all flex flex-col gap-3">
   <h2 class="font-semibold text-slate-900 leading-snug">
     <a href={event.url} target="_blank" rel="noopener" class="hover:text-brand-700 transition-colors">
-      {event.name}
+      {eventDisplayTitle(event)}
     </a>
   </h2>
 
