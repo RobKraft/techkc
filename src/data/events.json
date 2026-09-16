@@ -402,6 +402,58 @@
     "tags": ["Agile", "Community", "Meetup"]
   },
   {
+    "id": "kc-data-professionals-governed-speed-of-ai-2026",
+    "name": "Governed at the Speed of AI",
+    "group": "Data Professionals KC",
+    "description": "KC Data Professionals meetup on how modern data platforms integrate governance into their workflows, covering why data quality, observability, and MDM matter more as AI agents start acting on data.",
+    "url": "https://www.meetup.com/kcdataprofessionals/events/316380383/",
+    "date": "2026-09-24",
+    "endDate": "2026-09-24",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": ["Data", "AI", "Governance", "Community", "Meetup"]
+  },
+  {
+    "id": "kcdd-community-partner-celebration-2026",
+    "name": "Community Partner Celebration",
+    "group": "KC Digital Drive",
+    "description": "KC Digital Drive's annual Community Partner Celebration in the basement of Tech Central, bringing together community organizations, companies, universities, startups, funders, and public sector leaders, with a featured conversation on regional innovation initiatives.",
+    "url": "https://luma.com/kcdd-2026",
+    "date": "2026-10-15",
+    "endDate": "2026-10-15",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "cost": "Paid",
+    "tags": ["Community", "Networking", "Innovation"]
+  },
+  {
+    "id": "asq-kc-ucm-quality-conference-2026",
+    "name": "18th Annual Quality Management Conference: Lean & Project Management",
+    "group": "ASQ Kansas City Section",
+    "description": "UCM ASQ Student Branch's annual quality management conference, sponsored by ASQ Kansas City, featuring keynote speakers, student research presentations, and a student poster competition. Free to attend, lunch included.",
+    "url": "https://app.memberplanet.com/#/event/asqkansascitysection/18thannualqualitymanagementconferenceuniversityofcentralmissouristudentbranch",
+    "date": "2026-09-25",
+    "endDate": "2026-09-25",
+    "location": "Lee's Summit, MO",
+    "type": "Conference",
+    "cost": "Free",
+    "tags": ["Quality Management", "Lean", "Project Management", "Student"]
+  },
+  {
+    "id": "asq-kc-iso9001-2026",
+    "name": "ISO 9001:2026 - Analyzing Myths and Truths",
+    "group": "ASQ Kansas City Section",
+    "description": "ASQ Kansas City Section workshop covering changes in the ISO 9001:2026 revision, including updates to the Quality Management Principles, Harmonized Structure, terminology, and transition guidance, with an extended Q&A.",
+    "url": "https://app.memberplanet.com/#/event/asqkansascitysection/iso90012026analyzingmythsandtruths",
+    "date": "2026-10-24",
+    "endDate": "2026-10-24",
+    "location": "Overland Park, KS",
+    "type": "Workshop",
+    "cost": "Paid",
+    "tags": ["Quality Management", "ISO 9001", "Workshop"]
+  },
+  {
     "id": "global-ai-kc-october-2026",
     "name": "Global AI KC Meetup",
     "group": "Global AI KC",
