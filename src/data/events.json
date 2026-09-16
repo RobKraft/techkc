@@ -400,5 +400,31 @@
     "type": "Workshop",
     "cost": "Free",
     "tags": ["Agile", "Community", "Meetup"]
+  },
+  {
+    "id": "global-ai-kc-october-2026",
+    "name": "Global AI KC Meetup",
+    "group": "Global AI KC",
+    "description": "Kansas City chapter meetup of the Global AI Community, focused on artificial intelligence, machine learning, and AI application development.",
+    "url": "https://globalai.community/chapters/kansas-city/",
+    "date": "2026-10-15",
+    "endDate": "2026-10-15",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": ["AI", "Machine Learning", "Community", "Meetup"]
+  },
+  {
+    "id": "global-ai-kc-november-2026",
+    "name": "Global AI KC Meetup",
+    "group": "Global AI KC",
+    "description": "Kansas City chapter meetup of the Global AI Community, focused on artificial intelligence, machine learning, and AI application development.",
+    "url": "https://globalai.community/chapters/kansas-city/",
+    "date": "2026-11-19",
+    "endDate": "2026-11-19",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": ["AI", "Machine Learning", "Community", "Meetup"]
   }
 ]
