@@ -402,6 +402,19 @@
     "tags": ["Agile", "Community", "Meetup"]
   },
   {
+    "id": "dynamics-ug-kc-power-automate-2026",
+    "name": "Power Automate in Action: Workflows, Data, & Mapping Solutions",
+    "group": "Dynamics UG Kansas City",
+    "description": "Kansas City Dynamics 365 and Power Platform community gathering featuring sessions on geocoding using Power Automate and building interactive workflows, with networking and a happy hour following.",
+    "url": "https://www.meetup.com/microsoft-dynamics-and-power-platform-in-kansas-city/events/316407872/",
+    "date": "2026-10-08",
+    "endDate": "2026-10-08",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": ["Microsoft Dynamics", "Power Platform", "Power Automate", "Community", "Meetup"]
+  },
+  {
     "id": "kc-data-professionals-governed-speed-of-ai-2026",
     "name": "Governed at the Speed of AI",
     "group": "Data Professionals KC",
