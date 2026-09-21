@@ -402,6 +402,19 @@
     "tags": ["Agile", "Community", "Meetup"]
   },
   {
+    "id": "waai-kc-launch-party-2026",
+    "name": "Women Applying AI Live- Kansas City Launch Party!",
+    "group": "Women Applying AI",
+    "description": "Launch party for Women Applying AI's Kansas City regional hub at the Keystone Innovation District, celebrating International Women in AI Day with networking and a look at practical, meaningful ways to apply AI.",
+    "url": "https://luma.com/21ql4yx4",
+    "date": "2026-10-01",
+    "endDate": "2026-10-01",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": ["AI", "Women in Tech", "Community", "Networking"]
+  },
+  {
     "id": "dynamics-ug-kc-power-automate-2026",
     "name": "Power Automate in Action: Workflows, Data, & Mapping Solutions",
     "group": "Dynamics UG Kansas City",
