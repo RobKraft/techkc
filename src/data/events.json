@@ -415,6 +415,19 @@
     "tags": ["AI", "Women in Tech", "Community", "Networking"]
   },
   {
+    "id": "isc2-kc-monthly-meeting-oct-2026",
+    "name": "(ISC)2 KC Chapter Monthly Meeting - October 2026",
+    "group": "(ISC)2 Kansas City Chapter",
+    "description": "Collaborative discussion with Enterprise KC, presenting their TalentSphere, DataSphere, and Heartland Cyber Range: tools customized for our region that offer insight into the local market(s) and what organizations look for. 6:30 PM - 8:30 PM.",
+    "url": "https://lp.constantcontactpages.com/ev/reg/6vh9av9",
+    "date": "2026-10-07",
+    "endDate": "2026-10-07",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": ["Security", "Cybersecurity", "Careers", "Meetup"]
+  },
+  {
     "id": "dynamics-ug-kc-power-automate-2026",
     "name": "Power Automate in Action: Workflows, Data, & Mapping Solutions",
     "group": "Dynamics UG Kansas City",
