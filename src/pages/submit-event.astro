@@ -222,6 +222,7 @@ import Layout from '../layouts/Layout.astro';
         } else {
           showSuccess(result.prUrl);
           eventForm.reset();
+          setTimeout(() => { window.location.href = '/'; }, 2200);
         }
       } catch {
         showError('Something went wrong submitting the event.');

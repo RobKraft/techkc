@@ -4,6 +4,8 @@ const AUTH0_DOMAIN = process.env.PUBLIC_AUTH0_DOMAIN!;
 const AUTH0_AUDIENCE = process.env.PUBLIC_AUTH0_AUDIENCE!;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN!;
 const GITHUB_REPO = 'RobKraft/techkc';
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'TechKC <onboarding@resend.dev>';
 const ALLOWED_SUBMITTER_EMAILS = (process.env.ALLOWED_SUBMITTER_EMAILS ?? '')
   .split(',')
   .map(e => e.trim().toLowerCase())
@@ -115,6 +117,40 @@ async function gh(path: string, init?: RequestInit): Promise<any> {
   return res.json();
 }
 
+/**
+ * Best-effort confirmation email — failure here should never fail the
+ * submission itself, since the PR (the thing that actually matters) has
+ * already been created successfully by the time this runs.
+ */
+async function sendConfirmationEmail(submitter: Submitter, eventName: string): Promise<void> {
+  if (!RESEND_API_KEY) return;
+
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${RESEND_API_KEY}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: RESEND_FROM_EMAIL,
+        to: submitter.email,
+        subject: `We received your event submission: ${eventName}`,
+        text:
+          `Hi ${submitter.name},\n\n` +
+          `Thanks for submitting "${eventName}" to TechKC! We've received it and it's pending review.\n\n` +
+          `Once approved, it'll appear on the events calendar at https://techkc.org/events.\n\n` +
+          `— TechKC`,
+      }),
+    });
+    if (!res.ok) {
+      console.error('Resend API error:', res.status, await res.text());
+    }
+  } catch (err) {
+    console.error('Failed to send confirmation email:', err);
+  }
+}
+
 export default async (req: Request): Promise<Response> => {
   if (req.method !== 'POST') {
     return jsonResponse(405, { error: 'Method not allowed' });
@@ -203,6 +239,8 @@ export default async (req: Request): Promise<Response> => {
         body: prBody,
       }),
     });
+
+    await sendConfirmationEmail(submitter, newEvent.name);
 
     return jsonResponse(200, { ok: true, prUrl: pr.html_url });
   } catch (err) {
