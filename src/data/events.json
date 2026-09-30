@@ -724,5 +724,18 @@
     "type": "Meetup",
     "cost": "Free",
     "tags": []
+  },
+  {
+    "id": "producttank-kc-relaunch-2026",
+    "name": "ProductTank KC Relaunch",
+    "group": "ProductTank Kansas City",
+    "description": "We’re kicking off the ProductTank KC relaunch with Hrishi Patel from Basys who will share how AI is accelerating product development and why scaling with AI is still widely misunderstood.",
+    "url": "https://www.meetup.com/producttank-kansas-city/",
+    "date": "2026-09-30",
+    "endDate": "2026-09-30",
+    "location": "Lenexa, KS",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": []
   }
 ]
