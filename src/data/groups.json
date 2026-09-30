@@ -1,14 +1,5 @@
 [
   {
-    "id": "1-million-cups",
-    "name": "1 Million Cups",
-    "description": "Weekly gathering where entrepreneurs present their startups to a supportive community of peers and mentors. Part of the national Kauffman Foundation program born in KC.",
-    "url": "http://www.1millioncups.com/kansascity",
-    "topics": ["Startups", "Entrepreneurship", "Networking"],
-    "frequency": "Weekly",
-    "active": true
-  },
-  {
     "id": "acm-kc",
     "name": "ACM Kansas City",
     "description": "Kansas City chapter of the Association for Computing Machinery. Talks on computer science, technology trends, and professional development.",
@@ -63,15 +54,6 @@
     "url": "https://codeforkc.org/",
     "topics": ["Civic Tech", "Open Source", "JavaScript", "Python"],
     "frequency": "Bi-weekly",
-    "active": true
-  },
-  {
-    "id": "coding-and-cupcakes",
-    "name": "Coding and Cupcakes KC",
-    "description": "Teaching kids to code through fun, accessible workshops. A volunteer-driven group making STEM approachable for young learners.",
-    "url": "https://www.facebook.com/codingandcupcakesKC",
-    "topics": ["Education", "Kids", "STEM", "Volunteering"],
-    "frequency": "Irregular",
     "active": true
   },
   {
@@ -379,15 +361,6 @@
     "active": true
   },
   {
-    "id": "kc-women-in-tech",
-    "name": "Kansas City Women in Technology",
-    "description": "Supporting and promoting women in technology across the Kansas City area through networking, mentorship, and career development.",
-    "url": "http://kcwomenintech.org/",
-    "topics": ["Women in Tech", "Career", "Networking", "All Technologies"],
-    "frequency": "Monthly",
-    "active": true
-  },
-  {
     "id": "kcnet",
     "name": "KC .NET User Group",
     "description": "Monthly meetings for .NET, C#, ASP.NET Core, and the broader Microsoft development ecosystem.",
@@ -494,21 +467,21 @@
     "active": true
   },
   {
-    "id": "next-five",
-    "name": "Next Five Meetup",
-    "description": "Kansas City startup and innovation community. Connecting entrepreneurs, investors, and tech leaders around what's coming next.",
-    "url": "https://www.meetup.com/nextfive/",
-    "meetupUrl": "https://www.meetup.com/nextfive/",
-    "topics": ["Startups", "Entrepreneurship", "Innovation", "Networking"],
-    "frequency": "Monthly",
-    "active": true
-  },
-  {
     "id": "owasp-kc",
     "name": "OWASP Kansas City",
     "description": "Kansas City OWASP chapter. Application security, web security best practices, and the OWASP Top 10 for developers and security teams.",
     "url": "https://www.owasp.org/index.php/Kansas_City",
     "topics": ["Security", "Web Security", "OWASP", "Application Security"],
+    "frequency": "Monthly",
+    "active": true
+  },
+  {
+    "id": "producttank-kc",
+    "name": "ProductTank Kansas City",
+    "description": "Kansas City chapter of ProductTank, the global product management meetup network. Talks and discussions on product design, development, strategy, and metrics for product managers and builders.",
+    "url": "https://www.meetup.com/producttank-kansas-city/",
+    "meetupUrl": "https://www.meetup.com/producttank-kansas-city/",
+    "topics": ["Product Management", "UX", "Product Strategy", "Networking"],
     "frequency": "Monthly",
     "active": true
   },

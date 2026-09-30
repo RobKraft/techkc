@@ -139,9 +139,14 @@ const regions = [...new Set(events.map(e => {
   function applyFilters() {
     const q      = searchEl.value.toLowerCase();
     const region = regionFilterEl.value;
+    // While actively searching, look across the whole year rather than just
+    // whatever month the calendar happens to be showing — otherwise a match
+    // in a different month silently disappears, which just looks broken.
+    const matchesMonth = (item: HTMLElement) =>
+      q ? true : parseInt(item.dataset.month!) === calMonth;
     let   visible = 0;
     items.forEach(item => {
-      const matchMonth  = parseInt(item.dataset.month!) === calMonth;
+      const matchMonth  = matchesMonth(item);
       const matchText   = !q      || item.dataset.name!.includes(q) || item.dataset.description!.includes(q);
       const matchRegion = !region || item.dataset.region === region;
       const show = matchMonth && matchText && matchRegion;

@@ -120,6 +120,14 @@
     "tags": ["women in tech", "entrepreneurship", "founders", "networking"]
   },
   {
+    "name": "Kansas City Women in Technology",
+    "shortName": "KCWiT",
+    "description": "Supports and promotes women in technology across the Kansas City area through networking, mentorship, and career development.",
+    "url": "http://kcwomenintech.org/",
+    "category": "Community",
+    "tags": ["women in tech", "career", "networking", "mentorship"]
+  },
+  {
     "name": "Keystone CoLAB",
     "shortName": "",
     "description": "Kansas City's front door to innovation. The Keystone Innovation District's CoLAB space brings together entrepreneurs, industry leaders, and community partners through accelerators, mentorship, and angel investing programs to advance the region's innovation ecosystem.",
