@@ -157,15 +157,9 @@ function weekIndexForMonth(month: number): number {
   return 0;
 }
 
-const today = new Date();
-const todayInYear = today.getFullYear() === YEAR;
-const initialMonth = todayInYear ? today.getMonth() : 0;
-let initialWeek = 0;
-for (let w = 0; w < WEEK_COUNT; w++) {
-  const cells = weekCells(w);
-  if (cells.some(c => c.key === today.toISOString().slice(0, 10))) { initialWeek = w; break; }
-}
-if (!todayInYear) initialWeek = weekIndexForMonth(0);
+// Fallbacks only: the site is static, so "today" is resolved in the browser script.
+const initialMonth = 0;
+const initialWeek = weekIndexForMonth(0);
 
 const VIEWS = ['compact', 'week', 'month'] as const;
 const VIEW_LABELS: Record<(typeof VIEWS)[number], string> = {
@@ -371,7 +365,9 @@ function chipsForDay(key: string, max: number) {
     </div>
 
     {Array.from({ length: WEEK_COUNT }, (_, week) => (
-      <div id={`cal-grid-week-${week}`} data-label={weekLabel(week)} class="week-grid hidden grid grid-cols-7 gap-1">
+      <div id={`cal-grid-week-${week}`} data-label={weekLabel(week)}
+        data-start={weekCells(week)[0].key} data-end={weekCells(week)[6].key}
+        class="week-grid hidden grid grid-cols-7 gap-1">
         {weekCells(week).map(({ key, day, month, inYear }) => {
           const { shown, extra } = chipsForDay(key, 6);
           return (
@@ -428,6 +424,18 @@ function chipsForDay(key: string, max: number) {
   let currentView = readQueryView() || readStoredView() || defaultView;
   let calMonth = initialMonth;
   let calWeek  = initialWeek;
+
+  // Start on the visitor's current month/week (local time) when it falls in the displayed year.
+  {
+    const now = new Date();
+    if (now.getFullYear() === YEAR) {
+      calMonth = now.getMonth();
+      const nowKey = [YEAR, String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('-');
+      const weekEl = [...document.querySelectorAll('.week-grid')]
+        .find(el => el.dataset.start <= nowKey && nowKey <= el.dataset.end);
+      if (weekEl) calWeek = Number(weekEl.id.replace('cal-grid-week-', ''));
+    }
+  }
 
   const tabs = document.querySelectorAll('.view-tab');
   const viewContainers = {
