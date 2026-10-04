@@ -10,11 +10,7 @@
     "location": "St. Louis, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Security",
-      "Cybersecurity",
-      "Conference"
-    ]
+    "tags": ["Security", "Cybersecurity", "Conference"]
   },
   {
     "id": "kc-it-symposium-2026",
@@ -26,11 +22,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "IT Leadership",
-      "Enterprise IT",
-      "Networking"
-    ]
+    "tags": ["IT Leadership", "Enterprise IT", "Networking"]
   },
   {
     "id": "kc-design-week-2026",
@@ -42,12 +34,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Free",
-    "tags": [
-      "Design",
-      "UX",
-      "Community",
-      "Multi-day"
-    ]
+    "tags": ["Design", "UX", "Community", "Multi-day"]
   },
   {
     "id": "bsideskc-2026",
@@ -59,12 +46,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Low cost",
-    "tags": [
-      "Security",
-      "Cybersecurity",
-      "Community",
-      "CTF"
-    ]
+    "tags": ["Security", "Cybersecurity", "Community", "CTF"]
   },
   {
     "id": "secureworld-kc-2026",
@@ -77,11 +59,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Security",
-      "Cybersecurity",
-      "Expo"
-    ]
+    "tags": ["Security", "Cybersecurity", "Expo"]
   },
   {
     "id": "nebraska-it-symposium-2026",
@@ -93,11 +71,7 @@
     "location": "Omaha, NE",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "IT Leadership",
-      "Enterprise IT",
-      "Networking"
-    ]
+    "tags": ["IT Leadership", "Enterprise IT", "Networking"]
   },
   {
     "id": "communitydays-kc-2026",
@@ -109,19 +83,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "DevOps",
-      "AI",
-      "Agile",
-      "Cloud",
-      "Community",
-      "Multi-track",
-      "Postgres",
-      "JavaScript",
-      "Python",
-      "Java",
-      "C#"
-    ]
+    "tags": ["DevOps", "AI", "Agile", "Cloud", "Community", "Multi-track", "Postgres", "JavaScript", "Python", "Java", "C#"]
   },
   {
     "id": "devopsdays-kc-2026",
@@ -133,11 +95,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "DevOps",
-      "Platform Engineering",
-      "Open Spaces"
-    ]
+    "tags": ["DevOps", "Platform Engineering", "Open Spaces"]
   },
   {
     "id": "kc-futurecon-2026",
@@ -150,11 +108,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Security",
-      "Cybersecurity",
-      "Conference"
-    ]
+    "tags": ["Security", "Cybersecurity", "Conference"]
   },
   {
     "id": "kansasfest-2026",
@@ -166,12 +120,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Retro Computing",
-      "Apple II",
-      "Hardware",
-      "Community"
-    ]
+    "tags": ["Retro Computing", "Apple II", "Hardware", "Community"]
   },
   {
     "id": "nebraska-code-2026",
@@ -183,11 +132,7 @@
     "location": "Lincoln, NE",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Conference",
-      "Multi-track",
-      "All Topics"
-    ]
+    "tags": ["Conference", "Multi-track", "All Topics"]
   },
   {
     "id": "omaha-cybersecurity-2026",
@@ -200,11 +145,7 @@
     "location": "Omaha, NE",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Security",
-      "Cybersecurity",
-      "Conference"
-    ]
+    "tags": ["Security", "Cybersecurity", "Conference"]
   },
   {
     "id": "oklahoma-it-symposium-2026",
@@ -216,11 +157,7 @@
     "location": "Tulsa, OK",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "IT Leadership",
-      "Enterprise IT",
-      "Networking"
-    ]
+    "tags": ["IT Leadership", "Enterprise IT", "Networking"]
   },
   {
     "id": "secureworld-stl-2026",
@@ -233,11 +170,7 @@
     "location": "St. Louis, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Security",
-      "Cybersecurity",
-      "Expo"
-    ]
+    "tags": ["Security", "Cybersecurity", "Expo"]
   },
   {
     "id": "kcdc-2026",
@@ -249,11 +182,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Conference",
-      "Multi-track",
-      "All Topics"
-    ]
+    "tags": ["Conference", "Multi-track", "All Topics"]
   },
   {
     "id": "central-iowa-symposium-2026",
@@ -266,11 +195,7 @@
     "location": "Des Moines, IA",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Conference",
-      "All Topics",
-      "Agile"
-    ]
+    "tags": ["Conference", "All Topics", "Agile"]
   },
   {
     "id": "pmi-pdd-2026",
@@ -283,12 +208,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Project Management",
-      "PMI",
-      "PDUs",
-      "Leadership"
-    ]
+    "tags": ["Project Management", "PMI", "PDUs", "Leadership"]
   },
   {
     "id": "devup-2026",
@@ -301,11 +221,7 @@
     "location": "St. Louis, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Conference",
-      "Multi-track",
-      "All Topics"
-    ]
+    "tags": ["Conference", "Multi-track", "All Topics"]
   },
   {
     "id": "heartland-dev-conf-2026",
@@ -319,11 +235,7 @@
     "location": "Omaha, NE",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Conference",
-      "All Topics",
-      "Professional Development"
-    ]
+    "tags": ["Conference", "All Topics", "Professional Development"]
   },
   {
     "id": "hack-midwest-2026",
@@ -335,11 +247,7 @@
     "location": "Kansas City, MO",
     "type": "Hackathon",
     "cost": "Free",
-    "tags": [
-      "Hackathon",
-      "Students",
-      "All Levels"
-    ]
+    "tags": ["Hackathon", "Students", "All Levels"]
   },
   {
     "id": "thunder-plains-2026",
@@ -351,11 +259,7 @@
     "location": "Oklahoma City, OK",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "JavaScript",
-      "Web Development",
-      "Conference"
-    ]
+    "tags": ["JavaScript", "Web Development", "Conference"]
   },
   {
     "id": "kccyber-2026",
@@ -367,11 +271,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Security",
-      "Cybersecurity",
-      "Conference"
-    ]
+    "tags": ["Security", "Cybersecurity", "Conference"]
   },
   {
     "id": "interface-omaha-2026",
@@ -384,11 +284,7 @@
     "location": "Omaha, NE",
     "type": "Conference",
     "cost": "Free",
-    "tags": [
-      "IT Leadership",
-      "Enterprise IT",
-      "Expo"
-    ]
+    "tags": ["IT Leadership", "Enterprise IT", "Expo"]
   },
   {
     "id": "kidstechday-2026",
@@ -400,13 +296,7 @@
     "location": "Kansas City, MO",
     "type": "Workshop",
     "cost": "Free",
-    "tags": [
-      "Kids",
-      "STEAM",
-      "Robotics",
-      "Family",
-      "Education"
-    ]
+    "tags": ["Kids", "STEAM", "Robotics", "Family", "Education"]
   },
   {
     "id": "devfest-kc-2026",
@@ -419,12 +309,7 @@
     "location": "Kansas City, MO",
     "type": "Conference",
     "cost": "Free",
-    "tags": [
-      "Google",
-      "GCP",
-      "Android",
-      "Community"
-    ]
+    "tags": ["Google", "GCP", "Android", "Community"]
   },
   {
     "id": "dwkc-minicon-2026",
@@ -437,12 +322,7 @@
     "location": "Overland Park, KS",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "Women in Tech",
-      "AI",
-      "Professional Development",
-      "Community"
-    ]
+    "tags": ["Women in Tech", "AI", "Professional Development", "Community"]
   },
   {
     "id": "kc-ai-club-human-first-ai-2026",
@@ -455,11 +335,7 @@
     "location": "Olathe, KS",
     "type": "Workshop",
     "cost": "Free",
-    "tags": [
-      "AI",
-      "Community",
-      "Meetup"
-    ]
+    "tags": ["AI", "Community", "Meetup"]
   },
   {
     "id": "iiba-kc-product-through-project-2026",
@@ -472,12 +348,7 @@
     "location": "Kansas City, MO",
     "type": "Workshop",
     "cost": "Free",
-    "tags": [
-      "Business Analysis",
-      "Product Management",
-      "Project Management",
-      "Panel"
-    ]
+    "tags": ["Business Analysis", "Product Management", "Project Management", "Panel"]
   },
   {
     "id": "kc-net-user-group-ai-mental-health-2026",
@@ -490,12 +361,7 @@
     "location": "Overland Park, KS",
     "type": "Meetup",
     "cost": "Free",
-    "tags": [
-      ".NET",
-      "AI",
-      "Community",
-      "Meetup"
-    ]
+    "tags": [".NET", "AI", "Community", "Meetup"]
   },
   {
     "id": "wiskc-september-2026-meeting",
@@ -508,12 +374,7 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "cost": "Free",
-    "tags": [
-      "Security",
-      "Women in Tech",
-      "Networking",
-      "Community"
-    ]
+    "tags": ["Security", "Women in Tech", "Networking", "Community"]
   },
   {
     "id": "elevateit-kc-2026",
@@ -525,13 +386,7 @@
     "location": "Overland Park, KS",
     "type": "Conference",
     "cost": "Paid",
-    "tags": [
-      "IT Leadership",
-      "Security",
-      "Cloud",
-      "AI",
-      "Networking"
-    ]
+    "tags": ["IT Leadership", "Security", "Cloud", "AI", "Networking"]
   },
   {
     "id": "agile-kc-cant-culture-2026",
@@ -544,11 +399,7 @@
     "location": "Merriam, KS",
     "type": "Workshop",
     "cost": "Free",
-    "tags": [
-      "Agile",
-      "Community",
-      "Meetup"
-    ]
+    "tags": ["Agile", "Community", "Meetup"]
   },
   {
     "id": "waai-kc-launch-party-2026",
@@ -561,12 +412,7 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "cost": "Free",
-    "tags": [
-      "AI",
-      "Women in Tech",
-      "Community",
-      "Networking"
-    ]
+    "tags": ["AI", "Women in Tech", "Community", "Networking"]
   },
   {
     "id": "isc2-kc-monthly-meeting-oct-2026",
@@ -579,12 +425,7 @@
     "location": "Overland Park, KS",
     "type": "Meetup",
     "cost": "Free",
-    "tags": [
-      "Security",
-      "Cybersecurity",
-      "Careers",
-      "Meetup"
-    ]
+    "tags": ["Security", "Cybersecurity", "Careers", "Meetup"]
   },
   {
     "id": "dynamics-ug-kc-power-automate-2026",
@@ -597,13 +438,7 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "cost": "Free",
-    "tags": [
-      "Microsoft Dynamics",
-      "Power Platform",
-      "Power Automate",
-      "Community",
-      "Meetup"
-    ]
+    "tags": ["Microsoft Dynamics", "Power Platform", "Power Automate", "Community", "Meetup"]
   },
   {
     "id": "kc-data-professionals-governed-speed-of-ai-2026",
@@ -616,13 +451,7 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "cost": "Free",
-    "tags": [
-      "Data",
-      "AI",
-      "Governance",
-      "Community",
-      "Meetup"
-    ]
+    "tags": ["Data", "AI", "Governance", "Community", "Meetup"]
   },
   {
     "id": "kcdd-community-partner-celebration-2026",
@@ -635,11 +464,7 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "cost": "Paid",
-    "tags": [
-      "Community",
-      "Networking",
-      "Innovation"
-    ]
+    "tags": ["Community", "Networking", "Innovation"]
   },
   {
     "id": "asq-kc-ucm-quality-conference-2026",
@@ -652,12 +477,7 @@
     "location": "Lee's Summit, MO",
     "type": "Conference",
     "cost": "Free",
-    "tags": [
-      "Quality Management",
-      "Lean",
-      "Project Management",
-      "Student"
-    ]
+    "tags": ["Quality Management", "Lean", "Project Management", "Student"]
   },
   {
     "id": "asq-kc-iso9001-2026",
@@ -670,11 +490,7 @@
     "location": "Overland Park, KS",
     "type": "Workshop",
     "cost": "Paid",
-    "tags": [
-      "Quality Management",
-      "ISO 9001",
-      "Workshop"
-    ]
+    "tags": ["Quality Management", "ISO 9001", "Workshop"]
   },
   {
     "id": "global-ai-kc-october-2026",
@@ -687,12 +503,7 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "cost": "Free",
-    "tags": [
-      "AI",
-      "Machine Learning",
-      "Community",
-      "Meetup"
-    ]
+    "tags": ["AI", "Machine Learning", "Community", "Meetup"]
   },
   {
     "id": "global-ai-kc-november-2026",
@@ -705,12 +516,7 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "cost": "Free",
-    "tags": [
-      "AI",
-      "Machine Learning",
-      "Community",
-      "Meetup"
-    ]
+    "tags": ["AI", "Machine Learning", "Community", "Meetup"]
   },
   {
     "id": "small-community-talks-with-aws-2026",

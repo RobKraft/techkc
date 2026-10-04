@@ -11,7 +11,8 @@ const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
 
 // ── Filter dropdowns ──────────────────────────────────────────────────────
 const regions = [...new Set(events.map(e => {
-  const l = e.location;
+  // Events submitted without a location are treated as local (this is a KC calendar).
+  const l = e.location ?? 'Kansas City';
   if (l.includes('Kansas City') || l === 'Virtual') return 'Kansas City / Virtual';
   if (l.includes('MO') || l.includes('St. Louis')) return 'Missouri';
   if (l.includes('NE') || l.includes('Omaha') || l.includes('Lincoln')) return 'Nebraska';
@@ -79,7 +80,7 @@ const regions = [...new Set(events.map(e => {
     <!-- ── Cards grid ────────────────────────────────────────────────────── -->
     <div id="events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {sorted.map(event => {
-        const l = event.location;
+        const l = event.location ?? 'Kansas City';
         let region = 'Other';
         if (l.includes('Kansas City') || l === 'Virtual') region = 'Kansas City / Virtual';
         else if (l.includes('MO') || l.includes('St. Louis')) region = 'Missouri';
@@ -93,7 +94,7 @@ const regions = [...new Set(events.map(e => {
             data-enddate={event.endDate ?? event.date}
             data-month={new Date(event.date + 'T12:00:00').getMonth()}
             data-name={`${event.group ?? ''} ${event.name}`.toLowerCase()}
-            data-description={event.description.toLowerCase()}
+            data-description={(event.description ?? '').toLowerCase()}
             data-type={event.type.toLowerCase()}
             data-region={region}
           >

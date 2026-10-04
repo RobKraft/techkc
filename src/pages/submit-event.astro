@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Submit an Event</h1>
       <p class="text-slate-300 text-lg">
-        For trusted organizers. Log in, then submit — this opens a pull request for review before it goes live.
+        For trusted organizers. Log in, then submit, edit, or remove your events — every change opens a pull request for review before it goes live.
       </p>
     </div>
   </section>
@@ -30,21 +30,33 @@ import Layout from '../layouts/Layout.astro';
         <button id="logout-btn" type="button" class="text-sm text-slate-500 hover:text-brand-600">Log out</button>
       </div>
 
+      <div id="my-events" class="hidden mb-10">
+        <h2 class="text-xl font-bold text-slate-900 mb-1">Your events</h2>
+        <p class="text-sm text-slate-500 mb-3">Events you submitted that are live on the site. Changes and removals are reviewed before they take effect.</p>
+        <ul id="my-events-list" class="divide-y divide-slate-200 border border-slate-200 rounded-lg bg-white"></ul>
+        <p id="list-status" class="text-sm mt-3 hidden"></p>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <h2 id="form-heading" class="text-xl font-bold text-slate-900">Submit a new event</h2>
+        <button id="cancel-edit" type="button" class="hidden text-sm text-slate-500 hover:text-brand-600">Cancel edit</button>
+      </div>
+
       <form id="event-form" class="space-y-5">
         <div>
           <label class="block text-sm font-medium text-slate-700 mb-1.5" for="f-name">Event name *</label>
-          <input id="f-name" name="name" type="text" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id="f-name" name="name" type="text" required maxlength="200" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
         </div>
 
         <div>
           <label class="block text-sm font-medium text-slate-700 mb-1.5" for="f-group">Organizing group/org (optional)</label>
-          <input id="f-group" name="group" type="text" placeholder="e.g. Agile KC" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id="f-group" name="group" type="text" maxlength="200" placeholder="e.g. Agile KC" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1.5" for="f-url">Event website *</label>
-            <input id="f-url" name="url" type="url" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+            <input id="f-url" name="url" type="url" required maxlength="500" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
           </div>
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1.5" for="f-type">Event type *</label>
@@ -70,20 +82,14 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="f-location">Location *</label>
-            <input id="f-location" name="location" type="text" placeholder="e.g. Kansas City, MO" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1.5" for="f-cost">Cost *</label>
-            <input id="f-cost" name="cost" type="text" placeholder="e.g. Free, Paid, $25" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
-          </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="f-location">Location (optional)</label>
+          <input id="f-location" name="location" type="text" maxlength="200" placeholder="e.g. Kansas City, MO" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="f-description">Description *</label>
-          <textarea id="f-description" name="description" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"></textarea>
+          <label class="block text-sm font-medium text-slate-700 mb-1.5" for="f-description">Description (optional)</label>
+          <textarea id="f-description" name="description" rows="3" maxlength="2000" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"></textarea>
         </div>
 
         <div>
@@ -110,34 +116,58 @@ import Layout from '../layouts/Layout.astro';
   const clientId = import.meta.env.PUBLIC_AUTH0_CLIENT_ID;
   const audience = import.meta.env.PUBLIC_AUTH0_AUDIENCE;
 
-  const loadingEl   = document.getElementById('auth-loading')!;
-  const loginEl     = document.getElementById('auth-login')!;
-  const formWrapEl  = document.getElementById('auth-form')!;
-  const loginBtn    = document.getElementById('login-btn')!;
-  const logoutBtn   = document.getElementById('logout-btn')!;
-  const userNameEl  = document.getElementById('user-name')!;
-  const eventForm   = document.getElementById('event-form') as HTMLFormElement;
-  const submitBtn   = document.getElementById('submit-btn') as HTMLButtonElement;
-  const statusEl    = document.getElementById('form-status')!;
+  interface MyEvent {
+    id: string;
+    name: string;
+    group?: string;
+    description?: string;
+    url: string;
+    date: string;
+    endDate?: string;
+    location?: string;
+    type: string;
+    tags?: string[];
+  }
+  interface Defaults { group?: string; url?: string; type?: string; location?: string }
 
-  function showError(message: string) {
-    statusEl.textContent = message;
-    statusEl.classList.remove('hidden', 'text-emerald-600');
-    statusEl.classList.add('text-red-600');
+  const PREFILL_KEYS = ['group', 'url', 'type', 'location'] as const;
+
+  const loadingEl    = document.getElementById('auth-loading')!;
+  const loginEl      = document.getElementById('auth-login')!;
+  const formWrapEl   = document.getElementById('auth-form')!;
+  const loginBtn     = document.getElementById('login-btn')!;
+  const logoutBtn    = document.getElementById('logout-btn')!;
+  const userNameEl   = document.getElementById('user-name')!;
+  const eventForm    = document.getElementById('event-form') as HTMLFormElement;
+  const submitBtn    = document.getElementById('submit-btn') as HTMLButtonElement;
+  const statusEl     = document.getElementById('form-status')!;
+  const listStatusEl = document.getElementById('list-status')!;
+  const myEventsEl   = document.getElementById('my-events')!;
+  const myListEl     = document.getElementById('my-events-list')!;
+  const headingEl    = document.getElementById('form-heading')!;
+  const cancelBtn    = document.getElementById('cancel-edit')!;
+
+  const field = (name: string) => eventForm.elements.namedItem(name) as HTMLInputElement;
+
+  function setStatus(el: HTMLElement, kind: 'error' | 'success', message: string, linkUrl?: string) {
+    el.textContent = '';
+    el.classList.remove('hidden', 'text-red-600', 'text-emerald-600');
+    el.classList.add(kind === 'error' ? 'text-red-600' : 'text-emerald-600');
+    el.append(message);
+    if (linkUrl) {
+      el.append(' ');
+      const link = document.createElement('a');
+      link.href = linkUrl;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.className = 'underline';
+      link.textContent = 'View the pull request';
+      el.append(link);
+    }
   }
 
-  function showSuccess(prUrl: string) {
-    statusEl.textContent = '';
-    statusEl.classList.remove('hidden', 'text-red-600');
-    statusEl.classList.add('text-emerald-600');
-    statusEl.append('Submitted! ');
-    const link = document.createElement('a');
-    link.href = prUrl;
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.className = 'underline';
-    link.textContent = 'View the pull request';
-    statusEl.append(link);
+  function formatDate(iso: string) {
+    return new Date(`${iso}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
   async function init() {
@@ -185,47 +215,212 @@ import Layout from '../layouts/Layout.astro';
       auth0.logout({ logoutParams: { returnTo: redirectUri } })
     );
 
+    // ── Remembered details (pre-fill) ─────────────────────────────────────
+    // Two sources: what this person submitted last on this device, and what
+    // their most recent live events on the site look like (works on any device).
+    const storageKey = `techkc-submitter-defaults:${user?.sub ?? 'anon'}`;
+    let serverDefaults: Defaults = {};
+
+    function readLocalDefaults(): Defaults {
+      try { return JSON.parse(localStorage.getItem(storageKey) ?? '{}'); } catch { return {}; }
+    }
+    function saveLocalDefaults(values: Defaults) {
+      try { localStorage.setItem(storageKey, JSON.stringify(values)); } catch { /* storage unavailable */ }
+    }
+    function applyDefaults() {
+      const defaults = { ...serverDefaults, ...readLocalDefaults() };
+      for (const key of PREFILL_KEYS) {
+        const input = field(key);
+        if (!input.value && defaults[key]) input.value = defaults[key]!;
+      }
+    }
+
+    // ── Edit mode ─────────────────────────────────────────────────────────
+    let editingId: string | null = null;
+
+    function setFormMode(editing: MyEvent | null) {
+      editingId = editing?.id ?? null;
+      headingEl.textContent = editing ? `Edit: ${editing.name}` : 'Submit a new event';
+      submitBtn.textContent = editing ? 'Submit changes' : 'Submit Event';
+      cancelBtn.classList.toggle('hidden', !editing);
+      statusEl.classList.add('hidden');
+    }
+
+    function startEdit(ev: MyEvent) {
+      eventForm.reset();
+      setFormMode(ev);
+      field('name').value        = ev.name;
+      field('group').value       = ev.group ?? '';
+      field('url').value         = ev.url;
+      field('type').value        = ev.type;
+      field('date').value        = ev.date;
+      field('endDate').value     = ev.endDate && ev.endDate !== ev.date ? ev.endDate : '';
+      field('location').value    = ev.location ?? '';
+      field('description').value = ev.description ?? '';
+      field('tags').value        = (ev.tags ?? []).join(', ');
+      headingEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function stopEdit() {
+      eventForm.reset();
+      setFormMode(null);
+      applyDefaults();
+    }
+
+    cancelBtn.addEventListener('click', stopEdit);
+
+    // ── Authenticated calls ───────────────────────────────────────────────
+    async function api(path: string, init: { method: 'GET' | 'POST'; body?: unknown }) {
+      const token = await auth0.getTokenSilently();
+      const res = await fetch(`/.netlify/functions/${path}`, {
+        method: init.method,
+        headers: {
+          authorization: `Bearer ${token}`,
+          ...(init.body ? { 'content-type': 'application/json' } : {}),
+        },
+        body: init.body ? JSON.stringify(init.body) : undefined,
+      });
+      const data = await res.json().catch(() => ({}));
+      return { ok: res.ok, data };
+    }
+
+    // ── "Your events" list ────────────────────────────────────────────────
+    function markPending(row: HTMLElement, label: string) {
+      row.querySelectorAll('button').forEach(b => { (b as HTMLButtonElement).disabled = true; });
+      const note = document.createElement('span');
+      note.className = 'text-xs text-amber-600 font-medium';
+      note.textContent = label;
+      row.querySelector('[data-actions]')!.prepend(note);
+    }
+
+    const rowsById = new Map<string, HTMLElement>();
+
+    function renderMyEvents(events: MyEvent[]) {
+      myListEl.textContent = '';
+      rowsById.clear();
+      myEventsEl.classList.toggle('hidden', events.length === 0);
+
+      for (const ev of events) {
+        const row = document.createElement('li');
+        rowsById.set(ev.id, row);
+        row.className = 'flex flex-wrap items-center justify-between gap-3 px-4 py-3';
+
+        const info = document.createElement('div');
+        info.className = 'min-w-0';
+        const title = document.createElement('p');
+        title.className = 'text-sm font-medium text-slate-900 truncate';
+        title.textContent = ev.name;
+        const when = document.createElement('p');
+        when.className = 'text-xs text-slate-500';
+        when.textContent = formatDate(ev.date);
+        info.append(title, when);
+
+        const actions = document.createElement('div');
+        actions.dataset.actions = '';
+        actions.className = 'flex items-center gap-3 shrink-0';
+
+        const editBtn = document.createElement('button');
+        editBtn.type = 'button';
+        editBtn.className = 'text-sm text-brand-600 hover:text-brand-800 font-medium disabled:opacity-40 disabled:pointer-events-none';
+        editBtn.textContent = 'Edit';
+        editBtn.addEventListener('click', () => startEdit(ev));
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'text-sm text-red-600 hover:text-red-800 font-medium disabled:opacity-40 disabled:pointer-events-none';
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.addEventListener('click', async () => {
+          if (!confirm(`Request removal of "${ev.name}"? It stays on the site until the removal is reviewed.`)) return;
+          deleteBtn.disabled = true;
+          listStatusEl.classList.add('hidden');
+          try {
+            const { ok, data } = await api('delete-event', { method: 'POST', body: { id: ev.id } });
+            if (!ok) {
+              setStatus(listStatusEl, 'error', data.error ?? 'Something went wrong.');
+              deleteBtn.disabled = false;
+              return;
+            }
+            setStatus(listStatusEl, 'success', 'Removal requested.', data.prUrl);
+            markPending(row, 'Removal pending review');
+            if (editingId === ev.id) stopEdit();
+          } catch {
+            setStatus(listStatusEl, 'error', 'Something went wrong requesting the removal.');
+            deleteBtn.disabled = false;
+          }
+        });
+
+        actions.append(editBtn, deleteBtn);
+        row.append(info, actions);
+        myListEl.append(row);
+      }
+    }
+
+    async function loadMyEvents() {
+      try {
+        const { ok, data } = await api('my-events', { method: 'GET' });
+        if (!ok) return;
+        serverDefaults = data.defaults ?? {};
+        renderMyEvents(data.events ?? []);
+        if (!editingId) applyDefaults();
+      } catch {
+        // The list and pre-fill are conveniences; submitting still works without them.
+      }
+    }
+
+    applyDefaults();
+    loadMyEvents();
+
+    // ── Submit (new or edit) ──────────────────────────────────────────────
     eventForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       submitBtn.disabled = true;
       statusEl.classList.add('hidden');
 
       const formData = new FormData(eventForm);
+      const text = (name: string) => String(formData.get(name) ?? '').trim() || undefined;
       const tagsRaw = String(formData.get('tags') ?? '');
       const payload = {
-        name: formData.get('name'),
-        group: formData.get('group') || undefined,
-        url: formData.get('url'),
-        type: formData.get('type'),
-        date: formData.get('date'),
-        endDate: formData.get('endDate') || undefined,
-        location: formData.get('location'),
-        cost: formData.get('cost'),
-        description: formData.get('description'),
+        name: text('name'),
+        group: text('group'),
+        url: text('url'),
+        type: text('type'),
+        date: text('date'),
+        endDate: text('endDate'),
+        location: text('location'),
+        description: text('description'),
         tags: tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [],
       };
+      const wasEditing = editingId;
 
       try {
-        const token = await auth0.getTokenSilently();
-        const res = await fetch('/.netlify/functions/submit-event', {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(payload),
-        });
-        const result = await res.json();
+        const { ok, data } = wasEditing
+          ? await api('edit-event', { method: 'POST', body: { id: wasEditing, ...payload } })
+          : await api('submit-event', { method: 'POST', body: payload });
 
-        if (!res.ok) {
-          showError(result.error ?? 'Something went wrong.');
+        if (!ok) {
+          setStatus(statusEl, 'error', data.error ?? 'Something went wrong.');
+          return;
+        }
+
+        saveLocalDefaults({
+          group: payload.group,
+          url: payload.url,
+          type: payload.type,
+          location: payload.location,
+        });
+
+        if (wasEditing) {
+          stopEdit();
+          setStatus(statusEl, 'success', 'Change submitted for review.', data.prUrl);
+          const row = rowsById.get(wasEditing);
+          if (row) markPending(row, 'Change pending review');
         } else {
-          showSuccess(result.prUrl);
+          setStatus(statusEl, 'success', 'Submitted!', data.prUrl);
           eventForm.reset();
           setTimeout(() => { window.location.href = '/'; }, 2200);
         }
       } catch {
-        showError('Something went wrong submitting the event.');
+        setStatus(statusEl, 'error', 'Something went wrong submitting the event.');
       } finally {
         submitBtn.disabled = false;
       }

@@ -5,14 +5,14 @@ interface CalEvent {
   id: string;
   name: string;
   group?: string;
-  description: string;
+  description?: string;
   url: string;
   date: string;
   endDate?: string;
   dateTBD?: boolean;
-  location: string;
+  location?: string;
   type: string;
-  cost: string;
+  cost?: string;
   tags: string[];
 }
 
@@ -278,7 +278,7 @@ function chipsForDay(key: string, max: number) {
                         </span>
                         <span class="text-xs text-slate-500">
                           {dateStr}
-                          {ev.location !== 'Kansas City, MO' && <span class="ml-1 text-slate-400">· {ev.location}</span>}
+                          {ev.location && ev.location !== 'Kansas City, MO' && <span class="ml-1 text-slate-400">· {ev.location}</span>}
                           {ev.dateTBD && <span class="ml-1 text-amber-600 font-medium">(date TBD)</span>}
                         </span>
                       </a>
