@@ -238,18 +238,6 @@
     "tags": ["Conference", "All Topics", "Professional Development"]
   },
   {
-    "id": "hack-midwest-2026",
-    "name": "Hack Midwest",
-    "description": "The Midwest's largest hackathon. 24+ hours of building, learning, and competing for prizes across many tracks.",
-    "url": "https://hackmidwest.com/",
-    "date": "2026-10-10",
-    "endDate": "2026-10-11",
-    "location": "Kansas City, MO",
-    "type": "Hackathon",
-    "cost": "Free",
-    "tags": ["Hackathon", "Students", "All Levels"]
-  },
-  {
     "id": "thunder-plains-2026",
     "name": "Thunder Plains Developer Conference",
     "description": "Oklahoma City's developer conference covering web development, JavaScript, and modern software practices.",
@@ -543,5 +531,29 @@
     "type": "Meetup",
     "cost": "Free",
     "tags": []
+  },
+  {
+    "id": "pykc-coffee-and-code-2026-10-10",
+    "name": "PyKC Coffee & Code",
+    "group": "Python KC",
+    "description": "Bring a laptop and work on Python projects, get programming help, help others, and meet people. Help is available for beginners getting Python installed, with plenty of time for advanced topics too. All experience levels welcome.",
+    "url": "https://www.meetup.com/pythonkc/",
+    "date": "2026-10-10",
+    "endDate": "2026-10-10",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "tags": ["Python", "Community", "Meetup"]
+  },
+  {
+    "id": "data-science-kc-paper-club-2026-10-08",
+    "name": "Data Science Paper Club",
+    "group": "Data Science KC",
+    "description": "Pick a research paper from a list of six (or choose one when you arrive), then split into small groups to dig into the ideas and bring the best insights back to the room. No PhD required.",
+    "url": "https://www.meetup.com/data-science-kc/",
+    "date": "2026-10-08",
+    "endDate": "2026-10-08",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Data Science", "Machine Learning", "Community", "Meetup"]
   }
 ]
