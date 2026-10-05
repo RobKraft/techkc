@@ -30,6 +30,16 @@
     "active": true
   },
   {
+    "id": "aiops-kc",
+    "name": "AIOps KC",
+    "description": "Community for anyone interested in how AI is changing the way we build, operate, and manage technology. Technical talks, live demos, and discussion on AI agents, infrastructure automation, Kubernetes, observability, and cloud operations.",
+    "url": "https://www.meetup.com/aiops-kc/",
+    "meetupUrl": "https://www.meetup.com/aiops-kc/",
+    "topics": ["AI", "AIOps", "DevOps", "Platform Engineering", "Cloud"],
+    "frequency": "Irregular",
+    "active": true
+  },
+  {
     "id": "atlassian-kc",
     "name": "Atlassian KC",
     "description": "Kansas City Atlassian User Group. Jira, Confluence, Bitbucket, and the full Atlassian toolset for dev teams.",
