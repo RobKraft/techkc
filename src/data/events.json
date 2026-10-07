@@ -555,5 +555,15 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Data Science", "Machine Learning", "Community", "Meetup"]
+  },
+  {
+    "id": "global-ai-kc-meet-up-2026",
+    "name": "Global AI KC Meet Up",
+    "group": "Global AI KC",
+    "url": "https://globalai.community/e/1fewqma6",
+    "date": "2026-10-15",
+    "endDate": "2026-10-15",
+    "type": "Meetup",
+    "tags": []
   }
 ]
