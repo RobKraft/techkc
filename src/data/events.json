@@ -555,5 +555,17 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Data Science", "Machine Learning", "Community", "Meetup"]
+  },
+  {
+    "id": "devday-exchange-kc-2026",
+    "name": "DevDay Exchange Community: Kansas City",
+    "group": "AI Collective KC",
+    "description": "Community-led recap of OpenAI DevDay (not an official OpenAI event): watch a 25-minute DevDay recap, then join Daniel Green, Kansas City's Codex Ambassador, for a conversation on new features, live Q&A, demos, and discussion. Open to anyone working with Codex, using ChatGPT at work, or curious about AI; no technical background required. 6:00 PM - 8:30 PM. Registration requires approval.",
+    "url": "https://luma.com/CodexKC2026",
+    "date": "2026-11-05",
+    "endDate": "2026-11-05",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["AI", "OpenAI", "Codex", "Community", "Meetup"]
   }
 ]
