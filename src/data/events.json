@@ -567,5 +567,17 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["AI", "OpenAI", "Codex", "Community", "Meetup"]
+  },
+  {
+    "id": "agile-kc-innovation-ready-teams-2026",
+    "name": "Building Innovation-Ready Teams: The DNA of High-Performing Groups",
+    "group": "Agile KC",
+    "description": "Agile KC session on why innovation depends on team conditions rather than hiring, organized around three pillars: Safety, Structure, and Speed. Covers what leaders contribute and the phrases that quietly shut innovation down, with a concrete change to try the same week. 5:30 PM - 7:00 PM.",
+    "url": "https://www.meetup.com/agile-kc/events/316819534/",
+    "date": "2026-10-22",
+    "endDate": "2026-10-22",
+    "location": "Leawood, KS",
+    "type": "Meetup",
+    "tags": ["Agile", "Leadership", "Teams", "Community", "Meetup"]
   }
 ]
