@@ -591,5 +591,17 @@
     "location": "Lenexa, KS",
     "type": "Meetup",
     "tags": ["Postgres", "Databases", "SQL", "Community", "Meetup"]
+  },
+  {
+    "id": "awskcug-holiday-joy-2026",
+    "name": "AWSome Holiday joy!",
+    "group": "Amazon Web Services Kansas City User Group",
+    "description": "Casual holiday get-together with food and drinks, short informal AWS talks, and a chance to share your own projects, reconnect with members, and meet newcomers. Bringing a small new toy for a local charity is optional. 5:30 PM - 7:30 PM (may run later).",
+    "url": "https://www.meetup.com/awskcug/events/316697411/",
+    "date": "2026-12-14",
+    "endDate": "2026-12-14",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "tags": ["AWS", "Cloud", "Community", "Networking", "Meetup"]
   }
 ]
