@@ -579,5 +579,17 @@
     "location": "Leawood, KS",
     "type": "Meetup",
     "tags": ["Agile", "Leadership", "Teams", "Community", "Meetup"]
+  },
+  {
+    "id": "kc-postgres-take-a-hint-2026",
+    "name": "Postgres: Take a Hint",
+    "group": "Kansas City Postgres User Group",
+    "description": "Dan Gras and Elizabeth Christensen on query hints in Postgres, from the pg_hint_plan extension to the query plan advice planned for Postgres 19. Dan shares hints he recently used to resolve production issues, and Elizabeth presents new Postgres 19 features. Open to all database experience levels, followed by snacks, drinks, and networking nearby. 5:00 PM - 7:00 PM.",
+    "url": "https://www.meetup.com/kansas-city-postgres-user-group/events/317097680/",
+    "date": "2026-11-09",
+    "endDate": "2026-11-09",
+    "location": "Lenexa, KS",
+    "type": "Meetup",
+    "tags": ["Postgres", "Databases", "SQL", "Community", "Meetup"]
   }
 ]
