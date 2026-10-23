@@ -640,5 +640,17 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Data Science", "Students", "Careers", "Lightning Talks", "Community", "Meetup"]
+  },
+  {
+    "id": "kcjug-lightning-round-talks-2026",
+    "name": "KCJUG Lightning Round Talks",
+    "group": "Kansas City Java Users Group",
+    "description": "The group's annual Lightning Round Talks: members share something they've learned in 5- to 15-minute talks, with ideas submitted through the group's Sessionize page. Meet, greet, and food at 5:30 PM, Java news at 6:15 PM, presentations from 6:20 PM, followed by a social hour nearby. 5:30 PM - 7:30 PM.",
+    "url": "https://www.meetup.com/kansascityjug/events/316843341/",
+    "date": "2026-11-10",
+    "endDate": "2026-11-10",
+    "location": "Olathe, KS",
+    "type": "Meetup",
+    "tags": ["Java", "JVM", "Lightning Talks", "Community", "Meetup"]
   }
 ]
