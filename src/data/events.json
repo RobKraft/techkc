@@ -652,5 +652,17 @@
     "location": "Olathe, KS",
     "type": "Meetup",
     "tags": ["Java", "JVM", "Lightning Talks", "Community", "Meetup"]
+  },
+  {
+    "id": "kc-net-user-group-scaling-ai-ptu-2026",
+    "name": "Scaling AI Features: Capacity Planning and PTU Cost Realities in Azure",
+    "group": "KC .NET User Group",
+    "description": "Dhanabal Chandrasekaran (H&R Block) on taking an LLM-powered feature from pilot to production in Azure: estimating capacity from token usage, load testing into HTTP 429 throttling, weighing pay-as-you-go against provisioned throughput units (PTUs), and how cost findings shaped rollout and fallback decisions. Plus a lightning talk by Duane Newman, \"Have Dotfiles, Will Travel,\" on portable developer environments with Git-managed dotfiles and VS Code Dev Containers. 6:00 PM - 8:00 PM.",
+    "url": "https://www.meetup.com/kc-net-user-group/events/317108704/",
+    "date": "2026-10-27",
+    "endDate": "2026-10-27",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "tags": [".NET", "AI", "Azure", "Cloud", "Community", "Meetup"]
   }
 ]
