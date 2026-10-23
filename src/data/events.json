@@ -615,5 +615,18 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Google", "AI", "Agents", "Vertex AI", "Community", "Meetup"]
+  },
+  {
+    "id": "kc-ai-club-ai-expo-2026",
+    "name": "KC AI Expo 2026",
+    "group": "Kansas City AI Club",
+    "description": "In-person showcase of 30+ Kansas City companies building AI, from early-stage startups to established enterprises. No keynotes or stage program: walk the exhibitor floor, ask questions, and network with founders, operators, engineers, and decision makers. Open to the whole local AI community, including students and job seekers. 4:00 PM - 8:00 PM. Tickets $20.",
+    "url": "https://www.eventbrite.com/e/kansas-city-ai-club-november-10-2026-kc-ai-expo-event-tickets-2001680808181",
+    "date": "2026-11-10",
+    "endDate": "2026-11-10",
+    "location": "Lenexa, KS",
+    "type": "Conference",
+    "cost": "Paid",
+    "tags": ["AI", "Expo", "Startups", "Networking", "Community"]
   }
 ]
