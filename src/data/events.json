@@ -628,5 +628,17 @@
     "type": "Conference",
     "cost": "Paid",
     "tags": ["AI", "Expo", "Startups", "Networking", "Community"]
+  },
+  {
+    "id": "data-science-kc-early-career-showcase-2026",
+    "name": "Data Science KC University & Early Career Showcase",
+    "group": "Data Science KC",
+    "description": "Lightning talks from university students, recent graduates, and early-career data science professionals from across the region, plus a chance to connect with Kansas City's data science community. Sponsored by Burns & McDonnell. Want to present? Submit an idea through the form on the event page. 6:00 PM - 7:30 PM.",
+    "url": "https://www.meetup.com/data-science-kc/events/316505128/",
+    "date": "2026-11-12",
+    "endDate": "2026-11-12",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Data Science", "Students", "Careers", "Lightning Talks", "Community", "Meetup"]
   }
 ]
