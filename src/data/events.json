@@ -603,5 +603,17 @@
     "location": "Overland Park, KS",
     "type": "Meetup",
     "tags": ["AWS", "Cloud", "Community", "Networking", "Meetup"]
+  },
+  {
+    "id": "gdg-kc-spec-swarm-software-2026",
+    "name": "Spec - Swarm - Software",
+    "group": "Google Developer Group Kansas City",
+    "description": "Chris Perrin (PSI Services) on AI coding that starts from a real software specification and aims for production-quality results. A live demo shows an agent swarm in Google Antigravity turning a spec into a working feature, with Vertex AI reviewing the code, generating unit tests, flagging problems, and deploying. Covers how agents collaborate, where they fail, and why human engineering judgment still matters. Doors open at 6:00 PM with pizza; program 6:30 PM - 8:00 PM, then networking.",
+    "url": "https://www.meetup.com/gdg-kansas-city/events/317087937/",
+    "date": "2026-10-28",
+    "endDate": "2026-10-28",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Google", "AI", "Agents", "Vertex AI", "Community", "Meetup"]
   }
 ]
