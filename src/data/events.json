@@ -664,5 +664,17 @@
     "location": "Overland Park, KS",
     "type": "Meetup",
     "tags": [".NET", "AI", "Azure", "Cloud", "Community", "Meetup"]
+  },
+  {
+    "id": "kc-data-professionals-laptop-to-lakehouse-2026",
+    "name": "Right-Sizing Your Analytics Architecture: From Laptop to Lakehouse",
+    "group": "Data Professionals KC",
+    "description": "Aaron Spiegel, Derek Moore, and Elizabeth Christensen walk through a real-world analytics pipeline that starts on a single machine with open-source tools like Polars, Postgres, and DuckDB and scales to Databricks or Snowflake without a rewrite. Covers when one machine is enough, how open table formats like Apache Iceberg let you switch engines on the same data, GPU acceleration for single-node performance, and a framework for avoiding lock-in. For data leaders, engineers, and architects. 5:30 PM - 7:00 PM.",
+    "url": "https://www.meetup.com/kcdataprofessionals/events/316723338/",
+    "date": "2026-10-29",
+    "endDate": "2026-10-29",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Data Engineering", "Analytics", "Postgres", "Lakehouse", "Community", "Meetup"]
   }
 ]
