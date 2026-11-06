@@ -702,5 +702,17 @@
     "type": "Workshop",
     "cost": "Free",
     "tags": ["AI", "OpenAI", "Training", "Workshop"]
+  },
+  {
+    "id": "faithtech-kc-perfect-pitch-night-2026",
+    "name": "FaithTech KC - Perfect Pitch Night 2026!",
+    "group": "FaithTech KC",
+    "description": "Students from MidAmerica Nazarene University's entrepreneurship class present their business ideas and ask for input, with feedback led by coaches Cara Miller, Mark Calhoun, and Russ McGuire. Special guest: Unconventional Business Network. Come listen and support the students; pizza, snacks, and water provided. RSVP on Eventbrite (linked from the event page). 6:30 PM - 8:30 PM.",
+    "url": "https://www.meetup.com/crosstechkc/events/317149314/",
+    "date": "2026-11-09",
+    "endDate": "2026-11-09",
+    "location": "Olathe, KS",
+    "type": "Meetup",
+    "tags": ["Entrepreneurship", "Startups", "Students", "Community", "Meetup"]
   }
 ]
