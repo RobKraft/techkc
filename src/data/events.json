@@ -676,5 +676,31 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Data Engineering", "Analytics", "Postgres", "Lakehouse", "Community", "Meetup"]
+  },
+  {
+    "id": "ai-collective-kc-roundtable-29-2026",
+    "name": "AI Roundtable #29: Work Rewritten: AI, Jobs, Opportunity, and Impact",
+    "group": "AI Collective KC",
+    "description": "Virtual roundtable with Voyage Consulting on how AI is changing work inside organizations: where it creates new opportunities, where disruption is real and roles are changing, and what leaders owe their people through the transition. 12:00 PM - 1:00 PM on Zoom. Registration requires approval.",
+    "url": "https://luma.com/aic-kc-roundtable29",
+    "date": "2026-11-09",
+    "endDate": "2026-11-09",
+    "location": "Virtual",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": ["AI", "Leadership", "Future of Work", "Community"]
+  },
+  {
+    "id": "ai-collective-kc-openai-training-2026",
+    "name": "OpenAI Technical Practitioner Training (Lawrence, KS)",
+    "group": "AI Collective KC",
+    "description": "Interactive three-hour, in-person workshop delivered by OpenAI's training team, part of its Technical Practitioner badge track. Learn to identify AI opportunities, evaluate technical solutions, assess implementation readiness, and build a recommendation from a realistic customer scenario. For developers, IT professionals, solution architects, technology leaders, and technical entrepreneurs. 9:00 AM - 12:00 PM. Space is limited and registration requires approval.",
+    "url": "https://luma.com/OpenAITraining",
+    "date": "2026-12-03",
+    "endDate": "2026-12-03",
+    "location": "Lawrence, KS",
+    "type": "Workshop",
+    "cost": "Free",
+    "tags": ["AI", "OpenAI", "Training", "Workshop"]
   }
 ]

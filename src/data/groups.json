@@ -30,12 +30,12 @@
     "active": true
   },
   {
-    "id": "ai-collective",
-    "name": "AI Collective",
-    "description": "Kansas City nonprofit collective focused on making AI accessible to everyone, from industry veterans to curious novices, through educational events and a commitment to ethical AI development.",
-    "url": "https://aicollectivekc.com/",
-    "topics": ["AI", "Ethics", "Education"],
-    "frequency": "Irregular",
+    "id": "ai-collective-kc",
+    "name": "AI Collective KC",
+    "description": "Kansas City chapter of The AI Collective, a global non-profit AI community. Connects local builders, researchers, and leaders through roundtables, workshops, and meetups on applying AI at work.",
+    "url": "https://www.aicollective.com/chapters/kc",
+    "topics": ["AI", "Leadership", "Future of Work", "Networking"],
+    "frequency": "Monthly",
     "active": true
   },
   {
