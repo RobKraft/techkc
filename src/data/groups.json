@@ -30,6 +30,15 @@
     "active": true
   },
   {
+    "id": "ai-collective",
+    "name": "AI Collective",
+    "description": "Kansas City nonprofit collective focused on making AI accessible to everyone, from industry veterans to curious novices, through educational events and a commitment to ethical AI development.",
+    "url": "https://aicollectivekc.com/",
+    "topics": ["AI", "Ethics", "Education"],
+    "frequency": "Irregular",
+    "active": true
+  },
+  {
     "id": "aiops-kc",
     "name": "AIOps KC",
     "description": "Community for anyone interested in how AI is changing the way we build, operate, and manage technology. Technical talks, live demos, and discussion on AI agents, infrastructure automation, Kubernetes, observability, and cloud operations.",
