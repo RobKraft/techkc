@@ -1086,5 +1086,29 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Coworking", "Networking", "Community", "Meetup"]
+  },
+  {
+    "id": "pykc-coffee-and-code-2026-11-14",
+    "name": "PyKC Coffee & Code",
+    "group": "Python KC",
+    "description": "Bring a laptop and work on Python projects, get programming help, help others, and meet people. Starts with brief introductions and a chance to share what you're working on. Help is available for beginners learning the basics or installing Python, with plenty of time for advanced topics too. All experience levels welcome. 10:00 AM - 12:30 PM.",
+    "url": "https://www.meetup.com/pythonkc/events/316869625/",
+    "date": "2026-11-14",
+    "endDate": "2026-11-14",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "tags": ["Python", "Community", "Meetup"]
+  },
+  {
+    "id": "pythonkc-spring-meetup-2027",
+    "name": "PythonKC Spring Meetup",
+    "group": "Python KC",
+    "description": "PythonKC's annual spring meetup. Details and location to be announced; RSVPs open two weeks before the event. 7:00 PM - 10:00 PM.",
+    "url": "https://www.meetup.com/pythonkc/events/313897413/",
+    "date": "2027-03-25",
+    "endDate": "2027-03-25",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Python", "Community", "Meetup"]
   }
 ]
