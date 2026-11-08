@@ -4,7 +4,11 @@ import EventCard from '../components/EventCard.astro';
 import Calendar from '../components/Calendar.astro';
 import events from '../data/events.json';
 
-const YEAR = 2026;
+// Years covered by the listed events, e.g. "2026" or "2026–2027"
+const eventYears = events.map(e => Number(e.date.slice(0, 4)));
+const firstYear = Math.min(...eventYears);
+const lastYear = Math.max(...eventYears);
+const YEARS = firstYear === lastYear ? `${firstYear}` : `${firstYear}–${lastYear}`;
 
 // Pre-compute the sorted list used by the card grid below the calendar
 const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
@@ -22,14 +26,14 @@ const regions = [...new Set(events.map(e => {
 }))].sort();
 ---
 
-<Layout title="Events" description="Tech conferences, hackathons, and events in and around Kansas City for 2026.">
+<Layout title="Events" description={`Tech conferences, hackathons, and events in and around Kansas City for ${YEARS}.`}>
 
   <!-- Page header -->
   <section class="bg-slate-900 text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Regional Events</h1>
       <p class="text-slate-300 text-lg max-w-2xl">
-        Conferences, hackathons, and workshops in and around Kansas City for {YEAR}.
+        Conferences, hackathons, and workshops in and around Kansas City for {YEARS}.
       </p>
     </div>
   </section>
@@ -75,7 +79,7 @@ const regions = [...new Set(events.map(e => {
       </div>
     </div>
 
-    <Calendar events={sorted} year={YEAR} defaultView="compact" />
+    <Calendar events={sorted} defaultView="compact" />
 
     <!-- ── Cards grid ────────────────────────────────────────────────────── -->
     <div id="events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -92,7 +96,7 @@ const regions = [...new Set(events.map(e => {
             class="event-item"
             data-date={event.date}
             data-enddate={event.endDate ?? event.date}
-            data-month={new Date(event.date + 'T12:00:00').getMonth()}
+            data-month={event.date.slice(0, 7)}
             data-name={`${event.group ?? ''} ${event.name}`.toLowerCase()}
             data-description={(event.description ?? '').toLowerCase()}
             data-type={event.type.toLowerCase()}
@@ -123,12 +127,12 @@ const regions = [...new Set(events.map(e => {
 </Layout>
 
 <script>
-  const YEAR = 2026;
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
 
-  // Card grid's month filter tracks the Calendar component's compact-view month
-  let calMonth = (today.getFullYear() === YEAR) ? today.getMonth() : 0;
+  // Card grid's month filter tracks the Calendar component's compact-view month,
+  // as a 'YYYY-MM' key. The calendar's first render fires before this module
+  // script runs, so start from today's month, which is where the calendar opens.
+  let calMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
 
   // ── DOM refs ──────────────────────────────────────────────────────────────
   const items          = document.querySelectorAll<HTMLElement>('.event-item');
@@ -140,11 +144,11 @@ const regions = [...new Set(events.map(e => {
   function applyFilters() {
     const q      = searchEl.value.toLowerCase();
     const region = regionFilterEl.value;
-    // While actively searching, look across the whole year rather than just
+    // While actively searching, look across every month rather than just
     // whatever month the calendar happens to be showing — otherwise a match
     // in a different month silently disappears, which just looks broken.
     const matchesMonth = (item: HTMLElement) =>
-      q ? true : parseInt(item.dataset.month!) === calMonth;
+      q ? true : item.dataset.month === calMonth;
     let   visible = 0;
     items.forEach(item => {
       const matchMonth  = matchesMonth(item);
@@ -158,7 +162,7 @@ const regions = [...new Set(events.map(e => {
   }
 
   document.addEventListener('techkc-calendar-month-change', (e) => {
-    calMonth = (e as CustomEvent<{ month: number }>).detail.month;
+    calMonth = (e as CustomEvent<{ month: string }>).detail.month;
     applyFilters();
   });
 
