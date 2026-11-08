@@ -79,8 +79,8 @@
     "id": "coffee-and-code",
     "name": "Code and Coffee KC",
     "description": "Informal co-working and coding sessions. Bring your laptop, grab a coffee, and work alongside other KC developers.",
-    "url": "https://www.meetup.com/coffee-and-code/",
-    "meetupUrl": "https://www.meetup.com/coffee-and-code/",
+    "url": "https://www.meetup.com/code-and-coffee-kc/",
+    "meetupUrl": "https://www.meetup.com/code-and-coffee-kc/",
     "topics": ["Networking", "All Languages", "Open Workspace"],
     "frequency": "Weekly",
     "active": true
