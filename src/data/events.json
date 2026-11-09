@@ -1194,5 +1194,29 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Faith", "Technology", "Networking", "Community", "Meetup"]
+  },
+  {
+    "id": "seckc-2026-11",
+    "name": "SecKC - November 2026",
+    "group": "SecKC",
+    "description": "SecKC's monthly meeting, in person and streamed on Twitch. Talks include Wes Peck on AI-driven attacks at the kernel level and Mick Baccio (former White House Threat Intelligence Branch Chief) on elections, cybersecurity, and public trust in \"MO votes, MO problems.\" It's also SWAPVEMBER: stay after to swap old computers, books, stickers, gadgets, and cables. 5:00 PM - 9:00 PM.",
+    "url": "https://www.seckc.org/upcoming-events/seckc-november-2026",
+    "date": "2026-11-10",
+    "endDate": "2026-11-10",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Security", "InfoSec", "AI", "Community", "Meetup"]
+  },
+  {
+    "id": "seckc-2026-12",
+    "name": "SecKC - December 2026",
+    "group": "SecKC",
+    "description": "SecKC's monthly meeting, in person and streamed on Twitch. Talks and speakers to be announced. 5:00 PM - 9:00 PM.",
+    "url": "https://www.seckc.org/upcoming-events/seckc-december-2026",
+    "date": "2026-12-08",
+    "endDate": "2026-12-08",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Security", "InfoSec", "Community", "Meetup"]
   }
 ]
