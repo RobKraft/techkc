@@ -1218,5 +1218,17 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Security", "InfoSec", "Community", "Meetup"]
+  },
+  {
+    "id": "wiskc-november-2026-meeting",
+    "name": "WiSKC November 2026 Meeting",
+    "group": "Women in Security KC",
+    "description": "Women in Security Kansas City's final meeting of 2026: an end-of-year social with food and drinks, plus the group's annual elections. Sponsored by Optiv. 5:30 PM - 7:00 PM.",
+    "url": "https://www.wiskc.org/events/november-meeting-3",
+    "date": "2026-11-18",
+    "endDate": "2026-11-18",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Security", "Women in Tech", "Networking", "Community"]
   }
 ]
