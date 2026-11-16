@@ -1230,5 +1230,17 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Security", "Women in Tech", "Networking", "Community"]
+  },
+  {
+    "id": "atlassian-kc-virtual-coffee-chat-2026-12",
+    "name": "Virtual Coffee Chat: Connect, Share & Look Ahead to 2027!",
+    "group": "Atlassian KC",
+    "description": "Informal virtual coffee chat to reconnect with the Kansas City Atlassian community at year's end. Share what you're working on, talk through blockers, show off a demo or tip, and help brainstorm topics, speakers, and formats for the chapter's 2027 roadmap. 12:00 PM - 1:00 PM, online.",
+    "url": "https://ace.atlassian.com/events/details/atlassian-kansas-city-presents-virtual-coffee-chat-connect-share-amp-look-ahead-to-2027/",
+    "date": "2026-12-07",
+    "endDate": "2026-12-07",
+    "location": "Virtual",
+    "type": "Meetup",
+    "tags": ["Atlassian", "Jira", "Confluence", "Networking", "Community"]
   }
 ]
