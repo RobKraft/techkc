@@ -1254,5 +1254,17 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Data Science", "AI", "Analytics", "Data Engineering", "Community", "Meetup"]
+  },
+  {
+    "id": "dynamics-ug-kc-holiday-party-2026",
+    "name": "Holiday Party",
+    "group": "Dynamics UG Kansas City",
+    "description": "The Kansas City Dynamics 365, Power Platform & AI User Group's December holiday party at an arcade. No presentations this month, just pizza, drinks, games, and conversation with the community. Colleagues and friends are welcome. 5:00 PM - 7:00 PM.",
+    "url": "https://www.meetup.com/microsoft-dynamics-and-power-platform-in-kansas-city/events/317275945/",
+    "date": "2026-12-03",
+    "endDate": "2026-12-03",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Microsoft Dynamics", "Power Platform", "Networking", "Community", "Meetup"]
   }
 ]
