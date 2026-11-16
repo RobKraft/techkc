@@ -1242,5 +1242,17 @@
     "location": "Virtual",
     "type": "Meetup",
     "tags": ["Atlassian", "Jira", "Confluence", "Networking", "Community"]
+  },
+  {
+    "id": "data-science-kc-semantic-model-2026-12",
+    "name": "Standardizing Business Logic for AI: Why Your Data Stack Needs a Semantic Model",
+    "group": "Data Science KC",
+    "description": "Elizabeth Christensen (Snowflake) on why AI is only as reliable as the business definitions behind it: when \"revenue\" or \"churn\" means different things across dashboards and apps, AI agents give inconsistent answers. Makes the case for a unified semantic model where metrics, relationships, and business rules are defined once and reused by every BI tool, application, and AI agent. 6:00 PM - 8:00 PM.",
+    "url": "https://www.meetup.com/data-science-kc/events/317416087/",
+    "date": "2026-12-10",
+    "endDate": "2026-12-10",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Data Science", "AI", "Analytics", "Data Engineering", "Community", "Meetup"]
   }
 ]
