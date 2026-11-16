@@ -1266,5 +1266,17 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Microsoft Dynamics", "Power Platform", "Networking", "Community", "Meetup"]
+  },
+  {
+    "id": "atlassian-kc-virtual-coffee-chat-2027-02",
+    "name": "Virtual Coffee Chat & Catch-Up",
+    "group": "Atlassian KC",
+    "description": "Follow-up virtual coffee chat for the Kansas City Atlassian community: an informal check-in to share recent projects and wins, swap advice on workflows, automation, and team adoption, and demo practical tips like Rovo prompts, automation rules, and dashboards in short show-and-tell slots. Also a chance to help pick topics for future chapter events. 12:00 PM - 1:00 PM, online.",
+    "url": "https://ace.atlassian.com/events/details/atlassian-kansas-city-presents-virtual-coffee-chat-amp-catch-up/",
+    "date": "2027-02-08",
+    "endDate": "2027-02-08",
+    "location": "Virtual",
+    "type": "Meetup",
+    "tags": ["Atlassian", "Jira", "Confluence", "Networking", "Community"]
   }
 ]
