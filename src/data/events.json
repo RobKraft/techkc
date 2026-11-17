@@ -1278,5 +1278,17 @@
     "location": "Virtual",
     "type": "Meetup",
     "tags": ["Atlassian", "Jira", "Confluence", "Networking", "Community"]
+  },
+  {
+    "id": "atlassian-kc-lunch-and-learn-2027-01",
+    "name": "Lunch & Learn: Crowdsourcing Your Workplace Survival Kit",
+    "group": "Atlassian KC",
+    "description": "In-person community lunch to ease back into work after the holidays. Share low-stress productivity tips for focus, inbox management, and protecting your calendar; take the \"One Small Thing\" challenge to pick a repetitive task to automate or remove, with live brainstorming of Atlassian-native solutions; and catch lightning demos of prompts, shortcuts, and automation rules. 12:00 PM - 1:00 PM.",
+    "url": "https://ace.atlassian.com/events/details/atlassian-kansas-city-presents-lunch-amp-learn-crowdsourcing-your-workplace-survival-kit/",
+    "date": "2027-01-11",
+    "endDate": "2027-01-11",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "tags": ["Atlassian", "Productivity", "Automation", "Networking", "Community"]
   }
 ]
