@@ -1290,5 +1290,17 @@
     "location": "Overland Park, KS",
     "type": "Meetup",
     "tags": ["Atlassian", "Productivity", "Automation", "Networking", "Community"]
+  },
+  {
+    "id": "global-ai-kc-december-2026",
+    "name": "December GlobalAI KC Meetup",
+    "group": "Global AI KC",
+    "description": "Kansas City chapter meetup of the Global AI Community, focused on artificial intelligence, machine learning, and AI application development. Topic to be announced. 6:00 PM - 8:00 PM.",
+    "url": "https://globalai.community/e/uyk2v6dy",
+    "date": "2026-12-10",
+    "endDate": "2026-12-10",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["AI", "Machine Learning", "Community", "Meetup"]
   }
 ]
