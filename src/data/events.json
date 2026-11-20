@@ -1302,5 +1302,17 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["AI", "Machine Learning", "Community", "Meetup"]
+  },
+  {
+    "id": "atlassian-bill-ask-the-experts-2026-12",
+    "name": "Has Your Atlassian Bill Gone Up? - Post December 3rd Ask the Experts session",
+    "group": "Atlassian KC",
+    "description": "Virtual ask-us-anything session hosted by the Atlassian Phoenix chapter and shared with Kansas City, on the usage limits and pricing changes taking effect December 3. Experts including Robert Wen (Cprime) and Rodney West (Isos Technology) answer questions about specific limits, how the changes affect your teams, and general Atlassian product questions. 1:00 PM - 2:00 PM Central (12:00 - 1:00 PM MST), online.",
+    "url": "https://ace.atlassian.com/events/details/atlassian-phoenix-presents-has-your-atlassian-bill-gone-up-post-december-3rd-ask-the-experts-session/cohost-kansas-city/",
+    "date": "2026-12-09",
+    "endDate": "2026-12-09",
+    "location": "Virtual",
+    "type": "Meetup",
+    "tags": ["Atlassian", "Jira", "Licensing", "Community"]
   }
 ]
