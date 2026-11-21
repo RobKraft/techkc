@@ -1314,5 +1314,41 @@
     "location": "Virtual",
     "type": "Meetup",
     "tags": ["Atlassian", "Jira", "Licensing", "Community"]
+  },
+  {
+    "id": "kc-azure-ai-six-figure-business-2026-12",
+    "name": "How AI (helped) Built A 6 Figure Business",
+    "group": "Kansas City Microsoft Azure Meetup",
+    "description": "Alec Harrison (LeanTECHniques, Microsoft MVP in AI) on taking a real product built with Azure, .NET, and Angular from first idea to six-figure revenue with AI assistance: where AI saved time, where it made confident mistakes that had to be fixed by hand, and the development workflow that worked. Noon, online.",
+    "url": "https://www.meetup.com/kansas-city-cloud-computing-meetup/events/317523411/",
+    "date": "2026-12-02",
+    "endDate": "2026-12-02",
+    "location": "Virtual",
+    "type": "Meetup",
+    "tags": ["Azure", "AI", ".NET", "Cloud", "Community", "Meetup"]
+  },
+  {
+    "id": "kc-azure-ai-ready-enterprises-2026-12",
+    "name": "Architecting AI-Ready Enterprises on Azure",
+    "group": "Kansas City Microsoft Azure Meetup",
+    "description": "Tony Champion (eight-time Microsoft MVP) on what makes an enterprise ready for AI on Azure: governance patterns with Azure AI Foundry, managed identity, and private endpoints; integrations that keep AI inside the security boundary without shadow infrastructure; and an operating model for auditing, monitoring, and scaling AI before it touches production data. Noon, online.",
+    "url": "https://www.meetup.com/kansas-city-cloud-computing-meetup/events/317523440/",
+    "date": "2026-12-09",
+    "endDate": "2026-12-09",
+    "location": "Virtual",
+    "type": "Meetup",
+    "tags": ["Azure", "AI", "Cloud", "Architecture", "Community", "Meetup"]
+  },
+  {
+    "id": "kc-php-weekend-hangout-2026-11-21",
+    "name": "Weekend Hangout",
+    "group": "Kansas City PHP User Group",
+    "description": "Free-form Saturday meetup for anyone who uses PHP, at any experience level. Bring topics you want to discuss or get feedback on; time permitting, there's help with environment setup, code review, and quick demos. Newcomers welcome. 2:30 PM - 4:30 PM.",
+    "url": "https://www.meetup.com/kcphpug/events/317244664/",
+    "date": "2026-11-21",
+    "endDate": "2026-11-21",
+    "location": "Lenexa, KS",
+    "type": "Meetup",
+    "tags": ["PHP", "Community", "Meetup"]
   }
 ]
