@@ -1,0 +1,17 @@
+{
+  "_comment": "Config for scripts/sync-events.mjs. Every active group in src/data/groups.json with a meetupUrl is checked automatically; list Meetup groups that are not in groups.json under extraMeetupGroups. Meetup feeds don't include a location, so locations sets the city used for a group's new events (default: Kansas City, MO, which the calendar hides). Add a group name to skipGroups to stop syncing it (Hammerspace KC is skipped because its feed is mostly makerspace classes such as blacksmithing). Events whose title contains any skipTitlesMatching text (case-insensitive) are ignored.",
+  "horizonDays": 120,
+  "defaultLocation": "Kansas City, MO",
+  "extraMeetupGroups": [
+    {
+      "group": "Kansas City Microsoft Azure Meetup",
+      "meetupUrl": "https://www.meetup.com/kansas-city-cloud-computing-meetup/",
+      "tags": ["Azure", "Cloud", "AI"]
+    }
+  ],
+  "locations": {
+    "Kansas City Microsoft Azure Meetup": "Virtual"
+  },
+  "skipGroups": ["Hammerspace KC"],
+  "skipTitlesMatching": ["private event"]
+}
