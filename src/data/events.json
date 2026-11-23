@@ -1400,18 +1400,6 @@
     "tags": ["AI", "AIOps", "DevOps", "Meetup"]
   },
   {
-    "id": "dynamics-kc-2026-12-08-convergence-2026",
-    "name": "Convergence 2026",
-    "group": "Dynamics UG Kansas City",
-    "description": "8:00 AM.",
-    "url": "https://www.meetup.com/microsoft-dynamics-and-power-platform-in-kansas-city/events/315573237/",
-    "date": "2026-12-08",
-    "endDate": "2026-12-11",
-    "location": "Kansas City, MO",
-    "type": "Meetup",
-    "tags": ["Microsoft Dynamics", "Power Platform", "Power BI", "Meetup"]
-  },
-  {
     "id": "kc-php-2026-12-10-mergephp-effortless-software-development",
     "name": "MergePHP: Effortless Software Development",
     "group": "Kansas City PHP User Group",

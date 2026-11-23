@@ -83,6 +83,8 @@ function slugify(s) {
 }
 
 const listedUrls = new Set(events.map(e => normUrl(e.url)));
+// Events deliberately removed from the calendar; never re-add them.
+const ignoredUrls = new Set((config.ignoreEventUrls ?? []).map(normUrl));
 const ids = new Set(events.map(e => e.id));
 
 // ── Sources: groups.json Meetup groups + extras from the config ──────────────
@@ -122,6 +124,7 @@ for (const src of sources) {
     if (!start || !url || !title) continue;
     if (start.date < todayKey || start.date > horizonKey) continue;
     if ((config.skipTitlesMatching ?? []).some(s => title.toLowerCase().includes(s.toLowerCase()))) continue;
+    if (ignoredUrls.has(normUrl(url))) continue;
 
     const status = (ve.STATUS ?? '').toUpperCase();
     const known = listedUrls.has(normUrl(url));

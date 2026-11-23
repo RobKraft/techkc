@@ -1,5 +1,5 @@
 {
-  "_comment": "Config for scripts/sync-events.mjs. Every active group in src/data/groups.json with a meetupUrl is checked automatically; list Meetup groups that are not in groups.json under extraMeetupGroups. Meetup feeds don't include a location, so locations sets the city used for a group's new events (default: Kansas City, MO, which the calendar hides). Add a group name to skipGroups to stop syncing it (Hammerspace KC is skipped because its feed is mostly makerspace classes such as blacksmithing). Events whose title contains any skipTitlesMatching text (case-insensitive) are ignored.",
+  "_comment": "Config for scripts/sync-events.mjs. Every active group in src/data/groups.json with a meetupUrl is checked automatically; list Meetup groups that are not in groups.json under extraMeetupGroups. Meetup feeds don't include a location, so locations sets the city used for a group's new events (default: Kansas City, MO, which the calendar hides). Add a group name to skipGroups to stop syncing it (Hammerspace KC is skipped because its feed is mostly makerspace classes such as blacksmithing). Events whose title contains any skipTitlesMatching text (case-insensitive) are ignored. When you delete a synced event from events.json, add its link to ignoreEventUrls or the next run will add it back.",
   "horizonDays": 120,
   "defaultLocation": "Kansas City, MO",
   "extraMeetupGroups": [
@@ -12,6 +12,11 @@
   "locations": {
     "Kansas City Microsoft Azure Meetup": "Virtual"
   },
+  "ignoreEventUrls": [
+    "https://www.meetup.com/agile-kc/events/316998190/",
+    "https://www.meetup.com/agile-kc/events/316998223/",
+    "https://www.meetup.com/microsoft-dynamics-and-power-platform-in-kansas-city/events/315573237/"
+  ],
   "skipGroups": ["Hammerspace KC"],
   "skipTitlesMatching": ["private event"]
 }
