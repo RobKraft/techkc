@@ -1364,30 +1364,6 @@
     "tags": ["Design", "Adobe", "Creative Cloud", "Meetup"]
   },
   {
-    "id": "agile-kc-2026-11-26-agilekc-monthly-meet-up",
-    "name": "AgileKC Monthly Meet-up",
-    "group": "Agile KC",
-    "description": "5:30 PM - 7:00 PM.",
-    "url": "https://www.meetup.com/agile-kc/events/316998190/",
-    "date": "2026-11-26",
-    "endDate": "2026-11-26",
-    "location": "Kansas City, MO",
-    "type": "Meetup",
-    "tags": ["Agile", "Scrum", "Kanban", "Meetup"]
-  },
-  {
-    "id": "agile-kc-2026-12-24-agilekc-monthly-meet-up",
-    "name": "AgileKC Monthly Meet-up",
-    "group": "Agile KC",
-    "description": "5:30 PM - 7:00 PM.",
-    "url": "https://www.meetup.com/agile-kc/events/316998223/",
-    "date": "2026-12-24",
-    "endDate": "2026-12-24",
-    "location": "Kansas City, MO",
-    "type": "Meetup",
-    "tags": ["Agile", "Scrum", "Kanban", "Meetup"]
-  },
-  {
     "id": "agile-kc-2027-01-28-agilekc-monthly-meet-up",
     "name": "AgileKC Monthly Meet-up",
     "group": "Agile KC",
