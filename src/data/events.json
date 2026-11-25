@@ -1,5 +1,31 @@
 [
   {
+    "id": "bar-chart-club-conference-2027",
+    "name": "The Bar Chart Club Conference",
+    "group": "Bar Chart Club",
+    "description": "Two-day conference for chart makers and anyone who works with data visualization: an optional hands-on workshop day (March 31), then a conference day of keynotes, breakout sessions, and networking (April 1). Early bird pricing through January 16.",
+    "url": "https://datadozen.com/bar-chart-club-conference/",
+    "date": "2027-03-31",
+    "endDate": "2027-04-01",
+    "location": "Kansas City, MO",
+    "type": "Conference",
+    "cost": "Paid",
+    "tags": ["Data Visualization", "Analytics", "Data", "Conference"]
+  },
+  {
+    "id": "ai-collective-kc-roundtable-30-2026",
+    "name": "AI Roundtable #30: What Actually Worked: The Most Useful AI Use Cases of 2026",
+    "group": "AI Collective KC",
+    "description": "Virtual year-end roundtable with Voyage Consulting Group on the AI use cases that made a real difference in 2026: what saved time or improved quality, what fell short and where human review mattered, and what's worth carrying into 2027. 12:00 PM - 1:00 PM on Zoom. Registration requires approval.",
+    "url": "https://luma.com/aic-kc-roundtable30",
+    "date": "2026-12-14",
+    "endDate": "2026-12-14",
+    "location": "Virtual",
+    "type": "Meetup",
+    "cost": "Free",
+    "tags": ["AI", "Leadership", "Future of Work", "Community"]
+  },
+  {
     "id": "stl-cybersecurity-2026",
     "name": "St. Louis CyberSecurity Conference",
     "group": "FutureCon Events",
