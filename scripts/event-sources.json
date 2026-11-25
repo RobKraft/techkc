@@ -1,5 +1,5 @@
 {
-  "_comment": "Config for scripts/sync-events.mjs. Every active group in src/data/groups.json with a meetupUrl is checked automatically; list Meetup groups that are not in groups.json under extraMeetupGroups. Meetup feeds don't include a location, so locations sets the city used for a group's new events (default: Kansas City, MO, which the calendar hides). Add a group name to skipGroups to stop syncing it (Hammerspace KC is skipped because its feed is mostly makerspace classes such as blacksmithing). Events whose title contains any skipTitlesMatching text (case-insensitive) are ignored. When you delete a synced event from events.json, add its link to ignoreEventUrls or the next run will add it back.",
+  "_comment": "Config for scripts/sync-events.mjs. MEETUP: every active group in src/data/groups.json with a meetupUrl is checked automatically; list Meetup groups that are not in groups.json under extraMeetupGroups. Add a group name to skipGroups to stop syncing it (Hammerspace KC: mostly makerspace classes; Code and Coffee KC, Kansas City React Meetup, KC Game Developers: Meetup won't share their calendars). OTHER CALENDARS: icalFeeds lists any other public iCal feed (e.g. a Google Calendar's public .ics address). Set eventUrl when the feed has no per-event link, and includeTitlesMatching to take only some events. LOCATION: feeds rarely give one, so locations sets the city for a group's new events (default: Kansas City, MO, which the calendar hides). REMOVING: when you delete a synced event from events.json, add its link to ignoreEventUrls, or for feeds without per-event links add {group, date} to ignoreGroupDates, or the next run will add it back. Events whose title contains any skipTitlesMatching text (case-insensitive) are ignored.",
   "horizonDays": 120,
   "defaultLocation": "Kansas City, MO",
   "extraMeetupGroups": [
@@ -9,14 +9,30 @@
       "tags": ["Azure", "Cloud", "AI"]
     }
   ],
+  "icalFeeds": [
+    {
+      "group": "ISC2 Kansas City",
+      "ical": "https://calendar.google.com/calendar/ical/c_5a51dd2f88e536190247b5df223e7778518b50cab2a2227afbe7d1fce6894e93%40group.calendar.google.com/public/basic.ics",
+      "eventUrl": "https://isc2kc.org/events/",
+      "includeTitlesMatching": ["ISC2"],
+      "tags": ["Security", "CISSP", "Cybersecurity"]
+    }
+  ],
   "locations": {
-    "Kansas City Microsoft Azure Meetup": "Virtual"
+    "Kansas City Microsoft Azure Meetup": "Virtual",
+    "ISC2 Kansas City": "Overland Park, KS"
   },
   "ignoreEventUrls": [
     "https://www.meetup.com/agile-kc/events/316998190/",
     "https://www.meetup.com/agile-kc/events/316998223/",
     "https://www.meetup.com/microsoft-dynamics-and-power-platform-in-kansas-city/events/315573237/"
   ],
-  "skipGroups": ["Hammerspace KC"],
+  "ignoreGroupDates": [],
+  "skipGroups": [
+    "Hammerspace KC",
+    "Code and Coffee KC",
+    "Kansas City React Meetup",
+    "KC Game Developers"
+  ],
   "skipTitlesMatching": ["private event"]
 }
