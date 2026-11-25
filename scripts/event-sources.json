@@ -1,5 +1,5 @@
 {
-  "_comment": "Config for scripts/sync-events.mjs. MEETUP: every active group in src/data/groups.json with a meetupUrl is checked automatically; list Meetup groups that are not in groups.json under extraMeetupGroups. Add a group name to skipGroups to stop syncing it (Hammerspace KC: mostly makerspace classes; Code and Coffee KC, Kansas City React Meetup, KC Game Developers: Meetup won't share their calendars). OTHER CALENDARS: icalFeeds lists any other public iCal feed (e.g. a Google Calendar's public .ics address). Set eventUrl when the feed has no per-event link, and includeTitlesMatching to take only some events. LOCATION: feeds rarely give one, so locations sets the city for a group's new events (default: Kansas City, MO, which the calendar hides). REMOVING: when you delete a synced event from events.json, add its link to ignoreEventUrls, or for feeds without per-event links add {group, date} to ignoreGroupDates, or the next run will add it back. Events whose title contains any skipTitlesMatching text (case-insensitive) are ignored.",
+  "_comment": "Config for scripts/sync-events.mjs. MEETUP: every active group in src/data/groups.json with a meetupUrl is checked automatically; list Meetup groups that are not in groups.json under extraMeetupGroups. Add a group name to skipGroups to stop syncing it (Hammerspace KC: mostly makerspace classes; Code and Coffee KC, Kansas City React Meetup, KC Game Developers: Meetup won't share their calendars). OTHER SITES: sources lists non-Meetup calendars; type picks the reader: ical (any public iCal feed, e.g. a Google Calendar's .ics address), bevy (Atlassian ACE / GDG chapter API), squarespace (Squarespace events page), globalai (Global AI chapter page), eventListRss (WordPress Event List RSS), wixEvents (Wix events page). Set eventUrl when a source has no per-event link, and includeTitlesMatching to take only some events. LOCATION: feeds rarely give one, so locations sets the city for a group's new events (default: Kansas City, MO, which the calendar hides). REMOVING: when you delete a synced event from events.json, add its link to ignoreEventUrls, or for feeds without per-event links add {group, date} to ignoreGroupDates, or the next run will add it back. Events whose title contains any skipTitlesMatching text (case-insensitive) are ignored.",
   "horizonDays": 120,
   "defaultLocation": "Kansas City, MO",
   "extraMeetupGroups": [
@@ -9,13 +9,48 @@
       "tags": ["Azure", "Cloud", "AI"]
     }
   ],
-  "icalFeeds": [
+  "sources": [
     {
+      "type": "ical",
       "group": "ISC2 Kansas City",
       "ical": "https://calendar.google.com/calendar/ical/c_5a51dd2f88e536190247b5df223e7778518b50cab2a2227afbe7d1fce6894e93%40group.calendar.google.com/public/basic.ics",
       "eventUrl": "https://isc2kc.org/events/",
       "includeTitlesMatching": ["ISC2"],
       "tags": ["Security", "CISSP", "Cybersecurity"]
+    },
+    {
+      "type": "ical",
+      "group": "International Institute of Business Analysts — KC",
+      "ical": "https://kansascity.iiba.org/calendar-feed",
+      "eventUrl": "https://kansascity.iiba.org/events"
+    },
+    {
+      "type": "bevy",
+      "group": "Atlassian KC",
+      "api": "https://ace.atlassian.com/api/event_slim/for_chapter/57/",
+      "tags": ["Atlassian", "Jira", "Confluence"]
+    },
+    {
+      "type": "squarespace",
+      "group": "SecKC",
+      "url": "https://www.seckc.org/upcoming-events"
+    },
+    {
+      "type": "globalai",
+      "group": "Global AI KC",
+      "url": "https://globalai.community/chapters/kansas-city/"
+    },
+    {
+      "type": "eventListRss",
+      "group": "DAMA Kansas City",
+      "rss": "https://kcdama.org/feed/event-list",
+      "eventUrl": "https://kcdama.org/events/"
+    },
+    {
+      "type": "wixEvents",
+      "group": "Women in Security KC",
+      "url": "https://www.wiskc.org/calendar",
+      "eventBaseUrl": "https://www.wiskc.org/events/"
     }
   ],
   "locations": {

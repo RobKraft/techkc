@@ -3,15 +3,17 @@
 //
 //   node scripts/sync-events.mjs            # update events.json, write a summary
 //   node scripts/sync-events.mjs --dry-run  # only report what would change
+//   add --verbose to list every upcoming event each source returned
 //
 // Run daily by .github/workflows/sync-events.yml, which opens a pull request for
 // review; nothing goes live until that PR is merged. Sources (configured in
 // scripts/event-sources.json):
 //   - Meetup: each group's own calendar export (meetupUrl + "events/ical/").
-//   - Other iCal feeds, e.g. a Google Calendar's public .ics address. These may
-//     have no per-event link, in which case every event links to eventUrl.
-// Feeds carry title, start/end, and status but usually no location, so new
-// events get the group's configured city.
+//   - config.sources: other sites, each with a `type` naming a loader below
+//     (iCal feeds, Bevy chapter API, Squarespace, Global AI, WordPress Event
+//     List RSS, Wix Events). Sources without per-event links use eventUrl.
+// Sources rarely give a usable location, so new events get the group's
+// configured city (or "Virtual" when the source says so).
 //
 // Dedupe: an event is skipped if its link is already listed, or if the same
 // group already has an event that day. A same-day entry that only links to the
@@ -24,6 +26,7 @@ const CONFIG_PATH = 'scripts/event-sources.json';
 const SUMMARY_PATH = process.env.SYNC_SUMMARY_PATH; // markdown PR body, if set
 const USER_AGENT = 'TechKC-calendar-bot/1.0 (+https://techkc.org)';
 const DRY_RUN = process.argv.includes('--dry-run');
+const VERBOSE = process.argv.includes('--verbose'); // list what each source returned (to stderr)
 
 const config = JSON.parse(readFileSync(CONFIG_PATH, 'utf8'));
 const groups = JSON.parse(readFileSync(GROUPS_PATH, 'utf8'));
@@ -67,7 +70,7 @@ const unescapeText = s => s.replace(/\\n/gi, '\n').replace(/\\([,;\\])/g, '$1').
 // DTSTART;TZID=America/Chicago:20261210T190000 → { date: '2026-12-10', time: '19:00', allDay: false }
 function icalDateTime(prop) {
   const v = typeof prop === 'string' ? prop : prop?.value;
-  const m = v?.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2}))?(Z?)/);
+  const m = v?.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(?:\d{2})?)?(Z?)/);
   if (!m) return null;
   const [, y, mo, d, h, mi, z] = m;
   if (!h) return { date: `${y}-${mo}-${d}`, time: null, allDay: true };
@@ -202,24 +205,133 @@ const ignoredGroupDates = new Set((config.ignoreGroupDates ?? []).map(x => `${x.
 const groupByName = new Map(groups.map(g => [g.name, g]));
 const meetupFeed = url => `${url.replace(/^http:/, 'https:').replace(/\/?$/, '/')}events/ical/`;
 
+// Each non-Meetup source in config.sources has a `type` naming its loader below.
 const sources = [
   ...groups
     .filter(g => g.active && g.meetupUrl)
-    .map(g => ({ group: g.name, groupId: g.id, feedUrl: meetupFeed(g.meetupUrl), groupUrls: [g.meetupUrl, g.url], tags: g.topics.slice(0, 3), meetup: true })),
-  ...(config.extraMeetupGroups ?? []).map(x => ({ group: x.group, groupId: slugify(x.group), feedUrl: meetupFeed(x.meetupUrl), groupUrls: [x.meetupUrl], tags: x.tags, meetup: true })),
-  ...(config.icalFeeds ?? []).map(x => {
+    .map(g => ({ type: 'ical', group: g.name, groupId: g.id, feedUrl: meetupFeed(g.meetupUrl), groupUrls: [g.meetupUrl, g.url], tags: g.topics.slice(0, 3), meetup: true })),
+  ...(config.extraMeetupGroups ?? []).map(x => ({ type: 'ical', group: x.group, groupId: slugify(x.group), feedUrl: meetupFeed(x.meetupUrl), groupUrls: [x.meetupUrl], tags: x.tags, meetup: true })),
+  ...(config.sources ?? []).map(x => {
     const g = groupByName.get(x.group);
     return {
-      group: x.group,
+      ...x,
       groupId: g?.id ?? slugify(x.group),
-      feedUrl: x.ical,
+      feedUrl: x.feedUrl ?? x.ical ?? x.api ?? x.url,
       groupUrls: [g?.url, g?.meetupUrl, x.eventUrl].filter(Boolean),
       tags: x.tags ?? g?.topics.slice(0, 3) ?? [],
       fixedUrl: x.eventUrl,
-      includeTitlesMatching: x.includeTitlesMatching,
     };
   }),
 ].filter(s => !config.skipGroups.includes(s.group));
+
+// ── Loaders: each returns instances { title, date, endDate, time, endTime, url, status, virtual }
+async function get(url, accept) {
+  const res = await fetch(url, { headers: { 'user-agent': USER_AGENT, ...(accept ? { accept } : {}) }, redirect: 'follow' });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.text();
+}
+/** ISO timestamp (any offset) → Kansas City local { date, time }. */
+function isoToKc(iso) {
+  const d = new Date(iso);
+  if (Number.isNaN(+d)) return null;
+  return { date: kcDateKey(d), time: d.toLocaleTimeString('en-GB', { timeZone: 'America/Chicago', hour: '2-digit', minute: '2-digit' }) };
+}
+function instanceFromIso(title, startIso, endIso, url, extra = {}) {
+  const s = isoToKc(startIso);
+  if (!s) return null;
+  const e = endIso ? isoToKc(endIso) : null;
+  return { title, date: s.date, endDate: e && e.date >= s.date ? e.date : s.date, time: s.time, endTime: e?.time ?? null, url, status: '', ...extra };
+}
+const decodeEntities = s => s
+  .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n))
+  .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+  .replace(/&quot;/g, '"').replace(/&apos;|&#039;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+
+const loaders = {
+  // Any iCal feed: Meetup, Google Calendar public .ics, MemberNova, etc.
+  async ical(src) {
+    const text = await get(src.feedUrl);
+    if (!text.startsWith('BEGIN:VCALENDAR')) throw new Error('not an iCal feed');
+    return feedInstances(parseIcal(text), warnings, src.group);
+  },
+
+  // Bevy community platform (ace.atlassian.com, gdg.community.dev): chapter events API.
+  async bevy(src) {
+    const api = new URL(src.api);
+    Object.entries({
+      page_size: '50', status: 'Live', include_cohosted_events: 'true', visible_on_parent_chapter_only: 'true', order: 'start_date',
+      fields: 'title,start_date,end_date,url,audience_type',
+    })
+      .forEach(([k, v]) => api.searchParams.set(k, v));
+    const data = JSON.parse(await get(api.href, 'application/json'));
+    return (data.results ?? []).map(e =>
+      instanceFromIso(e.title, e.start_date, e.end_date, e.url, { virtual: e.audience_type === 'VIRTUAL' }));
+  },
+
+  // Squarespace events collection (e.g. seckc.org/upcoming-events): ?format=json.
+  async squarespace(src) {
+    const base = new URL(src.url);
+    const data = JSON.parse(await get(`${base.href}?format=json`, 'application/json'));
+    return [...(data.upcoming ?? []), ...(data.items ?? [])].map(e =>
+      instanceFromIso(e.title, new Date(e.startDate).toISOString(), e.endDate ? new Date(e.endDate).toISOString() : null, new URL(e.fullUrl, base.origin).href));
+  },
+
+  // Global AI Community chapter page: chapter events are <a class="gai-event" href="/e/ID">,
+  // and each event page embeds an "add to calendar" iCal file.
+  async globalai(src) {
+    const page = await get(src.url);
+    const ids = [...new Set([...page.matchAll(/href="(\/e\/[a-z0-9]+)"[^>]*class="gai-event"/g)].map(m => m[1]))];
+    if (!ids.length) warnings.push(`${src.group}: no events found on ${src.url} (page layout may have changed)`);
+    const out = [];
+    for (const id of ids) {
+      const eventUrl = new URL(id, src.url).href;
+      const html = await get(eventUrl);
+      const m = html.match(/data:text\/calendar;charset=utf-8,([^"']+)/);
+      if (!m) { warnings.push(`${src.group}: no calendar data on ${eventUrl}`); continue; }
+      for (const inst of feedInstances(parseIcal(decodeURIComponent(decodeEntities(m[1]))), warnings, src.group)) {
+        out.push({ ...inst, url: inst.url ?? eventUrl });
+      }
+    }
+    return out;
+  },
+
+  // WordPress "Event List" plugin RSS (e.g. kcdama.org/feed/event-list). Titles look like
+  // "Nov 6, 2026 - Title"; pubDate is the event date. Items have no per-event link.
+  async eventListRss(src) {
+    const xml = await get(src.rss);
+    return [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map(([, item]) => {
+      const rawTitle = decodeEntities(item.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? '').trim();
+      const pub = item.match(/<pubDate>([^<]+)<\/pubDate>/)?.[1];
+      const date = pub ? new Date(pub).toISOString().slice(0, 10) : null; // stored as midnight UTC on the event date
+      if (!date) return null;
+      const desc = decodeEntities(item.match(/<description>([\s\S]*?)<\/description>/)?.[1] ?? '');
+      const t = desc.match(/\b(\d{1,2}):(\d{2})\s*([AP]M)\s*-\s*(\d{1,2}):(\d{2})\s*([AP]M)/i);
+      const to24 = (h, mi, ap) => `${String((+h % 12) + (/p/i.test(ap) ? 12 : 0)).padStart(2, '0')}:${mi}`;
+      return {
+        title: rawTitle.replace(/^[A-Z][a-z]{2} \d{1,2}, \d{4}\s*-\s*/, ''),
+        date, endDate: date,
+        time: t ? to24(t[1], t[2], t[3]) : null,
+        endTime: t ? to24(t[4], t[5], t[6]) : null,
+        url: null, status: '',
+      };
+    });
+  },
+
+  // Wix Events: the calendar page embeds each event's JSON (scheduling, title, slug, status).
+  async wixEvents(src) {
+    const html = await get(src.url);
+    const re = /"scheduling":\{"config":\{"scheduleTbd":(true|false),"startDate":"([^"]+)","endDate":"([^"]+)"[\s\S]*?"title":"((?:[^"\\]|\\.)*)"[\s\S]*?"slug":"([a-z0-9-]+)"(?:,"language":"[^"]*")?(?:,"created":"[^"]*")?(?:,"modified":"[^"]*")?(?:,"status":(\d))?/g;
+    const bySlug = new Map();
+    for (const m of html.matchAll(re)) {
+      if (m[1] === 'true') continue; // date TBD
+      const title = JSON.parse(`"${m[4]}"`).trim();
+      // Wix event status 3 = canceled
+      bySlug.set(m[5], instanceFromIso(title, m[2], m[3], new URL(m[5], src.eventBaseUrl).href, { status: m[6] === '3' ? 'CANCELLED' : '' }));
+    }
+    if (!bySlug.size) warnings.push(`${src.group}: no events found on ${src.url} (page layout may have changed)`);
+    return [...bySlug.values()];
+  },
+};
 
 const added = [];
 const upgraded = [];
@@ -228,12 +340,11 @@ const failures = [];
 const warnings = [];
 
 for (const src of sources) {
-  let text;
+  let instances;
   try {
-    const res = await fetch(src.feedUrl, { headers: { 'user-agent': USER_AGENT }, redirect: 'follow' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    text = await res.text();
-    if (!text.startsWith('BEGIN:VCALENDAR')) throw new Error('not an iCal feed');
+    const load = loaders[src.type];
+    if (!load) throw new Error(`unknown source type "${src.type}"`);
+    instances = (await load(src)).filter(Boolean);
   } catch (err) {
     failures.push({ group: src.group, feedUrl: src.feedUrl, error: String(err.message ?? err) });
     continue;
@@ -241,7 +352,13 @@ for (const src of sources) {
 
   const groupPageUrls = new Set(src.groupUrls.map(normUrl));
 
-  for (const inst of feedInstances(parseIcal(text), warnings, src.group)) {
+  if (VERBOSE) {
+    const upcoming = instances.filter(i => i.title && i.date >= todayKey && i.date <= horizonKey);
+    console.error(`[${src.type}] ${src.group}: ${instances.length} found, ${upcoming.length} upcoming`);
+    for (const i of upcoming) console.error(`    ${i.date} ${i.title}${i.virtual ? ' (virtual)' : ''}  ${i.url ?? src.fixedUrl ?? ''}`);
+  }
+
+  for (const inst of instances) {
     const { title, date } = inst;
     if (!title || date < todayKey || date > horizonKey) continue;
     if (titleMatches(title, config.skipTitlesMatching)) continue;
@@ -293,7 +410,7 @@ for (const src of sources) {
       url,
       date,
       endDate: inst.endDate,
-      location: config.locations[src.group] ?? config.defaultLocation,
+      location: inst.virtual ? 'Virtual' : (config.locations[src.group] ?? config.defaultLocation),
       type: 'Meetup',
       tags: [...new Set([...(src.tags ?? []), 'Meetup'])],
     };
