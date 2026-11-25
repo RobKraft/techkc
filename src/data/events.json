@@ -1470,5 +1470,17 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["PostgreSQL", "Database", "SQL", "Meetup"]
+  },
+  {
+    "id": "agile-kc-2027-03-25-agilekc-monthly-meet-up",
+    "name": "AgileKC Monthly Meet-up",
+    "group": "Agile KC",
+    "description": "5:30 PM - 7:00 PM.",
+    "url": "https://www.meetup.com/agile-kc/events/wngmdsykcfbhc/",
+    "date": "2027-03-25",
+    "endDate": "2027-03-25",
+    "location": "Kansas City, MO",
+    "type": "Meetup",
+    "tags": ["Agile", "Scrum", "Kanban", "Meetup"]
   }
 ]
