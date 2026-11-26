@@ -1508,5 +1508,53 @@
     "location": "Kansas City, MO",
     "type": "Meetup",
     "tags": ["Agile", "Scrum", "Kanban", "Meetup"]
+  },
+  {
+    "id": "isc2-kc-2026-12-02-isc2-kc-monthly-meeting",
+    "name": "ISC2 KC - Monthly Meeting",
+    "group": "ISC2 Kansas City",
+    "description": "6:30 PM - 8:30 PM.",
+    "url": "https://isc2kc.org/events/",
+    "date": "2026-12-02",
+    "endDate": "2026-12-02",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "tags": ["Security", "CISSP", "Cybersecurity", "Meetup"]
+  },
+  {
+    "id": "isc2-kc-2027-01-06-isc2-kc-monthly-meeting",
+    "name": "ISC2 KC - Monthly Meeting",
+    "group": "ISC2 Kansas City",
+    "description": "6:30 PM - 8:30 PM.",
+    "url": "https://isc2kc.org/events/",
+    "date": "2027-01-06",
+    "endDate": "2027-01-06",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "tags": ["Security", "CISSP", "Cybersecurity", "Meetup"]
+  },
+  {
+    "id": "isc2-kc-2027-02-03-isc2-kc-monthly-meeting",
+    "name": "ISC2 KC - Monthly Meeting",
+    "group": "ISC2 Kansas City",
+    "description": "6:30 PM - 8:30 PM.",
+    "url": "https://isc2kc.org/events/",
+    "date": "2027-02-03",
+    "endDate": "2027-02-03",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "tags": ["Security", "CISSP", "Cybersecurity", "Meetup"]
+  },
+  {
+    "id": "isc2-kc-2027-03-03-isc2-kc-monthly-meeting",
+    "name": "ISC2 KC - Monthly Meeting",
+    "group": "ISC2 Kansas City",
+    "description": "6:30 PM - 8:30 PM.",
+    "url": "https://isc2kc.org/events/",
+    "date": "2027-03-03",
+    "endDate": "2027-03-03",
+    "location": "Overland Park, KS",
+    "type": "Meetup",
+    "tags": ["Security", "CISSP", "Cybersecurity", "Meetup"]
   }
 ]
