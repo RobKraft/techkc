@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
+---
+
+<Layout title="Weekly Email" description="Get a free weekly email of upcoming Kansas City tech events, every Sunday evening.">
+
+  <section class="bg-slate-900 text-white py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-3">This week in KC tech</h1>
+      <p class="text-slate-300 text-lg">
+        A short email every Sunday evening with the week's meetups, conferences, and workshops. Free, and you can unsubscribe anytime.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Shown when arriving from the confirmation email (?email=&exp=&sig=) -->
+    <div id="confirm-panel" class="hidden bg-white border border-slate-200 rounded-xl p-6">
+      <h2 class="text-xl font-bold text-slate-900 mb-2">Confirm your subscription</h2>
+      <p class="text-slate-600 mb-5">Subscribe <strong id="confirm-email" class="text-slate-900"></strong> to the TechKC weekly events email?</p>
+      <button id="confirm-btn" type="button" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 disabled:opacity-60 text-white font-semibold rounded-lg text-sm transition-colors">
+        Yes, subscribe me
+      </button>
+      <p id="confirm-status" class="text-sm text-slate-600 mt-3 min-h-[1.25rem]" role="status" aria-live="polite"></p>
+    </div>
+
+    <div id="signup-panel">
+      <h2 class="text-xl font-bold text-slate-900 mb-2">Sign up</h2>
+      <p class="text-slate-600 mb-5">We'll send a link to confirm your address. Nothing is sent until you click it.</p>
+      <SubscribeForm />
+    </div>
+
+    <div class="mt-12 text-sm text-slate-500 space-y-2">
+      <p><strong class="text-slate-700">What you'll get:</strong> each Sunday, the coming week's events on the <a href="/events" class="text-brand-600 hover:underline">TechKC calendar</a>, with a link to each one, plus bigger events coming up soon.</p>
+      <p><strong class="text-slate-700">Your privacy:</strong> your email is used only for this newsletter. Every email has a one-click unsubscribe link.</p>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const email = params.get('email');
+  const exp = params.get('exp');
+  const sig = params.get('sig');
+
+  if (email && exp && sig) {
+    const panel = document.getElementById('confirm-panel')!;
+    const btn = document.getElementById('confirm-btn') as HTMLButtonElement;
+    const status = document.getElementById('confirm-status')!;
+    document.getElementById('confirm-email')!.textContent = email;
+    panel.classList.remove('hidden');
+    document.getElementById('signup-panel')!.classList.add('hidden');
+
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      status.textContent = 'Confirming…';
+      try {
+        const res = await fetch('/.netlify/functions/confirm-subscription', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email, exp, sig }),
+        });
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(body.error || 'Something went wrong. Please try again later.');
+        btn.classList.add('hidden');
+        status.textContent = "You're subscribed! Watch for the first email on Sunday evening.";
+        // Drop the token from the address bar so a refresh or share doesn't reuse it.
+        history.replaceState(null, '', '/subscribe');
+      } catch (err) {
+        status.textContent = (err as Error).message;
+        btn.disabled = false;
+      }
+    });
+  }
+</script>

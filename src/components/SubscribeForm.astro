@@ -1,0 +1,65 @@
+---
+// Email sign-up for the weekly events digest. Posts to the subscribe function,
+// which emails a confirmation link (see netlify/lib/newsletter.ts).
+interface Props {
+  /** 'dark' for use on a dark background (e.g. the home page band). */
+  tone?: 'light' | 'dark';
+}
+const { tone = 'light' } = Astro.props;
+const dark = tone === 'dark';
+---
+
+<form class="subscribe-form flex flex-col sm:flex-row gap-2 max-w-lg" novalidate>
+  <label class="sr-only" for="subscribe-email">Email address</label>
+  <input
+    id="subscribe-email"
+    name="email"
+    type="email"
+    required
+    autocomplete="email"
+    placeholder="you@example.com"
+    class={`flex-1 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 ${dark ? 'bg-white/10 border border-white/20 text-white placeholder:text-slate-400' : 'border border-slate-300 text-slate-900'}`}
+  />
+  <!-- Honeypot: hidden from people, often filled in by bots -->
+  <input name="website" type="text" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+  <button
+    type="submit"
+    class="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:opacity-60 text-white font-semibold rounded-lg text-sm transition-colors whitespace-nowrap"
+  >
+    Get the weekly email
+  </button>
+</form>
+<p class={`subscribe-status text-sm mt-2 min-h-[1.25rem] ${dark ? 'text-slate-300' : 'text-slate-600'}`} role="status" aria-live="polite"></p>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.subscribe-form').forEach(form => {
+    const status = form.nextElementSibling as HTMLElement;
+    const button = form.querySelector('button')!;
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const email = String(data.get('email') ?? '').trim();
+      if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        status.textContent = 'Please enter a valid email address.';
+        return;
+      }
+      button.disabled = true;
+      status.textContent = 'Sending…';
+      try {
+        const res = await fetch('/.netlify/functions/subscribe', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email, website: data.get('website') }),
+        });
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(body.error || 'Something went wrong. Please try again later.');
+        form.reset();
+        status.textContent = `Almost done! Check ${email} for a link to confirm your subscription.`;
+      } catch (err) {
+        status.textContent = (err as Error).message;
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>

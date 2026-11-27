@@ -4,6 +4,7 @@ import groups from '../data/groups.json';
 import events from '../data/events.json';
 import venues from '../data/venues.json';
 import { eventDisplayTitle } from '../lib/events';
+import SubscribeForm from '../components/SubscribeForm.astro';
 
 const activeGroups = groups.filter(g => g.active);
 
@@ -142,6 +143,19 @@ const stripGroups = activeGroups
       <a href="/submit#event" class="text-brand-600 hover:text-brand-800 font-medium transition-colors">
         Know of an event that isn't listed? Add it &rarr;
       </a>
+    </div>
+  </section>
+
+  <!-- Weekly email sign-up -->
+  <section class="bg-gradient-to-br from-slate-900 to-brand-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
+      <div class="md:max-w-md">
+        <h2 class="text-2xl font-bold">Get the week's events by email</h2>
+        <p class="text-slate-300 mt-1">A short email every Sunday evening. Free, unsubscribe anytime.</p>
+      </div>
+      <div class="flex-1">
+        <SubscribeForm tone="dark" />
+      </div>
     </div>
   </section>
 
