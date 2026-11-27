@@ -1,9 +1,10 @@
 # Sunday evenings, email the coming week's events to everyone who signed up at
 # techkc.org/subscribe (see scripts/send-digest.mjs). Sent as a Resend broadcast.
 #
-# Repository secrets needed (Settings → Secrets and variables → Actions):
-#   RESEND_API_KEY, RESEND_DIGEST_SEGMENT_ID, RESEND_FROM_EMAIL
-#   DIGEST_POSTAL_ADDRESS (optional; mailing address shown in the email footer)
+# Settings come from the "prod" environment (Settings → Environments → prod):
+#   secrets:   RESEND_API_KEY
+#   variables: RESEND_DIGEST_SEGMENT_ID, RESEND_FROM_EMAIL,
+#              DIGEST_POSTAL_ADDRESS (optional; mailing address shown in the email footer)
 name: Weekly events email
 
 on:
@@ -32,11 +33,12 @@ concurrency:
 jobs:
   digest:
     runs-on: ubuntu-latest
+    environment: prod
     env:
       RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-      RESEND_DIGEST_SEGMENT_ID: ${{ secrets.RESEND_DIGEST_SEGMENT_ID }}
-      RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
-      DIGEST_POSTAL_ADDRESS: ${{ secrets.DIGEST_POSTAL_ADDRESS }}
+      RESEND_DIGEST_SEGMENT_ID: ${{ vars.RESEND_DIGEST_SEGMENT_ID }}
+      RESEND_FROM_EMAIL: ${{ vars.RESEND_FROM_EMAIL }}
+      DIGEST_POSTAL_ADDRESS: ${{ vars.DIGEST_POSTAL_ADDRESS }}
     steps:
       - uses: actions/checkout@v4
 

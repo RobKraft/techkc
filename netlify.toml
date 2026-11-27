@@ -24,10 +24,9 @@
   status = 301
   force = true
 
-[[redirects]]
-  from = "/*"
-  to = "/404"
-  status = 404
+# No catch-all 404 rule: Netlify serves dist/404.html (src/pages/404.astro) for
+# missing paths automatically, and a "/*" → /404 rule breaks every page except
+# the home page under `netlify dev`, where pages come from Astro's dev server.
 
 [[headers]]
   for = "/embed/*"
